@@ -7,8 +7,11 @@ exports.seed = async function(knex) {
     .then((rows) => {
       if (rows.length === 0) {
         return knex('app_authors').insert([
-          {first_name: 'Eric', last_name: 'Sung'},
-          {first_name: 'Jeff', last_name: 'Haddock'}
+          {first_name: 'Anthony', last_name: 'Fine'},
+          {first_name: 'Ryan', last_name: 'Guinter'},
+          {first_name: 'Zachary', last_name: 'Haines'},
+          {first_name: 'Cybal', last_name: 'Hancock'},
+          {first_name: 'Calvin', last_name: 'Suratos'}
         ]);
       }
     })
