@@ -45,9 +45,50 @@
     {name: 'Criminal Investigation Command', abbreviation: 'USACIDC', agencies_id: 2},
     {name: 'War College', abbreviation: 'USAWC', agencies_id: 2},
     {name: 'U.S. Military Academy', abbreviation: 'USMA', agencies_id: 2},
+    
+    // 3. Coast Guard: https://en.wikipedia.org/wiki/Organization_of_the_United_States_Coast_Guard
+    {name: 'Alatantic Area - District 1', abbreviation: 'AA-D1' , agencies_id: 3},
+    {name: 'Alatantic Area - District 5', abbreviation: 'AA-D5' , agencies_id: 3},
+    {name: 'Alatantic Area - District 7', abbreviation: 'AA-D7' , agencies_id: 3},
+    {name: 'Alatantic Area - District 8', abbreviation: 'AA-D8' , agencies_id: 3},
+    {name: 'Alatantic Area - District 9', abbreviation: 'AA-D9' , agencies_id: 3},
+    {name: 'Pacific Area - District 11', abbreviation: 'PA-D11' , agencies_id: 3},
+    {name: 'Pacific Area - District 13', abbreviation: 'PA-D13' , agencies_id: 3},
+    {name: 'Pacific Area - District 14', abbreviation: 'PA-D14' , agencies_id: 3},
+    {name: 'Pacific Area - District 17', abbreviation: 'PA-D17' , agencies_id: 3},
+    
+    // 4. Marine Corps: https://en.wikipedia.org/wiki/List_of_United_States_Marine_Corps_divisions
+    {name: '1st Marine Division', abbreviation: '1st MARDIV' , agencies_id: 4},
+    {name: '2nd Marine Division', abbreviation: '2nd MARDIV' , agencies_id: 4},
+    {name: '3rd Marine Division', abbreviation: '3rd MARDIV' , agencies_id: 4},
+    
+    // 5. Navy: https://en.wikipedia.org/wiki/Structure_of_the_United_States_Navy
+    {name: 'United States Fleet Forces Command', abbreviation: 'USFF' , agencies_id: 5},
+    {name: 'United States Pacific Fleet', abbreviation: 'USPACFLT' , agencies_id: 5},
+    {name: 'United States Naval Forces Central Command', abbreviation: 'NAVCENT' , agencies_id: 5},
+    {name: 'U.S. Naval Forces Southern Command', abbreviation: 'USNAVSO' , agencies_id: 5},
+    {name: 'United States Naval Forces Europe-Africa', abbreviation: 'CNE-CNA' , agencies_id: 5},
+    {name: 'U.S. Fleet Cyber Command', abbreviation: 'FCC' , agencies_id: 5},
+    {name: 'United States Navy Reserve', abbreviation: 'USNR' , agencies_id: 5},
+    {name: 'United States Naval Special Warfare Command', abbreviation: 'USNSWC' , agencies_id: 5},
+    {name: 'Operational Test and Evaluation Force', abbreviation: 'OPTEVFOR' , agencies_id: 5},
+    {name: 'Naval Sea Systems Command', abbreviation: 'NAVSEA' , agencies_id: 5},
+    {name: 'Naval Air Systems Command', abbreviation: 'NAVAIR' , agencies_id: 5},
+    {name: 'Naval Facilities Engineering Systems Command', abbreviation: 'NAVFAC' , agencies_id: 5},
+    {name: 'Naval Supply Systems Command', abbreviation: 'NAVSUP' , agencies_id: 5},
+    {name: 'Naval Information Warfare Systems Command', abbreviation: 'NAVWARSYSCOM' , agencies_id: 5},
+    {name: 'United States Naval Academy', abbreviation: 'USNA' , agencies_id: 5},
+    {name: 'Naval Education and Training Command', abbreviation: 'NETC' , agencies_id: 5},
+    {name: 'Naval Meteorology and Oceanography Command', abbreviation: 'CNMOC' , agencies_id: 5},
+    {name: 'Office of Naval Intelligence', abbreviation: 'ONI' , agencies_id: 5},
+    {name: 'Naval Strike and Air Warfare Center', abbreviation: 'NAWDC' , agencies_id: 5},
+    {name: 'Naval Security Group', abbreviation: 'NAVSECGRU' , agencies_id: 5},
+    {name: 'Naval Legal Service Command', abbreviation: 'NLSC' , agencies_id: 5},
+    {name: 'United States Naval Observatory', abbreviation: 'USNO' , agencies_id: 5},
+    {name: 'Naval Safety Center', abbreviation: 'NAVSAFECOM' , agencies_id: 5},    
 
     // 6. Space Force
-    {name: 'Space Operations Command', abbreviation: 'SpoC', agencies_id: 6},
+    {name: 'Space Operations Command', abbreviation: 'SPoC', agencies_id: 6},
     {name: 'Space Systems Command', abbreviation: 'SSC', agencies_id: 6},
     {name: 'Space Training and Readiness Command', abbreviation: 'STARCOM', agencies_id: 6},
   ]);

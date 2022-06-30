@@ -6,6 +6,7 @@ exports.seed = async function(knex) {
   // Deletes ALL existing entries
   await knex('locations').del()
   await knex('locations').insert([
+    // https://installations.militaryonesource.mil/view-all
     {name: 'Alabama', isConus: true},
     {name: 'Arizona', isConus: true},
     {name: 'Arkansas', isConus: true},
