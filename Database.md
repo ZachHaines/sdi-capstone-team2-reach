@@ -15,12 +15,12 @@
 
 # Seeding
 ## 21. agencies: name
-  - U.S. Air Force
-  - U.S. Army
-  - U.S. Coast Guard
-  - U.S. Marine Corps
-  - U.S. Navy
-  - U.S. Space Force
+  - Air Force
+  - Army
+  - Coast Guard
+  - Marine Corps
+  - Navy
+  - Space Force
 
 ## 10/22. locations/installations:
 ## CONUS
