@@ -7,16 +7,15 @@
     table.increments();
     table.integer('family');
     table.integer('social');
-    table.integer('social');
     table.integer('legal');
     table.integer('work');
     table.integer('health');
     table.string('comment', 256);
-    // table.timestamp('date').defaultTo(knex.fn.now());
-    // table.integer('members_id_to');
-    // table.foreign('members_id_to').references('members.id');
-    // table.integer('members_id_from');
-    // table.foreign('members_id_from').references('members.id');
+    table.timestamp('date').defaultTo(knex.fn.now());
+    table.integer('members_id_to');
+    table.foreign('members_id_to').references('members.id');
+    table.integer('members_id_from');
+    table.foreign('members_id_from').references('members.id');
   });
 };
 
