@@ -1,19 +1,20 @@
 # Database Documentation
 
 # Tables
-11. agencies
-12. installations
-21. commands
-22. facilities
-30. resources
-41. units
-42. roles
-50. members
-61. survey_messages
-62. messages_mhp
+10. locations
+21. agencies
+22. installations
+31. commands
+32. facilities
+40. resources
+51. units
+52. roles
+60. members
+71. survey_messages
+72. messages_mhp
 
 # Seeding
-## 11. agencies: name
+## 21. agencies: name
   - U.S. Air Force
   - U.S. Army
   - U.S. Coast Guard
@@ -21,7 +22,7 @@
   - U.S. Navy
   - U.S. Space Force
 
-## 12. installations: name, state, country, conus?
+## 10/22. locations/installations:
 ## CONUS
   
   ### Alabama
@@ -478,7 +479,7 @@
   ### Bahrain
     Naval Support Activity Bahrain
 
-  ### Belgium
+  ### Bahrain
     Kleine Brogel Air Base
     USAG BENELUX-Brussels
     USAG BENELUX-SHAPE/Chievres
@@ -580,11 +581,11 @@
 # -------------------------------------------------
 
 
-21. commands
-22. facilities
-30. resources
-41. units
-42. roles
-50. members
-61. survey_messages
-62. messages_mhp
+31. commands
+32. facilities
+40. resources
+51. units
+52. roles
+60. members
+71. survey_messages
+72. messages_mhp
