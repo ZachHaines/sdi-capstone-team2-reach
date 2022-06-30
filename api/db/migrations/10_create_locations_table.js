@@ -3,11 +3,10 @@
  * @returns { Promise<void> }
  */
  exports.up = function(knex) {
-  return knex.schema.createTable('installations', table => {
+  return knex.schema.createTable('locations', table => {
     table.increments();
     table.string('name', 50);
-    table.string('state_province', 50);
-    table.string('country', 50);
+    table.boolean('isConus');
   })
 };
 
@@ -16,5 +15,5 @@
  * @returns { Promise<void> }
  */
 exports.down = function(knex) {
-  return knex.schema.dropTableIfExists('installations');
+  return knex.schema.dropTableIfExists('locations');
 };
