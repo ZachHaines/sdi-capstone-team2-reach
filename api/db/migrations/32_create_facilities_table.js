@@ -6,6 +6,7 @@
   return knex.schema.createTable('facilities', table => {
     table.increments();
     table.string('name', 256);
+    table.string('url', 100);
     table.integer('installations_id');
     table.foreign('installations_id').references('installations.id');
   })
