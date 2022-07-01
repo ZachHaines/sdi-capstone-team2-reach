@@ -6,9 +6,9 @@
   return knex.schema.createTable('facilities', table => {
     table.increments();
     table.string('name', 256);
+    table.integer('locations_id');
+    table.foreign('locations_id').references('locations.id');
     table.string('url', 100);
-    table.integer('installations_id');
-    table.foreign('installations_id').references('installations.id');
   })
 };
 
@@ -17,6 +17,6 @@
  * @returns { Promise<void> }
  */
  exports.down = function(knex) {
-  return knex.schema.alterTable('facilities', table => table.dropForeign('installations_id'))
+  return knex.schema.alterTable('facilities', table => table.dropForeign('locations_id'))
   .then(() => knex.schema.dropTableIfExists('facilities'));
 };

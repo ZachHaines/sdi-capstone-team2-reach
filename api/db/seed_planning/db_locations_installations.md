@@ -1,28 +1,5 @@
-# Database Documentation
+# Database Locations and Installations:
 
-# Tables
-10. locations
-21. agencies
-22. installations
-31. commands
-32. facilities
-40. resources
-51. units
-52. roles
-60. members
-71. survey_messages
-72. messages_mhp
-
-# Seeding
-## 21. agencies: name
-  - Air Force
-  - Army
-  - Coast Guard
-  - Marine Corps
-  - Navy
-  - Space Force
-
-## 10/22. locations/installations:
 ## CONUS
   
   ### Alabama
