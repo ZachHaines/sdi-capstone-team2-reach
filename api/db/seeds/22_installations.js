@@ -9,7 +9,8 @@
   await knex('installations').insert([
     
     // --------------- CONUS ---------------  //  
-  
+    
+    
     // Alabama
     {name: 'Alabama', locations_id: 1},
     {name: '117 ARW', locations_id: 1},

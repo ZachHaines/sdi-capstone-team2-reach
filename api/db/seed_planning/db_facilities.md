@@ -223,7 +223,7 @@ https://tricare.mil/Military-Hospitals-and-Clinics
     None
 
   ### Wyoming
-   90th Medical Group - F.E. Warren Air Force Base | https://fewarren.tricare.mil/
+    90th Medical Group - F.E. Warren Air Force Base | https://fewarren.tricare.mil/
 
   ## OCONUS
 
@@ -280,7 +280,7 @@ https://tricare.mil/Military-Hospitals-and-Clinics
   ### Japan
     18th Medical Group - Kadena Air Base | https://kadena.tricare.mil/
     35th Medical Group - Misawa Air Base | https://misawa.tricare.mil/
-    374th Medical Group - Yokota Air Base | https://yokota.tricare.mil/About-Us/Contact-Us/
+    374th Medical Group - Yokota Air Base | https://yokota.tricare.mil/
     Naval Hospital Okinawa | https://okinawa.tricare.mil/
     Naval Hospital Yokosuka | https://yokosuka.tricare.mil/
     Army Health Clinic BG Crawford Sams-Camp Zama | https://bg-crawford.tricare.mil/
