@@ -1,14 +1,14 @@
 
 const config = {
     development: {
-        apiUrl: "http://localhost:8080"
+        apiUrl: "http://localhost:8082"
     },
 
     production: {
         apiUrl: "https://gschool-sdi-reach-api.herokuapp.com"
     },
     test: {
-        apiUrl: ''
+        apiUrl: 'http://localhost:8082'
     }
 }
 
