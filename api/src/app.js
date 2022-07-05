@@ -73,7 +73,7 @@ const knex = require('knex')(config)
     //roles
     app.get('/roles', (req, res) => {
         knex('roles')
-        .where({id: req.params.id})
+        // .where({id: req.params.id})
         .then(data => res.status(200).json(data))
         .catch(() => res.status(404).send(`Could not retrieve roles`))
     })
