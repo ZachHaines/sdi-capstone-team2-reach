@@ -70,7 +70,6 @@ app.post('/passwords', (req, res) => {
     
 app.get('/', (req, res) => {
     
-<<<<<<< HEAD
     console.log('checking this stuff')
     res.set("Access-Control-Allow-Origin", "*");
     res.status(200).send('App root route running');
@@ -152,91 +151,6 @@ app.get('/members/:id', (req, res) => {
 })
 
 app.get('/members/:mid/survey_messages', (req, res) => {
-=======
-    // locations
-    app.get('/locations', (req, res) => {
-        knex('locations')
-        .select('*')
-        .then(data => res.status(200).json(data))
-        .catch(() => res.status(404).send('Could not retrieve locations'))
-    });
-
-    app.get('/locations/:id', (req, res) => {
-        knex('locations')
-        .where('id', req.params.id)
-        .then(data => res.status(200).json(data))
-        .catch(() => res.status(404).send(`Could not retrieve location ${req.params.id}`))
-    });
-
-    // installations
-    app.get('/installations', (req, res) => {
-        knex('installations')
-        .select('*')
-        .then(data => res.status(200).json(data))
-        .catch(() => res.status(404).send(`Could not retrieve installations`))      
-    });
-
-    app.get('/installations/:id', (req, res) => {
-        knex('installations')
-        .where({id: req.params.id})
-        .then(data => res.status(200).json(data))
-        .catch(() => res.status(404).send(`Could not retrieve installation ${req.params.id}`))      
-    });
-
-    //units
-    app.get('/units', (req, res) => {
-        knex('units')
-        .where({id: req.params.id})
-        .then(data => res.status(200).json(data))
-        .catch(() => res.status(404).send(`Could not retrieve units`))
-    })
-
-    app.get('/units/:id', (req, res) => {
-        knex('units')
-        .where({id: req.params.id})
-        .then(data => res.status(200).json(data))
-        .catch(() => res.status(404).send(`Could not retrieve unit ${req.params.id}`))
-    })
-
-    //roles
-    app.get('/roles', (req, res) => {
-        knex('roles')
-        // .where({id: req.params.id})
-        .then(data => res.status(200).json(data))
-        .catch(() => res.status(404).send(`Could not retrieve roles`))
-    })
-
-    app.get('/roles/:id', (req, res) => {
-        knex('roles')
-        .select('*')    
-        .then(data => res.status(200).json(data))
-        .catch(() => res.status(404).send(`Could not retrieve role ${req.params.id}`))
-    })
-
-    //members
-    app.get('/members', (req, res) => {
-        knex('members')
-        .select('*')    
-        .then(data => res.status(200).json(data))
-        .catch(() => res.status(404).send(`Could not retrieve members`))
-    })
-
-    app.get('/members/:id', (req, res) => {
-        knex('members')
-        .where({id: req.params.id})
-        .then(data => res.status(200).json(data))
-        .catch(() => res.status(404).send(`Could not retrieve ${req.params.id}`))
-    })
-
-    app.get('/members/:mid/survey_messages', (req, res) => {
-        
-        knex('survey_messages')
-        .select("*")
-        .where({"Members id": req.params.mid})
-        .then(data => res.status(200).json(data))
-        .catch(() => res.status(404).send(`Could not retrieve messages for member ${req.params.mid}`))
-    })
->>>>>>> seeding
     
     knex('survey_messages')
     .select("*")
