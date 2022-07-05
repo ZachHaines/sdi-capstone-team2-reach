@@ -21,7 +21,6 @@ const buildUnits = (baseName, abbrev, num) => {
   for (let i = 1; i <= num; i++) {
     units.push({name: `${baseName} ${i}`, abbreviation: `${abbrev}-${i}`, commands_id: i})
   }
-  console.log('units:', units)
   return units;
 };
 
