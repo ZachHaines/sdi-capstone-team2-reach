@@ -24,6 +24,14 @@ const SignUpPage = () => {
           <Button onClick={signupButtonClickHandler}>Create</Button>
         </Stack>
       </Paper>
+      <Paper sx={{width: '60vw', marginLeft: '20vw', marginRight:'20vw'}} elevation={2} >
+        <Stack spacing={2} direction='column' sx={{width: '50vw', marginLeft: '5vw', marginRight: '5vw', paddingBottom: '2vw'}}>
+          <p>
+            If you already have an Account, please login
+          </p>
+          <Button onClick={()=>{nav('/login')}}>Login</Button>
+        </Stack>
+      </Paper>
     </>
   )
 }
