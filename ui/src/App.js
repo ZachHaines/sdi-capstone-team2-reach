@@ -14,7 +14,6 @@ function App() {
       .catch(err => console.log(err))
   }, []);
 
-
   return (
     <div>
       App is running - good work: 
