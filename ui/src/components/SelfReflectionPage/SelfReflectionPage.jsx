@@ -3,6 +3,8 @@ import { TextField,  Paper, Button, Slider, Grid, Typography, Stack } from '@mui
 import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
 import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt';
 import SentimentNeutralIcon from '@mui/icons-material/SentimentNeutral';
+// import Dashboard from '../Dashboard/Dashboard.jsx'
+// import Dashboard from '../Dashboard/Dashboard.jsx'
 // import { textAlign } from '@mui/system';
 
 // import { useNavigate } from 'react-router-dom';
@@ -57,8 +59,9 @@ const SelfReflectionPage = () => {
 
   return (
     <>
-      <h1>Self Reflection Page</h1>
-      <Paper elevation={3} sx={{width: '50vw', marginLeft: '25vw', marginRight: '25vw', paddingBottom: '2vw', marginBottom: '5vw'}}>
+      {/* <Dashboard /> */}
+      <Paper elevation={3} sx={{width: '75%', marginLeft: '12.5%', marginRight: '12.5%', paddingBottom: '2vw', marginBottom: '5vw'}}>
+        <h1 style={{textAlign: 'center'}}>Self Reflection Page</h1>
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 1, md: 1 }} columns={2} >
             <Grid item xs={1}>
               <Typography align='right'>

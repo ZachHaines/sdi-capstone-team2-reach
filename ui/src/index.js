@@ -6,14 +6,18 @@ import {BrowserRouter, Routes,Route} from 'react-router-dom';
 import LoginPage from './components/LoginPage/LoginPage';
 import SignUpPage from './components/SignUpPage/SignUpPage';
 import SelfReflectionPage from './components/SelfReflectionPage/SelfReflectionPage';
+import DashboardContent from './components/Dashboard/Dashboard'
+import AdminPage from './components/AdminPage/AdminPage';
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<App />} />
+        
+        <Route path='/' element={< App/>} />
         <Route path='/login' element={<LoginPage />} />
         <Route path='/signup' element={<SignUpPage />} />
-        <Route path='/self-reflection' element={<SelfReflectionPage />} />
+        <Route path='/self-reflection' element={<DashboardContent DisplayItem={SelfReflectionPage}/>} />
+        <Route path='/admin' element={<DashboardContent DisplayItem={AdminPage}/>} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,
