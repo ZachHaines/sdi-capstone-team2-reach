@@ -7,34 +7,17 @@ import SentimentNeutralIcon from '@mui/icons-material/SentimentNeutral';
 
 // import { useNavigate } from 'react-router-dom';
 
-
-
+const defaultIconStyle = {
+  satisfied: {color: 'green' , backgroundColor: '#ccc', fontSize:'100px'},
+  neutral: {color: 'yellow', backgroundColor: '#ccc'},
+  dissatisfied: {color: 'red', backgroundColor: '#ccc'}
+}
 const SelfReflectionPage = () => {
-  const [FamilyIconSX, setFamilyIconSX] = React.useState({
-    satisfied: {color: 'green' , backgroundColor: '#ccc'},
-    neutral: {color: 'yellow', backgroundColor: '#ccc', fontSize:'100px'},
-    dissatisfied: {color: 'red', backgroundColor: '#ccc'}
-  })
-  const [SocialIconSX, setSocialIconSX] = React.useState({
-    satisfied: {color: 'green' , backgroundColor: '#ccc'},
-    neutral: {color: 'yellow', backgroundColor: '#ccc', fontSize:'100px'},
-    dissatisfied: {color: 'red', backgroundColor: '#ccc'}
-  })
-  const [LegalIconSX, setLegalIconSX] = React.useState({
-    satisfied: {color: 'green' , backgroundColor: '#ccc'},
-    neutral: {color: 'yellow', backgroundColor: '#ccc', fontSize:'100px'},
-    dissatisfied: {color: 'red', backgroundColor: '#ccc'}
-  })
-  const [WorkIconSX, setWorkIconSX] = React.useState({
-    satisfied: {color: 'green' , backgroundColor: '#ccc'},
-    neutral: {color: 'yellow', backgroundColor: '#ccc', fontSize:'100px'},
-    dissatisfied: {color: 'red', backgroundColor: '#ccc'}
-  })
-  const [HealthIconSX, setHealthIconSX] = React.useState({
-    satisfied: {color: 'green' , backgroundColor: '#ccc'},
-    neutral: {color: 'yellow', backgroundColor: '#ccc', fontSize:'100px'},
-    dissatisfied: {color: 'red', backgroundColor: '#ccc'}
-  })
+  const [FamilyIconSX, setFamilyIconSX] = React.useState(defaultIconStyle)
+  const [SocialIconSX, setSocialIconSX] = React.useState(defaultIconStyle)
+  const [LegalIconSX, setLegalIconSX] = React.useState(defaultIconStyle)
+  const [WorkIconSX, setWorkIconSX] = React.useState(defaultIconStyle)
+  const [HealthIconSX, setHealthIconSX] = React.useState(defaultIconStyle)
   const sliderOnChangeHandler = (e) => {
     // let value = document.getElementById('family-slider').defaultValue
     // console.log(value);
@@ -46,7 +29,6 @@ const SelfReflectionPage = () => {
     else if(e.target.name === 'legal-slider') setIcons = setLegalIconSX;
     else if(e.target.name === 'work-slider') setIcons = setWorkIconSX;
     else if(e.target.name === 'health-slider') setIcons = setHealthIconSX;
-
 
     if(e.target.value===1)
     {
@@ -79,7 +61,7 @@ const SelfReflectionPage = () => {
       <Paper elevation={3} sx={{width: '50vw', marginLeft: '25vw', marginRight: '25vw', paddingBottom: '2vw', marginBottom: '5vw'}}>
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 1, md: 1 }} columns={2} >
             <Grid item xs={1}>
-              <Typography align='left'>
+              <Typography align='right'>
                 Family
               </Typography>
             </Grid>
@@ -92,7 +74,7 @@ const SelfReflectionPage = () => {
               <Slider
                 id='family-slider'
                 name='family-slider'
-                defaultValue={2}
+                defaultValue={3}
                 step={1}
                 marks
                 min={1}
@@ -102,7 +84,7 @@ const SelfReflectionPage = () => {
               ></Slider>
             </Grid>
             <Grid item xs={1}>
-              <Typography>
+              <Typography align='right'>
                 Social
               </Typography>
             </Grid>
@@ -115,7 +97,7 @@ const SelfReflectionPage = () => {
               <Slider
                 id='social-slider'
                 name='social-slider'
-                defaultValue={2}
+                defaultValue={3}
                 step={1}
                 marks
                 min={1}
@@ -125,7 +107,7 @@ const SelfReflectionPage = () => {
               ></Slider>
             </Grid>
             <Grid item xs={1}>
-              <Typography>
+              <Typography align='right'>
                 Legal
               </Typography>
             </Grid>
@@ -138,7 +120,7 @@ const SelfReflectionPage = () => {
               <Slider
                 id='legal-slider'
                 name='legal-slider'
-                defaultValue={2}
+                defaultValue={3}
                 step={1}
                 marks
                 min={1}
@@ -148,7 +130,7 @@ const SelfReflectionPage = () => {
               ></Slider>
             </Grid>
             <Grid item xs={1}>
-              <Typography>
+              <Typography align='right'>
                 Work
               </Typography>
             </Grid>
@@ -161,7 +143,7 @@ const SelfReflectionPage = () => {
               <Slider
                 id='work-slider'
                 name='work-slider'
-                defaultValue={2}
+                defaultValue={3}
                 step={1}
                 marks
                 min={1}
@@ -171,7 +153,7 @@ const SelfReflectionPage = () => {
               ></Slider>
             </Grid>
             <Grid item xs={1}>
-              <Typography>
+              <Typography align='right'>
                 Health and Fitness
               </Typography>
             </Grid>
@@ -184,7 +166,7 @@ const SelfReflectionPage = () => {
               <Slider
                 id='health-slider'
                 name='health-slider'
-                defaultValue={2}
+                defaultValue={3}
                 step={1}
                 marks
                 min={1}
@@ -194,7 +176,7 @@ const SelfReflectionPage = () => {
               ></Slider>
             </Grid>
             <Grid item xs={1}>
-              <Typography>
+              <Typography align='right'>
                   Comments
               </Typography>
             </Grid>
