@@ -1,4 +1,4 @@
-/* eslint-disable */
+
 
 import * as React from 'react';
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
@@ -14,13 +14,14 @@ import IconButton from '@mui/material/IconButton';
 import Badge from '@mui/material/Badge';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
+// import Paper from '@mui/material/Paper';
 import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 // import SelfReflectionPage from '../SelfReflectionPage/SelfReflectionPage';
 import { MainListItems, secondaryListItems } from './listitems';
+import propTypes from 'prop-types';
 
 
 function Copyright(props) {
@@ -84,7 +85,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 const mdTheme = createTheme();
 
-/* eslint-disable */
+
 const DashboardContent = ({DisplayItem}) => {
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
@@ -178,6 +179,9 @@ const DashboardContent = ({DisplayItem}) => {
   );
 }
 
+DashboardContent.propTypes = {
+  DisplayItem: propTypes.any
+}
 // export default function Dashboard() {
 //   return <DashboardContent />;
 // }
