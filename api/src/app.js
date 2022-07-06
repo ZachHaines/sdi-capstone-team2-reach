@@ -65,7 +65,31 @@ app.post('/passwords', (req, res) => {
     .then(()=> knex('passwords'))
     .then(data => res.status(200).json(data))
 })
-  
+
+//members
+app.post('/members', (req, res) => {
+    knex('members')
+    .insert(req.body)
+    .then(()=> knex('members'))
+    .then(data => res.status(200).json(data))
+})
+
+//survey_messages
+app.post('/surveymessages', (req, res) => {
+    knex('survey_messages')
+    .insert(req.body)
+    .then(()=> knex('survey_messages'))
+    .then(data => res.status(200).json(data))
+})
+
+//messages_mhp
+app.post('/mhpmessages', (req, res) => {
+    knex('messages_mhp')
+    .insert(req.body)
+    .then(()=> knex('messages_mhp'))
+    .then(data => res.status(200).json(data))
+})
+
 //READ-----------------------------------------------------------------------------------------------
     
 app.get('/', (req, res) => {
@@ -150,52 +174,37 @@ app.get('/members/:id', (req, res) => {
     .catch(() => res.status(404).send(`Could not retrieve ${req.params.id}`))
 })
 
-app.get('/members/:mid/survey_messages', (req, res) => {
-    
-    knex('survey_messages')
-    .select("*")
-    .where({"Members id": req.params.mid})
-    .then(data => res.status(200).json(data))
-    .catch(() => res.status(404).send(`Could not retrieve messages for member ${req.params.mid}`))
-})
-
-// INCOMPLETE: RETURN TO THIS
-app.get('/members/:mid/survey_messages/:sid', (req, res) => {
-    knex('survey_messages')
-    .join('members', 'members.id', '=', 'members_id_from')
-    .where(survey_id_from, members.id)
-    .then(data => res.status(200).json(data))
-    .catch(() => res.status(404).send(`Could not retrieve ${req.params.id}`))
-})
-
 //messages_MHP
-app.get('/messages', (req, res) => {
-    knex('messages_MHP')
+app.get('/mhpmessages', (req, res) => {
+    knex('messages_mhp')
     .select('*')    
     .then(data => res.status(200).json(data))
     .catch(() => res.status(404).send(`Could not retrieve messages`))
 })
 
-app.get('/messages/:id', (req, res) => {
-    knex('messages_MHP')
-    .where({id: req.params.id})
+app.get('/mhpmessages/members/:memberId', (req, res) => {
+    knex('messages_mhp')
+    .where({members_id_to: req.params.memberId})
+    .orWhere({members_id_from: req.params.memberId})
     .then(data => res.status(200).json(data))
-    .catch(() => res.status(404).send(`Could not retrieve message ${req.params.id}`))
+    .catch(() => res.status(404).send(`Could not retrieve messages`))
 })
 
 //survey_messages
-app.get('/survey_messages', (req, res) => {
+app.get('/surveymessages', (req, res) => {
     knex('survey_messages')
     .select('*')    
     .then(data => res.status(200).json(data))
     .catch(() => res.status(404).send(`Could not retrieve surveys`))
 })
 
-app.get('/survey_messages/:id', (req, res) => {
+// survey messages by member
+app.get('/surveymessages/members/:memberId', (req, res) => {
     knex('survey_messages')
-    .where({id: req.params.id})
+    .where({members_id_to: req.params.memberId})
+    .orWhere({members_id_from: req.params.memberId})
     .then(data => res.status(200).json(data))
-    .catch(() => res.status(404).send(`Could not retrieve survey `,req.params.id))
+    .catch(() => res.status(404).send(`Could not retrieve surveys`))
 })
 
 //resources
@@ -256,6 +265,13 @@ app.get('/passwords/:id', (req, res) => {
     .where({id: req.params.id})
     .then(data => res.status(200).json(data))
     .catch(() => res.status(404).send(`Could not retrieve password ${req.params.id}`))
+})
+
+app.get('/grades', (req, res) => {
+    knex('grades')
+    .select('*')
+    .then(data => res.status(200).json(data))
+    .catch(() => res.status(404).send(`Could not retrieve grades`))
 })
     
 //UPDATE-----------------------------------------------------------------------------------------------
@@ -323,6 +339,15 @@ app.patch('/passwords/:id', (req, res) => {
     .catch(() => res.status(404).send(`Could not update password ${req.params.id}`))
 })
 
+//members
+app.patch('/members/:id', (req, res) => {
+    knex('members')
+    .update(req.body)
+    .where({id: req.params.id})
+    .then(data => res.status(200).json(data))
+    .catch(() => res.status(404).send(`Could not update member ${req.params.id}`))
+})
+
 //DELETE-----------------------------------------------------------------------------------------------
 
 //agencies
@@ -386,6 +411,33 @@ app.delete('/passwords/:id', (req, res) => {
     .where({id: req.params.id})
     .then(data => res.status(200).json(data))
     .catch(() => res.status(404).send(`Could not delete password ${req.params.id}`))
+})
+
+//members
+app.delete('/members/:id', (req, res) => {
+    knex('members')
+    .delete()
+    .where({id: req.params.id})
+    .then(data => res.status(200).json(data))
+    .catch(() => res.status(404).send(`Could not delete member ${req.params.id}`))
+})
+
+//survey_messages
+app.delete('/surveymessages/:id', (req, res) => {
+    knex('survey_messages')
+    .delete()
+    .where({id: req.params.id})
+    .then(data => res.status(200).json(data))
+    .catch(() => res.status(404).send(`Could not delete survey ${req.params.id}`))
+})
+
+//message_MHP
+app.delete('/mhpmessages/:id', (req, res) => {
+    knex('messages_mhp')
+    .delete()
+    .where({id: req.params.id})
+    .then(data => res.status(200).json(data))
+    .catch(() => res.status(404).send(`Could not delete message ${req.params.id}`))
 })
 
 module.exports = app;
