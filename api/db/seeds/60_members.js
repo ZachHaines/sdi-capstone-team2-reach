@@ -13,6 +13,7 @@
 };
 
 // create random pool of first and last names
+// https://editor.p5js.org/a.j.fine1999/full/W6cllWCgE (open the console.log to view names)
 const listOfFirstNames = [ // 100 names
   'Strijd', 'Vertrouwen', 'Krachten', 'City', 'Ruzie', 'Des', 'Ziek', 'Gelukkig', 'Perfect', 'Verhaal', 
   'Steken', 'Eieren', 'Vernietigen', 'Volgende', 'Begon', 'Vandaag', 'Feest', 'Meneer', 'Gewone', 'Paniek', 
@@ -71,15 +72,16 @@ function createRandomMembers(max, generated, roleId)  {
   for (let i = 0; i < generated; i++) {
     entries.push (
       {
-        username: `${selectedFirstNames[i]}.${selectedLastNames[i]}`,
-        first_name: `${selectedFirstNames[i]}`,
         last_name: `${selectedFirstNames[i]}`,
+        first_name: `${selectedFirstNames[i]}`,
+        grades_id: Math.floor(Math.random() * (57) + 1), // currently 57 grades in table
+        username: `${selectedFirstNames[i]}.${selectedLastNames[i]}`,
+        roles_id: roleId,
+        units_id: Math.floor(Math.random() * (89) + 1), // currently 89 units in table
         religion: `religion`,
+        phone_number: phoneNumbers[i],
         email_primary: `${selectedFirstNames[i]}.${selectedLastNames[i]}@mail.mil`,
         email_secondary:`${selectedFirstNames[i]}.${selectedLastNames[i]}@gmail.com`,
-        phone_number: phoneNumbers[i],
-        units_id: Math.floor(Math.random() * (89) + 1), // adjust number multiplied for total number of units
-        roles_id: roleId,
 
       }
     );
@@ -88,17 +90,17 @@ function createRandomMembers(max, generated, roleId)  {
 };
 
 let listOfNamesMax = 100;  
-let numberOfRandomMembers = 50;
+let numberOfRandomMembers = 70;
 const randomMembers = createRandomMembers(listOfNamesMax, numberOfRandomMembers, 1);
 
 listOfNamesMax = 100;  
-numberOfRandomMembers = 5;
+numberOfRandomMembers = 10;
 const randomAdmins = createRandomMembers(listOfNamesMax, numberOfRandomMembers, 2);
 
 listOfNamesMax = 100;  
-numberOfRandomMembers = 5;
+numberOfRandomMembers = 10;
 const randomMHPs = createRandomMembers(listOfNamesMax, numberOfRandomMembers, 3);
 
 listOfNamesMax = 100;  
-numberOfRandomMembers = 5;
+numberOfRandomMembers = 10;
 const randomChaplains = createRandomMembers(listOfNamesMax, numberOfRandomMembers, 5);
