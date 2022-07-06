@@ -55,18 +55,18 @@ function createRandomMembers(max, generated, roleId)  {
     let digits = [];
     for (let j = 0; j < 11; j++) {
       digits.push(Math.floor(Math.random() * 10 )); // number 0 - 9
-    };
+    }
     const phoneNumber = '('+digits[0]+digits[1]+digits[2]+') '+digits[3]+digits[4]+digits[5]+'-'+digits[6]+digits[7]+digits[8]+digits[9];
     phoneNumbers.push(phoneNumber);
-  };
+  }
   
   // push random first and last name to arrays
-  min = 1;
+  const min = 1;
   max = Math.floor(max);
   for (let i = min; i <= generated; i++) {
     selectedFirstNames.push(listOfFirstNames[(Math.floor(Math.random() * (max - min + 1) + min))]); //The maximum is inclusive and the minimum is inclusive
     selectedLastNames.push(listOfLastNames[(Math.floor(Math.random() * (max - min + 1) + min))]); //The maximum is inclusive and the minimum is inclusive
-  };
+  }
 
   // generate a database field object for each random entry
   for (let i = 0; i < generated; i++) {
@@ -85,9 +85,9 @@ function createRandomMembers(max, generated, roleId)  {
 
       }
     );
-  };
+  }
   return entries;
-};
+}
 
 let listOfNamesMax = 100;  
 let numberOfRandomMembers = 70;
