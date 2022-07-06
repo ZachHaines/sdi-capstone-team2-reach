@@ -6,7 +6,8 @@
   return knex.schema.createTable('members', table => {
     table.increments();
     table.string('username', 50);
-    table.string('password', 25);
+    table.integer('passwords_id');
+    table.foreign('passwords_id').references('passwords.id');
     table.string('first_name', 50);
     table.string('last_name', 50);
     table.string('religion', 50);
@@ -26,6 +27,7 @@
  */
 exports.down = function(knex) {
   return knex.schema.alterTable('members', table => {
+    table.dropForeign('passwords_id')
     table.dropForeign('roles_id')
     table.dropForeign('units_id')
   })
