@@ -8,6 +8,7 @@ const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
 function App() {
   const nav = useNavigate();
   let [names, setNames] = useState([ ]);
+  console.log(ApiUrl);
 
   useEffect(() => {
     fetch(ApiUrl + "/authors")
