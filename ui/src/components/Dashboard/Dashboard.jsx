@@ -20,7 +20,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 // import SelfReflectionPage from '../SelfReflectionPage/SelfReflectionPage';
-import { MainListItems, secondaryListItems } from './listitems';
+import { MainListItems, SecondaryListItems } from './listitems';
+
 import propTypes from 'prop-types';
 
 
@@ -147,7 +148,7 @@ const DashboardContent = ({DisplayItem}) => {
           <List component="nav">
             <MainListItems/>
             <Divider sx={{ my: 1 }} />
-            {secondaryListItems}
+            <SecondaryListItems/>
           </List>
         </Drawer>
         <Box

@@ -8,6 +8,9 @@ import SignUpPage from './components/SignUpPage/SignUpPage';
 import SelfReflectionPage from './components/SelfReflectionPage/SelfReflectionPage';
 import DashboardContent from './components/Dashboard/Dashboard'
 import AdminPage from './components/AdminPage/AdminPage';
+import ResourcePage from './components/ResourcePage/ResourcesPage';
+import ProfilePage from './components/ProfilePage/ProfilePage';
+
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
@@ -18,6 +21,8 @@ ReactDOM.render(
         <Route path='/signup' element={<SignUpPage />} />
         <Route path='/self-reflection' element={<DashboardContent DisplayItem={SelfReflectionPage}/>} />
         <Route path='/admin' element={<DashboardContent DisplayItem={AdminPage}/>} />
+        <Route path='/resource' element={<DashboardContent DisplayItem={ResourcePage}/>} />
+        <Route path='/profile' element={<DashboardContent DisplayItem={ProfilePage}/>} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,

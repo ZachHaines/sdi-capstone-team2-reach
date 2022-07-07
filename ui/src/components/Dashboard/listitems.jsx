@@ -3,12 +3,12 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import PeopleIcon from '@mui/icons-material/People';
 import LayersIcon from '@mui/icons-material/Layers';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import { useNavigate } from 'react-router-dom';
-
 
 export const MainListItems = () => {
   const nav = useNavigate();
@@ -62,13 +62,24 @@ export const MainListItems = () => {
 }
 
 
-export const secondaryListItems = (
+export const SecondaryListItems = () => {
+  const nav = useNavigate();
+
+  return(
+
   <React.Fragment>
-    <ListItemButton>
+    <ListItemButton onClick={()=>{nav('/resource')}}>
       <ListItemIcon>
         <AssignmentIcon />
-      </ListItemIcon>
+      </ListItemIcon >
       <ListItemText primary="Resources" />
     </ListItemButton>
+    <ListItemButton onClick={()=>{nav('/profile')}}>
+      <ListItemIcon>
+        <AccountCircleIcon />
+      </ListItemIcon >
+      <ListItemText primary="Profile" />
+    </ListItemButton>
   </React.Fragment>
-);
+  )
+};
