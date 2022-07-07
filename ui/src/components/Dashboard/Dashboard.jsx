@@ -13,7 +13,7 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Badge from '@mui/material/Badge';
 import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
+// import Grid from '@mui/material/Grid';
 // import Paper from '@mui/material/Paper';
 import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -165,13 +165,13 @@ const DashboardContent = ({DisplayItem}) => {
         >
           <Toolbar />
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-            <Grid container spacing={3}>
-              <Grid item >
+            {/* <Grid container spacing={3}>
+              <Grid item > */}
                 {/* <Paper> */}
                   <DisplayItem />
                 {/* </Paper> */}
-              </Grid>
-            </Grid>
+              {/* </Grid>
+            </Grid> */}
             <Copyright sx={{ pt: 4 }} />
           </Container>
         </Box>

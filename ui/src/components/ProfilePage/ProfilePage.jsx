@@ -29,13 +29,13 @@ const ProfilePage = () => {
           {isEditing ? 
           <>
             <Grid item xs={1} sx={{textAlign:'left', paddingLeft: '2px', paddingTop:'12.5px'}}>
-            <Input rows={1} label='FirstName' defaultValue='First Name'/>
-            <Input sx={{paddingTop: '1vh'}} rows={1} label='LastName' defaultValue='Last Name'/>
-            <Input sx={{paddingTop: '1vh'}} rows={1} label='Email' defaultValue='Email' style={underline}/>
-            <Input sx={{paddingTop: '1vh'}} rows={1} label='ReligiousPreference' defaultValue='Preference'/>
-            <Input sx={{paddingTop: '1vh'}} rows={1} label='Username' defaultValue='Username'/>
-            <Input sx={{paddingTop: '1vh'}} rows={1} label='Password' defaultValue='Password'/>
-            <div><Button onClick={() => submit()}>Submit</Button><Button onClick={() => setIsEditing(!isEditing)}>Cancel</Button></div> 
+              <Input rows={1} label='FirstName' defaultValue='First Name'/>
+              <Input sx={{paddingTop: '1vh'}} rows={1} label='LastName' defaultValue='Last Name'/>
+              <Input sx={{paddingTop: '1vh'}} rows={1} label='Email' defaultValue='Email' style={underline}/>
+              <Input sx={{paddingTop: '1vh'}} rows={1} label='ReligiousPreference' defaultValue='Preference'/>
+              <Input sx={{paddingTop: '1vh'}} rows={1} label='Username' defaultValue='Username'/>
+              <Input sx={{paddingTop: '1vh'}} rows={1} label='Password' defaultValue='Password'/>
+              <div><Button onClick={() => submit()}>Submit</Button><Button onClick={() => setIsEditing(!isEditing)}>Cancel</Button></div> 
             </Grid>
           </>
           :
