@@ -164,14 +164,8 @@ const DashboardContent = ({DisplayItem}) => {
           }}
         >
           <Toolbar />
-          <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-            {/* <Grid container spacing={3}>
-              <Grid item > */}
-                {/* <Paper> */}
-                  <DisplayItem />
-                {/* </Paper> */}
-              {/* </Grid>
-            </Grid> */}
+            <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+              <DisplayItem />
             <Copyright sx={{ pt: 4 }} />
           </Container>
         </Box>

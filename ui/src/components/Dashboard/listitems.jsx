@@ -38,7 +38,7 @@ export const MainListItems = () => {
         </ListItemIcon>
         <ListItemText primary="Admin" />
       </ListItemButton>
-      <ListItemButton>
+      <ListItemButton onClick={()=>{nav('/mhp')}}>
         <ListItemIcon>
           <LocalHospitalIcon />
         </ListItemIcon>

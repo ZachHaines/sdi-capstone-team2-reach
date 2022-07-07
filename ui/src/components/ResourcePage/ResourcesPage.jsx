@@ -8,7 +8,7 @@ const ResourcePage = () => {
 
   return (
     <>
-      <Paper elevation={3} sx={{width: '75%', marginLeft: '25%', marginRight: '25%', paddingBottom: '2vw', marginBottom: '5vw', borderRadius: '6px'}}>
+      <Paper elevation={3} sx={{width: '70%', marginLeft: '15%', marginRight: '15%', paddingBottom: '2vw', marginBottom: '5vw', borderRadius: '6px'}}>
         <h1 style={{textAlign: 'center', ...background, borderRadius: '6px'}}>Resources</h1>
         <Grid container columns={3} rows={2} sx={{textAlign:'center'}}>
           <Grid item xs={1}>
