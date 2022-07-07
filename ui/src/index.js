@@ -11,6 +11,7 @@ import AdminPage from './components/AdminPage/AdminPage';
 import ReachOutPage from './components/ReachOutPage/ReachOutPage'
 import ResourcePage from './components/ResourcePage/ResourcesPage';
 import ProfilePage from './components/ProfilePage/ProfilePage';
+import MHPPage from './components/MHPPage/MHPPage';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -25,6 +26,7 @@ ReactDOM.render(
         <Route path='/admin' element={<DashboardContent DisplayItem={AdminPage}/>} />
         <Route path='/resource' element={<DashboardContent DisplayItem={ResourcePage}/>} />
         <Route path='/profile' element={<DashboardContent DisplayItem={ProfilePage}/>} />
+        <Route path='/mhp' element={<DashboardContent DisplayItem={MHPPage}/>} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,
