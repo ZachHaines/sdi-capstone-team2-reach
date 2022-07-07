@@ -7,12 +7,15 @@ import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 // import PeopleIcon from '@mui/icons-material/People';
 import LayersIcon from '@mui/icons-material/Layers';
 import AssignmentIcon from '@mui/icons-material/Assignment';
-import { useNavigate } from 'react-router-dom';
 // import HandshakeTwoToneIcon from '@mui/icons-material/HandshakeTwoTone';
 // import HandshakeIcon from '@mui/icons-material/Handshake';
 import EmojiPeopleIcon from '@mui/icons-material/EmojiPeople';
 import PsychologyIcon from '@mui/icons-material/Psychology';
 import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import LayersIcon from '@mui/icons-material/Layers';
+import AssignmentIcon from '@mui/icons-material/Assignment';
+import { useNavigate } from 'react-router-dom';
 
 export const MainListItems = () => {
   const nav = useNavigate();
@@ -72,13 +75,24 @@ export const MainListItems = () => {
 }
 
 
-export const secondaryListItems = (
+export const SecondaryListItems = () => {
+  const nav = useNavigate();
+
+  return(
+
   <React.Fragment>
-    <ListItemButton>
+    <ListItemButton onClick={()=>{nav('/resource')}}>
       <ListItemIcon>
         <AssignmentIcon />
-      </ListItemIcon>
+      </ListItemIcon >
       <ListItemText primary="Resources" />
     </ListItemButton>
+    <ListItemButton onClick={()=>{nav('/profile')}}>
+      <ListItemIcon>
+        <AccountCircleIcon />
+      </ListItemIcon >
+      <ListItemText primary="Profile" />
+    </ListItemButton>
   </React.Fragment>
-);
+  )
+};

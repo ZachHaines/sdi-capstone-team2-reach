@@ -9,6 +9,8 @@ import SelfReflectionPage from './components/SelfReflectionPage/SelfReflectionPa
 import DashboardContent from './components/Dashboard/Dashboard'
 import AdminPage from './components/AdminPage/AdminPage';
 import ReachOutPage from './components/ReachOutPage/ReachOutPage'
+import ResourcePage from './components/ResourcePage/ResourcesPage';
+import ProfilePage from './components/ProfilePage/ProfilePage';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -21,6 +23,8 @@ ReactDOM.render(
         <Route path='/self-reflection' element={<DashboardContent DisplayItem={SelfReflectionPage}/>} />
         <Route path='/reachout' element={<DashboardContent DisplayItem={ReachOutPage}/>} />
         <Route path='/admin' element={<DashboardContent DisplayItem={AdminPage}/>} />
+        <Route path='/resource' element={<DashboardContent DisplayItem={ResourcePage}/>} />
+        <Route path='/profile' element={<DashboardContent DisplayItem={ProfilePage}/>} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,
