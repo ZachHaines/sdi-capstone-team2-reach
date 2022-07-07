@@ -8,13 +8,17 @@ import { TextField,  Paper, Button, Slider, Grid, Typography, Stack } from '@mui
 // import { textAlign } from '@mui/system';
 
 // import { useNavigate } from 'react-router-dom';
+import propTypes from 'prop-types';
+import MemberList from './MemberList';
+
 
 const defaultIconStyle = {
   satisfied: {color: 'green' , backgroundColor: '#ccc', height:'6em', width:'auto'},
   neutral: {color: 'yellow', backgroundColor: '#ccc', height:'3em', width:'auto'},
   dissatisfied: {color: 'red', backgroundColor: '#ccc', height:'3em', width:'auto'}
 }
-const ReachOutPage = () => {
+const ReachOutPage = ({memberID}) => {
+  console.log('Confirm Member ID:', memberID);
   const [FamilyIconSX, setFamilyIconSX] = React.useState(defaultIconStyle)
   const [SocialIconSX, setSocialIconSX] = React.useState(defaultIconStyle)
   const [LegalIconSX, setLegalIconSX] = React.useState(defaultIconStyle)
@@ -61,7 +65,7 @@ const ReachOutPage = () => {
     <>
       {/* <Dashboard /> */}
       <Paper elevation={3} sx={{width: '75%', marginLeft: '12.5%', marginRight: '12.5%', paddingBottom: '2vw', marginBottom: '5%', paddingLeft: '2%', paddingRight: '2%'}}>
-        <h1 style={{textAlign: 'center'}}>Reach Out Page</h1>
+        <h1 style={{textAlign: 'center'}}>Reach Out Page </h1>
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 1, md: 1 }} columns={2} >
           {/* Family */}
             <Grid item xs={1}>
@@ -198,7 +202,11 @@ const ReachOutPage = () => {
         </Grid>
         <Button>Submit</Button>
       </Paper>
+      <MemberList/>
     </>
   )
+}
+ReachOutPage.propTypes = {
+  memberID: propTypes.number
 }
 export default ReachOutPage;
