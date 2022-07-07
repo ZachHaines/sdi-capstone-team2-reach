@@ -1,8 +1,8 @@
 import React from 'react';
 import { TextField,  Paper, Button, Slider, Grid, Typography, Stack } from '@mui/material';
-import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
-import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt';
-import SentimentNeutralIcon from '@mui/icons-material/SentimentNeutral';
+// import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
+// import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt';
+// import SentimentNeutralIcon from '@mui/icons-material/SentimentNeutral';
 // import Dashboard from '../Dashboard/Dashboard.jsx'
 // import Dashboard from '../Dashboard/Dashboard.jsx'
 // import { textAlign } from '@mui/system';
@@ -10,11 +10,11 @@ import SentimentNeutralIcon from '@mui/icons-material/SentimentNeutral';
 // import { useNavigate } from 'react-router-dom';
 
 const defaultIconStyle = {
-  satisfied: {color: 'green' , backgroundColor: '#ccc', fontSize:'100px'},
-  neutral: {color: 'yellow', backgroundColor: '#ccc'},
-  dissatisfied: {color: 'red', backgroundColor: '#ccc'}
+  satisfied: {color: 'green' , backgroundColor: '#ccc', height:'6em', width:'auto'},
+  neutral: {color: 'yellow', backgroundColor: '#ccc', height:'3em', width:'auto'},
+  dissatisfied: {color: 'red', backgroundColor: '#ccc', height:'3em', width:'auto'}
 }
-const SelfReflectionPage = () => {
+const ReachOutPage = () => {
   const [FamilyIconSX, setFamilyIconSX] = React.useState(defaultIconStyle)
   const [SocialIconSX, setSocialIconSX] = React.useState(defaultIconStyle)
   const [LegalIconSX, setLegalIconSX] = React.useState(defaultIconStyle)
@@ -35,24 +35,24 @@ const SelfReflectionPage = () => {
     if(e.target.value===1)
     {
       setIcons( {
-        satisfied: {color: 'green' , backgroundColor: '#ccc'},
-        neutral: {color: 'yellow', backgroundColor: '#ccc'},
-        dissatisfied: {color: 'red', backgroundColor: '#ccc', fontSize:'100px'}
+        satisfied: {color: 'green' , backgroundColor: '#ccc', height:'3em', width:'auto'},
+        neutral: {color: 'yellow', backgroundColor: '#ccc', height:'3em', width:'auto'},
+        dissatisfied: {color: 'red', backgroundColor: '#ccc', height:'6em', width:'auto'}
       })
     }
     else if(e.target.value===2)
     {
       setIcons(  {
-        satisfied: {color: 'green' , backgroundColor: '#ccc'},
-        neutral: {color: 'yellow', backgroundColor: '#ccc', fontSize:'100px'},
-        dissatisfied: {color: 'red', backgroundColor: '#ccc'}
+        satisfied: {color: 'green' , backgroundColor: '#ccc', height:'3em', width:'auto'},
+        neutral: {color: 'yellow', backgroundColor: '#ccc', height:'6em', width:'auto'},
+        dissatisfied: {color: 'red', backgroundColor: '#ccc', height:'3em', width:'auto'}
       })
     }
     else if(e.target.value===3){
       setIcons(  {
-        satisfied: {color: 'green' , backgroundColor: '#ccc', fontSize:'100px'},
-        neutral: {color: 'yellow', backgroundColor: '#ccc'},
-        dissatisfied: {color: 'red', backgroundColor: '#ccc'}
+        satisfied: {color: 'green' , backgroundColor: '#ccc', height:'6em', width:'auto'},
+        neutral: {color: 'yellow', backgroundColor: '#ccc', height:'3em', width:'auto'},
+        dissatisfied: {color: 'red', backgroundColor: '#ccc', height:'3em', width:'auto'}
       })
     }
   }
@@ -61,8 +61,9 @@ const SelfReflectionPage = () => {
     <>
       {/* <Dashboard /> */}
       <Paper elevation={3} sx={{width: '75%', marginLeft: '12.5%', marginRight: '12.5%', paddingBottom: '2vw', marginBottom: '5%', paddingLeft: '2%', paddingRight: '2%'}}>
-        <h1 style={{textAlign: 'center'}}>Self Reflection Page</h1>
+        <h1 style={{textAlign: 'center'}}>Reach Out Page</h1>
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 1, md: 1 }} columns={2} >
+          {/* Family */}
             <Grid item xs={1}>
               <Typography variant='h4' align='center'>
                 Family
@@ -70,9 +71,12 @@ const SelfReflectionPage = () => {
             </Grid>
             <Grid item xs={1}>
               <Stack direction='row'  justifyContent='space-between'>
-                <SentimentVeryDissatisfiedIcon sx={FamilyIconSX.dissatisfied}/>
-                <SentimentNeutralIcon sx={FamilyIconSX.neutral}/>
-                <SentimentSatisfiedAltIcon sx={FamilyIconSX.satisfied}/>
+                <img src='./reachoutimg/handshake.png' alt='handshake emoji' style={FamilyIconSX.dissatisfied} />
+                <img src='./reachoutimg/ok-hand.png' alt='ok-hand emoji' style={FamilyIconSX.neutral} />
+                <img src='./reachoutimg/thumbs-up.png' alt='thumbs-up emoji' style={FamilyIconSX.satisfied} />
+                {/* // <SentimentVeryDissatisfiedIcon sx={FamilyIconSX.dissatisfied}/>
+                // <SentimentNeutralIcon sx={FamilyIconSX.neutral}/>
+                // <SentimentSatisfiedAltIcon sx={FamilyIconSX.satisfied}/> */}
               </Stack>
               <Slider
                 id='family-slider'
@@ -86,6 +90,7 @@ const SelfReflectionPage = () => {
                 onChange={(e)=>{sliderOnChangeHandler(e)}}
               ></Slider>
             </Grid>
+            {/* Social */}
             <Grid item xs={1}>
               <Typography variant='h4' align='center'>
                 Social
@@ -93,9 +98,9 @@ const SelfReflectionPage = () => {
             </Grid>
             <Grid item xs={1}>
               <Stack direction='row' justifyContent='space-between'>
-                <SentimentVeryDissatisfiedIcon sx={SocialIconSX.dissatisfied}/>
-                <SentimentNeutralIcon sx={SocialIconSX.neutral}/>
-                <SentimentSatisfiedAltIcon sx={SocialIconSX.satisfied}/>
+                <img src='./reachoutimg/handshake.png' alt='handshake emoji' style={SocialIconSX.dissatisfied} />
+                <img src='./reachoutimg/ok-hand.png' alt='ok-hand emoji' style={SocialIconSX.neutral} />
+                <img src='./reachoutimg/thumbs-up.png' alt='thumbs-up emoji' style={SocialIconSX.satisfied} />
               </Stack>
               <Slider
                 id='social-slider'
@@ -109,6 +114,7 @@ const SelfReflectionPage = () => {
                 onChange={(e)=>{sliderOnChangeHandler(e)}}
               ></Slider>
             </Grid>
+            {/* Legal */}
             <Grid item xs={1}>
               <Typography variant='h4' align='center'>
                 Legal
@@ -116,9 +122,9 @@ const SelfReflectionPage = () => {
             </Grid>
             <Grid item xs={1}>
               <Stack direction='row' justifyContent='space-between'>
-                <SentimentVeryDissatisfiedIcon sx={LegalIconSX.dissatisfied}/>
-                <SentimentNeutralIcon sx={LegalIconSX.neutral}/>
-                <SentimentSatisfiedAltIcon sx={LegalIconSX.satisfied}/>
+              <img src='./reachoutimg/handshake.png' alt='handshake emoji' style={LegalIconSX.dissatisfied} />
+                <img src='./reachoutimg/ok-hand.png' alt='ok-hand emoji' style={LegalIconSX.neutral} />
+                <img src='./reachoutimg/thumbs-up.png' alt='thumbs-up emoji' style={LegalIconSX.satisfied} />
               </Stack>
               <Slider
                 id='legal-slider'
@@ -132,6 +138,7 @@ const SelfReflectionPage = () => {
                 onChange={(e)=>{sliderOnChangeHandler(e)}}
               ></Slider>
             </Grid>
+            {/* Work */}
             <Grid item xs={1}>
               <Typography variant='h4' align='center'>
                 Work
@@ -139,9 +146,9 @@ const SelfReflectionPage = () => {
             </Grid>
             <Grid item xs={1}>
               <Stack direction='row' justifyContent='space-between'>
-                <SentimentVeryDissatisfiedIcon sx={WorkIconSX.dissatisfied}/>
-                <SentimentNeutralIcon sx={WorkIconSX.neutral}/>
-                <SentimentSatisfiedAltIcon sx={WorkIconSX.satisfied}/>
+                <img src='./reachoutimg/handshake.png' alt='handshake emoji' style={WorkIconSX.dissatisfied} />
+                <img src='./reachoutimg/ok-hand.png' alt='ok-hand emoji' style={WorkIconSX.neutral} />
+                <img src='./reachoutimg/thumbs-up.png' alt='thumbs-up emoji' style={WorkIconSX.satisfied} />
               </Stack>
               <Slider
                 id='work-slider'
@@ -155,6 +162,7 @@ const SelfReflectionPage = () => {
                 onChange={(e)=>{sliderOnChangeHandler(e)}}
               ></Slider>
             </Grid>
+            {/* Health */}
             <Grid item xs={1}>
               <Typography variant='h4' align='center'>
                 Health
@@ -162,9 +170,9 @@ const SelfReflectionPage = () => {
             </Grid>
             <Grid item xs={1}>
               <Stack direction='row' justifyContent='space-between'>
-                <SentimentVeryDissatisfiedIcon sx={HealthIconSX.dissatisfied}/>
-                <SentimentNeutralIcon sx={HealthIconSX.neutral}/>
-                <SentimentSatisfiedAltIcon sx={HealthIconSX.satisfied}/>
+                <img src='./reachoutimg/handshake.png' alt='handshake emoji' style={HealthIconSX.dissatisfied} />
+                <img src='./reachoutimg/ok-hand.png' alt='ok-hand emoji' style={HealthIconSX.neutral} />
+                <img src='./reachoutimg/thumbs-up.png' alt='thumbs-up emoji' style={HealthIconSX.satisfied} />
               </Stack>
               <Slider
                 id='health-slider'
@@ -178,12 +186,12 @@ const SelfReflectionPage = () => {
                 onChange={(e)=>{sliderOnChangeHandler(e)}}
               ></Slider>
             </Grid>
+            {/* Comments */}
             <Grid item xs={1}>
               <Typography variant='h4' align='center'>
                   Comments
               </Typography>
             </Grid>
-
             <Grid item xs={1}>
               <TextField label='Comments' maxRows={5} minRows={3} multiline sx={{width: '100%'}}></TextField>
             </Grid>
@@ -193,4 +201,4 @@ const SelfReflectionPage = () => {
     </>
   )
 }
-export default SelfReflectionPage;
+export default ReachOutPage;

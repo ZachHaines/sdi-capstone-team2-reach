@@ -3,12 +3,16 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import PeopleIcon from '@mui/icons-material/People';
+// import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+// import PeopleIcon from '@mui/icons-material/People';
 import LayersIcon from '@mui/icons-material/Layers';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import { useNavigate } from 'react-router-dom';
-
+// import HandshakeTwoToneIcon from '@mui/icons-material/HandshakeTwoTone';
+// import HandshakeIcon from '@mui/icons-material/Handshake';
+import EmojiPeopleIcon from '@mui/icons-material/EmojiPeople';
+import PsychologyIcon from '@mui/icons-material/Psychology';
+import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 
 export const MainListItems = () => {
   const nav = useNavigate();
@@ -17,9 +21,15 @@ export const MainListItems = () => {
     <React.Fragment>
       <ListItemButton onClick={()=>{nav('/self-reflection')}}>
         <ListItemIcon>
-          <ShoppingCartIcon />
+          <PsychologyIcon />
         </ListItemIcon>
-        <ListItemText primary="Standard"/>
+        <ListItemText primary="Self Reflection"/>
+      </ListItemButton>
+      <ListItemButton onClick={()=>{nav('/reachout')}}>
+        <ListItemIcon>
+          <EmojiPeopleIcon />
+        </ListItemIcon>
+        <ListItemText primary="Reach Out"/>
       </ListItemButton>
       <ListItemButton onClick={()=>{nav('/admin')}}>
         <ListItemIcon>
@@ -29,7 +39,7 @@ export const MainListItems = () => {
       </ListItemButton>
       <ListItemButton>
         <ListItemIcon>
-          <PeopleIcon />
+          <LocalHospitalIcon />
         </ListItemIcon>
         <ListItemText primary="MHP" />
       </ListItemButton>

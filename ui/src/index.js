@@ -8,6 +8,8 @@ import SignUpPage from './components/SignUpPage/SignUpPage';
 import SelfReflectionPage from './components/SelfReflectionPage/SelfReflectionPage';
 import DashboardContent from './components/Dashboard/Dashboard'
 import AdminPage from './components/AdminPage/AdminPage';
+import ReachOutPage from './components/ReachOutPage/ReachOutPage'
+
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
@@ -17,6 +19,7 @@ ReactDOM.render(
         <Route path='/login' element={<LoginPage />} />
         <Route path='/signup' element={<SignUpPage />} />
         <Route path='/self-reflection' element={<DashboardContent DisplayItem={SelfReflectionPage}/>} />
+        <Route path='/reachout' element={<DashboardContent DisplayItem={ReachOutPage}/>} />
         <Route path='/admin' element={<DashboardContent DisplayItem={AdminPage}/>} />
       </Routes>
     </BrowserRouter>
