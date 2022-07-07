@@ -13,8 +13,6 @@ import EmojiPeopleIcon from '@mui/icons-material/EmojiPeople';
 import PsychologyIcon from '@mui/icons-material/Psychology';
 import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import LayersIcon from '@mui/icons-material/Layers';
-import AssignmentIcon from '@mui/icons-material/Assignment';
 import { useNavigate } from 'react-router-dom';
 
 export const MainListItems = () => {
