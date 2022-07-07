@@ -11,6 +11,7 @@ import AdminPage from './components/AdminPage/AdminPage';
 import ReachOutPage from './components/ReachOutPage/ReachOutPage'
 import ResourcePage from './components/ResourcePage/ResourcesPage';
 import ProfilePage from './components/ProfilePage/ProfilePage';
+import MemberList from './components/ReachOutPage/MemberList';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -21,7 +22,8 @@ ReactDOM.render(
         <Route path='/login' element={<LoginPage />} />
         <Route path='/signup' element={<SignUpPage />} />
         <Route path='/self-reflection' element={<DashboardContent DisplayItem={SelfReflectionPage}/>} />
-        <Route path='/reachout' element={<DashboardContent DisplayItem={ReachOutPage}/>} />
+        <Route path='/reachout' element={<DashboardContent DisplayItem={MemberList}/>} />
+        <Route path='/reachout/:memberID' element={<DashboardContent DisplayItem={ReachOutPage}/>} />
         <Route path='/admin' element={<DashboardContent DisplayItem={AdminPage}/>} />
         <Route path='/resource' element={<DashboardContent DisplayItem={ResourcePage}/>} />
         <Route path='/profile' element={<DashboardContent DisplayItem={ProfilePage}/>} />

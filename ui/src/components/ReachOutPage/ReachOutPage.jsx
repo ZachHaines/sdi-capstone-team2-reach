@@ -9,7 +9,7 @@ import { TextField,  Paper, Button, Slider, Grid, Typography, Stack } from '@mui
 
 // import { useNavigate } from 'react-router-dom';
 import propTypes from 'prop-types';
-import MemberList from './MemberList';
+import { useParams } from 'react-router-dom';
 
 
 const defaultIconStyle = {
@@ -19,6 +19,8 @@ const defaultIconStyle = {
 }
 const ReachOutPage = ({memberID}) => {
   console.log('Confirm Member ID:', memberID);
+  const params = useParams();
+  console.log(params)
   const [FamilyIconSX, setFamilyIconSX] = React.useState(defaultIconStyle)
   const [SocialIconSX, setSocialIconSX] = React.useState(defaultIconStyle)
   const [LegalIconSX, setLegalIconSX] = React.useState(defaultIconStyle)
@@ -65,7 +67,7 @@ const ReachOutPage = ({memberID}) => {
     <>
       {/* <Dashboard /> */}
       <Paper elevation={3} sx={{width: '75%', marginLeft: '12.5%', marginRight: '12.5%', paddingBottom: '2vw', marginBottom: '5%', paddingLeft: '2%', paddingRight: '2%'}}>
-        <h1 style={{textAlign: 'center'}}>Reach Out Page </h1>
+        <h1 style={{textAlign: 'center'}}>Reach Out For: {params.memberID} </h1>
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 1, md: 1 }} columns={2} >
           {/* Family */}
             <Grid item xs={1}>
@@ -75,9 +77,9 @@ const ReachOutPage = ({memberID}) => {
             </Grid>
             <Grid item xs={1}>
               <Stack direction='row'  justifyContent='space-between'>
-                <img src='./reachoutimg/handshake.png' alt='handshake emoji' style={FamilyIconSX.dissatisfied} />
-                <img src='./reachoutimg/ok-hand.png' alt='ok-hand emoji' style={FamilyIconSX.neutral} />
-                <img src='./reachoutimg/thumbs-up.png' alt='thumbs-up emoji' style={FamilyIconSX.satisfied} />
+                <img src='../reachoutimg/handshake.png' alt='handshake emoji' style={FamilyIconSX.dissatisfied} />
+                <img src='../reachoutimg/ok-hand.png' alt='ok-hand emoji' style={FamilyIconSX.neutral} />
+                <img src='../reachoutimg/thumbs-up.png' alt='thumbs-up emoji' style={FamilyIconSX.satisfied} />
                 {/* // <SentimentVeryDissatisfiedIcon sx={FamilyIconSX.dissatisfied}/>
                 // <SentimentNeutralIcon sx={FamilyIconSX.neutral}/>
                 // <SentimentSatisfiedAltIcon sx={FamilyIconSX.satisfied}/> */}
@@ -102,9 +104,9 @@ const ReachOutPage = ({memberID}) => {
             </Grid>
             <Grid item xs={1}>
               <Stack direction='row' justifyContent='space-between'>
-                <img src='./reachoutimg/handshake.png' alt='handshake emoji' style={SocialIconSX.dissatisfied} />
-                <img src='./reachoutimg/ok-hand.png' alt='ok-hand emoji' style={SocialIconSX.neutral} />
-                <img src='./reachoutimg/thumbs-up.png' alt='thumbs-up emoji' style={SocialIconSX.satisfied} />
+                <img src='../reachoutimg/handshake.png' alt='handshake emoji' style={SocialIconSX.dissatisfied} />
+                <img src='../reachoutimg/ok-hand.png' alt='ok-hand emoji' style={SocialIconSX.neutral} />
+                <img src='../reachoutimg/thumbs-up.png' alt='thumbs-up emoji' style={SocialIconSX.satisfied} />
               </Stack>
               <Slider
                 id='social-slider'
@@ -126,9 +128,9 @@ const ReachOutPage = ({memberID}) => {
             </Grid>
             <Grid item xs={1}>
               <Stack direction='row' justifyContent='space-between'>
-              <img src='./reachoutimg/handshake.png' alt='handshake emoji' style={LegalIconSX.dissatisfied} />
-                <img src='./reachoutimg/ok-hand.png' alt='ok-hand emoji' style={LegalIconSX.neutral} />
-                <img src='./reachoutimg/thumbs-up.png' alt='thumbs-up emoji' style={LegalIconSX.satisfied} />
+                <img src='../reachoutimg/handshake.png' alt='handshake emoji' style={LegalIconSX.dissatisfied} />
+                <img src='../reachoutimg/ok-hand.png' alt='ok-hand emoji' style={LegalIconSX.neutral} />
+                <img src='../reachoutimg/thumbs-up.png' alt='thumbs-up emoji' style={LegalIconSX.satisfied} />
               </Stack>
               <Slider
                 id='legal-slider'
@@ -150,9 +152,9 @@ const ReachOutPage = ({memberID}) => {
             </Grid>
             <Grid item xs={1}>
               <Stack direction='row' justifyContent='space-between'>
-                <img src='./reachoutimg/handshake.png' alt='handshake emoji' style={WorkIconSX.dissatisfied} />
-                <img src='./reachoutimg/ok-hand.png' alt='ok-hand emoji' style={WorkIconSX.neutral} />
-                <img src='./reachoutimg/thumbs-up.png' alt='thumbs-up emoji' style={WorkIconSX.satisfied} />
+                <img src='../reachoutimg/handshake.png' alt='handshake emoji' style={WorkIconSX.dissatisfied} />
+                <img src='../reachoutimg/ok-hand.png' alt='ok-hand emoji' style={WorkIconSX.neutral} />
+                <img src='../reachoutimg/thumbs-up.png' alt='thumbs-up emoji' style={WorkIconSX.satisfied} />
               </Stack>
               <Slider
                 id='work-slider'
@@ -174,9 +176,9 @@ const ReachOutPage = ({memberID}) => {
             </Grid>
             <Grid item xs={1}>
               <Stack direction='row' justifyContent='space-between'>
-                <img src='./reachoutimg/handshake.png' alt='handshake emoji' style={HealthIconSX.dissatisfied} />
-                <img src='./reachoutimg/ok-hand.png' alt='ok-hand emoji' style={HealthIconSX.neutral} />
-                <img src='./reachoutimg/thumbs-up.png' alt='thumbs-up emoji' style={HealthIconSX.satisfied} />
+                <img src='../reachoutimg/handshake.png' alt='handshake emoji' style={HealthIconSX.dissatisfied} />
+                <img src='../reachoutimg/ok-hand.png' alt='ok-hand emoji' style={HealthIconSX.neutral} />
+                <img src='../reachoutimg/thumbs-up.png' alt='thumbs-up emoji' style={HealthIconSX.satisfied} />
               </Stack>
               <Slider
                 id='health-slider'
@@ -202,7 +204,6 @@ const ReachOutPage = ({memberID}) => {
         </Grid>
         <Button>Submit</Button>
       </Paper>
-      <MemberList/>
     </>
   )
 }

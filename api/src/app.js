@@ -132,7 +132,7 @@ app.get('/installations/:id', (req, res) => {
 //units
 app.get('/units', (req, res) => {
     knex('units')
-    .where({id: req.params.id})
+    .select('*') 
     .then(data => res.status(200).json(data))
     .catch(() => res.status(404).send(`Could not retrieve units`))
 })

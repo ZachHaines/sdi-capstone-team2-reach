@@ -46,7 +46,7 @@ export const MainListItems = () => {
       </ListItemButton>
       <ListItemButton>
         <ListItemIcon>
-          <img src='./dashboardimg/Chaplain.png' height='25px' width='auto'/>
+          <img src='../dashboardimg/Chaplain.png' height='25px' width='auto'/>
         </ListItemIcon>
         <ListItemText primary="Chaplain" />
       </ListItemButton>

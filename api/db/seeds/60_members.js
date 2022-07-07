@@ -72,7 +72,7 @@ function createRandomMembers(max, generated, roleId)  {
   for (let i = 0; i < generated; i++) {
     entries.push (
       {
-        last_name: `${selectedFirstNames[i]}`,
+        last_name: `${selectedLastNames[i]}`,
         first_name: `${selectedFirstNames[i]}`,
         grades_id: Math.floor(Math.random() * (57) + 1), // currently 57 grades in table
         username: `${selectedFirstNames[i]}.${selectedLastNames[i]}`,
