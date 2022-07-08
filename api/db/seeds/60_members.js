@@ -1,9 +1,11 @@
-// import { faker } from '@faker-js/faker';
+
 const { faker } = require('@faker-js/faker');
+
 /**
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> } 
  */
+
  exports.seed = async function(knex) {
   // Deletes ALL existing entries
   await knex('members').del()
@@ -11,7 +13,6 @@ const { faker } = require('@faker-js/faker');
   await knex('members').insert(randomMHPs);
   await knex('members').insert(randomChaplains);
   await knex('members').insert(randomMembers);
-
 };
 
 // 'generated' is the number of random records requested
@@ -28,6 +29,10 @@ function createRandomMembers(generated, roleId)  {
 
   // generate a database field object for each random entry
   for (let i = 0; i < generated; i++) {
+    const domains = ['@gmail.com', '@yahoo.com', '@hotmail.com', '@aol.com'];
+    const n = Math.floor(Math.random() * 100);
+    const domainIndex = (n < 40) ? 0 : (n < 70) ? 1 : (n < 90) ? 2 : 3;
+    
     entries.push (
       {
         last_name: `${selectedLastNames[i]}`,
@@ -39,12 +44,12 @@ function createRandomMembers(generated, roleId)  {
         religion: `religion`,
         phone_number: faker.phone.number('###-###-####'),
         email_primary: `${selectedFirstNames[i]}.${selectedLastNames[i]}@mail.mil`,
-        email_secondary:`${selectedFirstNames[i]}.${selectedLastNames[i]}@gmail.com`,
+        email_secondary:`${selectedFirstNames[i]}.${selectedLastNames[i]}${domains[domainIndex]}`,
       }
     );
-  };
+  }
   return entries;
-}
+};
 
 // Call Functions 
 
