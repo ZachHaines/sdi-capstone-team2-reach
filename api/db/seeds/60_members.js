@@ -14,66 +14,17 @@ const { faker } = require('@faker-js/faker');
 
 };
 
-const fakerFirstName = faker.name.firstName();
-const fakerLastName = faker.name.lastName();
-console.log('First Name:', fakerFirstName);
-console.log('Last Name:', fakerLastName);
-
-
-
-// create random pool of first and last names
-// https://editor.p5js.org/a.j.fine1999/full/W6cllWCgE (open the console.log to view names)
-const listOfFirstNames = [ // 100 names
-  'Strijd', 'Vertrouwen', 'Krachten', 'City', 'Ruzie', 'Des', 'Ziek', 'Gelukkig', 'Perfect', 'Verhaal', 
-  'Steken', 'Eieren', 'Vernietigen', 'Volgende', 'Begon', 'Vandaag', 'Feest', 'Meneer', 'Gewone', 'Paniek', 
-  'Voorzichtig', 'Stukken', 'Kampioen', 'Draagt', 'Wel', 'Kampioen', 'Nog', 'Hoeveel', 'Aanval', 'Kunt', 
-  'Noemde', 'Wist', 'Papier', 'Eieren', 'Gestopt', 'Liefde', 'Proces', 'Leef', 'Bill', 'Spel', 
-  'Groter', 'Krijgt', 'Collega', 'Erbij', 'Naast', 'Lee', 'Hadden', 'Pistool', 'Adres', 'Trein',
-
-  'Geschreven', 'Ziet', 'Mijne', 'Gezocht', 'Strijd', 'Werken', 'Sam', 'Denkt', 'Lachen', 'Echte',
-  'Speelt', 'Kiezen', 'Echte', 'Veiligheid', 'Wanneer', 'Meteen', 'Moe', 'Maat', 'Vraagt', 'Helpen', 
-  'Draai', 'Chef', 'Motor', 'Gast', 'Simon', 'Breken', 'Leg', 'Hangt', 'Kom', 'Drie', 
-  'Uitgenodigd', 'Bestaan', 'Lee', 'Speelt', 'Generaal', 'Kalm', 'Spreken', 'Gehaald', 'Breken', 'Krijgt', 
-  'Weer', 'Nieuws', 'Vernietigen', 'Klinkt', 'Kalm', 'Meestal', 'Liefde', 'Geen', 'Hond', 'Gezocht'
-];
-
-const listOfLastNames = [ // 100 names
-  'Stom', 'Twijfel', 'Verhaal', 'Wei', 'Brian', 'Machine', 'Nat', 'Last', 'Peter', 'Hi', 
-  'Paniek', 'Frankrijk', 'Schoonheid', 'Kampioen', 'Ene', 'Liedje', 'Elf', 'Half', 'Koffer', 'Stom', 
-  'Tuurlijk', 'Gesprek', 'Zaken', 'Gauw', 'Punten', 'Wel', 'Gebeurt', 'Zwaard', 'Veiligheid','Erachter', 
-  'Bedacht', 'Pistool', 'Wou', 'Drie', 'Werk', 'Stom', 'Schuldig', 'Echte', 'Liefde', 'Persoonlijk', 
-  'Gelukkig', 'Louis', 'Kwamen', 'Vannacht', 'Schreef', 'Eigenaar', 'Jezelf', 'Samen', 'Oorlog', 'Gebruik',
-
-  'Beurt', 'Gekregen', 'Erbij', 'Dr', 'Ligt', 'Want', 'Loop', 'Stuk', 'Noorden', 'Grote', 
-  'Ha', 'Brood', 'Trut', 'Gedrag', 'Of', 'Stellen', 'Helaas', 'Koud', 'Jezus', 'Teken', 
-  'Spreek', 'Nick', 'Chicago', 'Loop', 'Breken', 'Zelfmoord', 'Joe', 'We', 'Zes', 'Hield', 
-  'Ergste', 'Vingers', 'Professor', 'Jongen', 'Jake', 'Gezocht', 'Nooit', 'Liegen', 'Vrij', 'Hopen', 
-  'Bewijs', 'Vorige', 'Mensen', 'Kolonel', 'Geschreven', 'Persoonlijk', 'Hoed', 'Vernietigen', 'Gevecht', 'Hoe'
-];
-
-// max is the total number names on the list of names; 
-// generated is the number of random records requested
-function createRandomMembers(max, generated, roleId)  {
+// 'generated' is the number of random records requested
+function createRandomMembers(generated, roleId)  {
   const selectedFirstNames = [];
   const selectedLastNames = [];
   const entries = [];
   
-  // push random first and last name to arrays
-  /*
-  const min = 1;
-  max = Math.floor(max);
-  for (let i = min; i <= generated; i++) {
-    selectedFirstNames.push(listOfFirstNames[(Math.floor(Math.random() * (max - min + 1) + min))]); //The maximum is inclusive and the minimum is inclusive
-    selectedLastNames.push(listOfLastNames[(Math.floor(Math.random() * (max - min + 1) + min))]); //The maximum is inclusive and the minimum is inclusive
+  // create array of fake first and last names
+  for (let i = 0; i < generated; i++) {
+    selectedFirstNames.push(faker.name.firstName()); //The maximum is inclusive and the minimum is inclusive
+    selectedLastNames.push(faker.name.lastName()); //The maximum is inclusive and the minimum is inclusive
   }
-  */
-
-   // create array of fake first and last names
-
-   for (let i = 0; i < generated; i++) {
-     selectedFirstNames.push(faker.name.firstName()); //The maximum is inclusive and the minimum is inclusive
-     selectedLastNames.push(faker.name.lastName()); //The maximum is inclusive and the minimum is inclusive
-   }
 
   // generate a database field object for each random entry
   for (let i = 0; i < generated; i++) {
@@ -89,25 +40,30 @@ function createRandomMembers(max, generated, roleId)  {
         phone_number: faker.phone.number('###-###-####'),
         email_primary: `${selectedFirstNames[i]}.${selectedLastNames[i]}@mail.mil`,
         email_secondary:`${selectedFirstNames[i]}.${selectedLastNames[i]}@gmail.com`,
-
       }
     );
-  }
+  };
   return entries;
 }
 
-let listOfNamesMax = 100;  
-let numberOfRandomMembers = 70;
-const randomMembers = createRandomMembers(listOfNamesMax, numberOfRandomMembers, 1);
+// Call Functions 
 
-listOfNamesMax = 100;  
-numberOfRandomMembers = 10;
-const randomAdmins = createRandomMembers(listOfNamesMax, numberOfRandomMembers, 2);
+// User
+let generated = 70;
+let roleId = 1;
+const randomMembers = createRandomMembers(generated, roleId);
 
-listOfNamesMax = 100;  
-numberOfRandomMembers = 10;
-const randomMHPs = createRandomMembers(listOfNamesMax, numberOfRandomMembers, 3);
+// Admin
+generated = 10;
+roleId = 2;
+const randomAdmins = createRandomMembers(generated, roleId);
 
-listOfNamesMax = 100;  
-numberOfRandomMembers = 10;
-const randomChaplains = createRandomMembers(listOfNamesMax, numberOfRandomMembers, 5);
+// MHP
+generated = 10;
+roleId = 3;
+const randomMHPs = createRandomMembers(generated, roleId);
+
+// Chaplains
+generated = 10;
+roleId = 5;
+const randomChaplains = createRandomMembers(generated, roleId);
