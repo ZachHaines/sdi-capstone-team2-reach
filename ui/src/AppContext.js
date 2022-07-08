@@ -13,7 +13,7 @@ const AppProvider = ({ children }) => {
     first_name: '',
     last_name: '',
     username: '',
-    id: 0,
+    id: 50,
   });
 
   /* EQUIPMENT VALUES AND TYPES
