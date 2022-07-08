@@ -10,7 +10,10 @@ import { TextField,  Paper, Button, Slider, Grid, Typography, Stack } from '@mui
 // import { useNavigate } from 'react-router-dom';
 import propTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
-
+import { AppContext } from '../../AppContext';
+import { useContext } from 'react';
+import config from '../../config';
+const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
 
 const defaultIconStyle = {
   satisfied: {color: 'green' , backgroundColor: '#ccc', height:'6em', width:'auto'},
@@ -26,6 +29,41 @@ const ReachOutPage = ({memberID}) => {
   const [LegalIconSX, setLegalIconSX] = React.useState(defaultIconStyle)
   const [WorkIconSX, setWorkIconSX] = React.useState(defaultIconStyle)
   const [HealthIconSX, setHealthIconSX] = React.useState(defaultIconStyle)
+
+  const [FamilySliderValue, setFamilySliderValue] = React.useState(3)
+  const [SocialSliderValue, setSocialSliderValue] = React.useState(3)
+  const [LegalSliderValue, setLegalSliderValue] = React.useState(3)
+  const [WorkSliderValue, setWorkSliderValue] = React.useState(3)
+  const [HealthSliderValue, setHealthSliderValue] = React.useState(3)
+  const {values} = useContext(AppContext)
+
+  const submitSurveyHandler = () => {
+
+    const newSurvey = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8'
+      },
+      body: JSON.stringify({
+        members_id_to: params.memberID,
+        members_id_from: values.currentUser.id,
+        family: FamilySliderValue,
+        social: SocialSliderValue,
+        legal: LegalSliderValue,
+        work: WorkSliderValue,
+        health: HealthSliderValue,
+        comment: document.getElementById('comments-textfield').value,
+      })
+    }
+    console.log('survey header: ', newSurvey);
+
+    fetch(`${ApiUrl}/surveymessages`, newSurvey)
+    .then(res => res.json())
+    .then(data => {
+      console.log(data);
+    })
+  }
+  
   const sliderOnChangeHandler = (e) => {
     // let value = document.getElementById('family-slider').defaultValue
     // console.log(value);
@@ -93,7 +131,9 @@ const ReachOutPage = ({memberID}) => {
                 min={1}
                 max={3}
                 track={false}
-                onChange={(e)=>{sliderOnChangeHandler(e)}}
+                onChange={(e)=>{sliderOnChangeHandler(e)
+                setFamilySliderValue(e.target.value)
+                }}
               ></Slider>
             </Grid>
             {/* Social */}
@@ -117,7 +157,9 @@ const ReachOutPage = ({memberID}) => {
                 min={1}
                 max={3}
                 track={false}
-                onChange={(e)=>{sliderOnChangeHandler(e)}}
+                onChange={(e)=>{sliderOnChangeHandler(e)
+                setSocialSliderValue(e.target.value)
+                }}
               ></Slider>
             </Grid>
             {/* Legal */}
@@ -141,7 +183,9 @@ const ReachOutPage = ({memberID}) => {
                 min={1}
                 max={3}
                 track={false}
-                onChange={(e)=>{sliderOnChangeHandler(e)}}
+                onChange={(e)=>{sliderOnChangeHandler(e)
+                setLegalSliderValue(e.target.value)
+                }}
               ></Slider>
             </Grid>
             {/* Work */}
@@ -165,7 +209,9 @@ const ReachOutPage = ({memberID}) => {
                 min={1}
                 max={3}
                 track={false}
-                onChange={(e)=>{sliderOnChangeHandler(e)}}
+                onChange={(e)=>{sliderOnChangeHandler(e)
+                setWorkSliderValue(e.target.value)
+                }}
               ></Slider>
             </Grid>
             {/* Health */}
@@ -189,7 +235,9 @@ const ReachOutPage = ({memberID}) => {
                 min={1}
                 max={3}
                 track={false}
-                onChange={(e)=>{sliderOnChangeHandler(e)}}
+                onChange={(e)=>{sliderOnChangeHandler(e)
+                setHealthSliderValue(e.target.value)
+                }}
               ></Slider>
             </Grid>
             {/* Comments */}
@@ -199,10 +247,10 @@ const ReachOutPage = ({memberID}) => {
               </Typography>
             </Grid>
             <Grid item xs={1}>
-              <TextField label='Comments' maxRows={5} minRows={3} multiline sx={{width: '100%'}}></TextField>
+              <TextField id='comments-textfield' label='Comments' maxRows={5} minRows={3} multiline sx={{width: '100%'}}></TextField>
             </Grid>
         </Grid>
-        <Button>Submit</Button>
+        <Button onClick={submitSurveyHandler}>Submit</Button>
       </Paper>
     </>
   )
