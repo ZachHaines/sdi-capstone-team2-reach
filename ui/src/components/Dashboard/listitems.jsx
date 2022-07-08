@@ -14,7 +14,6 @@ import PsychologyIcon from '@mui/icons-material/Psychology';
 import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useNavigate } from 'react-router-dom';
-import { AppContext } from '../../AppContext';
 
 
 export const MainListItems = () => {
