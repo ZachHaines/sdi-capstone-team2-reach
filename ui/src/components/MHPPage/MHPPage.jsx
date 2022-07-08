@@ -145,11 +145,7 @@ const MHPPage = () => {
   
   const rowClickHandler = (event) => {
     setMessaging(!messaging)
-    console.log(event)
-    console.log('clicked on row')
     setUserTo(event.row.id);
-    console.log(event.row.id)
-    console.log(userTo);
   }
 
   return (
@@ -182,9 +178,6 @@ const MHPPage = () => {
 }
 
 export default MHPPage;
-
-
-
 
     // await fetch(ApiUrl + `/surveymessages`)
     // .then(res=>res.json())

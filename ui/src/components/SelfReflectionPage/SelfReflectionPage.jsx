@@ -12,11 +12,10 @@ import { AppContext } from '../../AppContext';
 import config from '../../config';
 const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
 
-
 const defaultIconStyle = {
-  satisfied: {color: 'green' , backgroundColor: '#ccc', fontSize:'100px'},
-  neutral: {color: 'yellow', backgroundColor: '#ccc'},
-  dissatisfied: {color: 'red', backgroundColor: '#ccc'}
+  satisfied: {color: 'green' , backgroundColor: '#C6EFCE', fontSize:'100px'},
+  neutral: {color: 'yellow', backgroundColor: '#FFF1BA'},
+  dissatisfied: {color: 'red', backgroundColor: '#FFC7CE'}
 }
 const SelfReflectionPage = () => {
   const [FamilyIconSX, setFamilyIconSX] = React.useState(defaultIconStyle)
@@ -63,8 +62,7 @@ const SelfReflectionPage = () => {
   const sliderOnChangeHandler = (e) => {
     // let value = document.getElementById('family-slider').defaultValue
     // console.log(value);
-    console.log('Target Name: ', e.target.name)
-    console.log('Target Value :', e.target.value);
+
     let setIcons = setFamilyIconSX
     if(e.target.name === 'family-slider') {
       setIcons = setFamilyIconSX
@@ -77,24 +75,24 @@ const SelfReflectionPage = () => {
     if(e.target.value===1)
     {
       setIcons( {
-        satisfied: {color: 'green' , backgroundColor: '#ccc'},
-        neutral: {color: 'yellow', backgroundColor: '#ccc'},
-        dissatisfied: {color: 'red', backgroundColor: '#ccc', fontSize:'100px'}
+        satisfied: {color: 'green' , backgroundColor: '#C6EFCE'},
+        neutral: {color: 'yellow', backgroundColor: '#FFF1BA'},
+        dissatisfied: {color: 'red', backgroundColor: '#FFC7CE', fontSize:'100px'}
       })
     }
     else if(e.target.value===2)
     {
       setIcons(  {
-        satisfied: {color: 'green' , backgroundColor: '#ccc'},
-        neutral: {color: 'yellow', backgroundColor: '#ccc', fontSize:'100px'},
-        dissatisfied: {color: 'red', backgroundColor: '#ccc'}
+        satisfied: {color: 'green' , backgroundColor: '#C6EFCE'},
+        neutral: {color: 'yellow', backgroundColor: '#FFF1BA', fontSize:'100px'},
+        dissatisfied: {color: 'red', backgroundColor: '#FFC7CE'}
       })
     }
     else if(e.target.value===3){
       setIcons(  {
-        satisfied: {color: 'green' , backgroundColor: '#ccc', fontSize:'100px'},
-        neutral: {color: 'yellow', backgroundColor: '#ccc'},
-        dissatisfied: {color: 'red', backgroundColor: '#ccc'}
+        satisfied: {color: 'green' , backgroundColor: '#C6EFCE', fontSize:'100px'},
+        neutral: {color: 'yellow', backgroundColor: '#FFF1BA'},
+        dissatisfied: {color: 'red', backgroundColor: '#FFC7CE'}
       })
     }
   }
@@ -250,4 +248,5 @@ const SelfReflectionPage = () => {
     </>
   )
 }
+
 export default SelfReflectionPage;

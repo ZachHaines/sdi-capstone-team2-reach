@@ -16,9 +16,9 @@ import config from '../../config';
 const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
 
 const defaultIconStyle = {
-  satisfied: {color: 'green' , backgroundColor: '#ccc', height:'6em', width:'auto'},
-  neutral: {color: 'yellow', backgroundColor: '#ccc', height:'3em', width:'auto'},
-  dissatisfied: {color: 'red', backgroundColor: '#ccc', height:'3em', width:'auto'}
+  satisfied: {color: 'green' , backgroundColor: '#C6EFCE', height:'6em', width:'auto'},
+  neutral: {color: 'yellow', backgroundColor: '#FFF1BA', height:'3em', width:'auto'},
+  dissatisfied: {color: 'red', backgroundColor: '#FFC7CE', height:'3em', width:'auto'}
 }
 const ReachOutPage = ({memberID}) => {
   console.log('Confirm Member ID:', memberID);
@@ -67,8 +67,7 @@ const ReachOutPage = ({memberID}) => {
   const sliderOnChangeHandler = (e) => {
     // let value = document.getElementById('family-slider').defaultValue
     // console.log(value);
-    console.log('Target Name: ', e.target.name)
-    console.log('Target Value :', e.target.value);
+
     let setIcons = setFamilyIconSX
     if(e.target.name === 'family-slider') setIcons = setFamilyIconSX;
     else if(e.target.name === 'social-slider') setIcons = setSocialIconSX;
@@ -79,24 +78,24 @@ const ReachOutPage = ({memberID}) => {
     if(e.target.value===1)
     {
       setIcons( {
-        satisfied: {color: 'green' , backgroundColor: '#ccc', height:'3em', width:'auto'},
-        neutral: {color: 'yellow', backgroundColor: '#ccc', height:'3em', width:'auto'},
-        dissatisfied: {color: 'red', backgroundColor: '#ccc', height:'6em', width:'auto'}
+        satisfied: {color: 'green' , backgroundColor: '#C6EFCE', height:'3em', width:'auto'},
+        neutral: {color: 'yellow', backgroundColor: '#FFF1BA', height:'3em', width:'auto'},
+        dissatisfied: {color: 'red', backgroundColor: '#FFC7CE', height:'6em', width:'auto'}
       })
     }
     else if(e.target.value===2)
     {
       setIcons(  {
-        satisfied: {color: 'green' , backgroundColor: '#ccc', height:'3em', width:'auto'},
-        neutral: {color: 'yellow', backgroundColor: '#ccc', height:'6em', width:'auto'},
-        dissatisfied: {color: 'red', backgroundColor: '#ccc', height:'3em', width:'auto'}
+        satisfied: {color: 'green' , backgroundColor: '#C6EFCE', height:'3em', width:'auto'},
+        neutral: {color: 'yellow', backgroundColor: '#FFF1BA', height:'6em', width:'auto'},
+        dissatisfied: {color: 'red', backgroundColor: '#FFC7CE', height:'3em', width:'auto'}
       })
     }
     else if(e.target.value===3){
       setIcons(  {
-        satisfied: {color: 'green' , backgroundColor: '#ccc', height:'6em', width:'auto'},
-        neutral: {color: 'yellow', backgroundColor: '#ccc', height:'3em', width:'auto'},
-        dissatisfied: {color: 'red', backgroundColor: '#ccc', height:'3em', width:'auto'}
+        satisfied: {color: 'green' , backgroundColor: '#C6EFCE', height:'6em', width:'auto'},
+        neutral: {color: 'yellow', backgroundColor: '#FFF1BA', height:'3em', width:'auto'},
+        dissatisfied: {color: 'red', backgroundColor: '#FFC7CE', height:'3em', width:'auto'}
       })
     }
   }
