@@ -1,46 +1,85 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { TextField, Stack, Paper, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import config from '../../config';
 import bcrypt from 'bcryptjs';
+import { AppContext } from '../../AppContext';
 
 const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
 
 const LoginPage = () => {
   const nav = useNavigate();
+  const {values, setters} = useContext(AppContext);
 
   const loginButtonClickHandler = () => {
-    const username = document.getElementById('username').value;
-    let unhashedPassword = document.getElementById('password-textfield').value
+ 
+ 
+  //login logical code
+   const opts = {
+     method: 'POST',//using post since get does not take a body and I find it sloppy to put the username and encrypted password in the browser
+     headers: {'Content-type': 'application/json'},
+     body: JSON.stringify(
+      {
+        "username": document.getElementById("username").value,
+      }),
+   };
     
+    fetch(ApiUrl+"/login",opts)//this will oneday set the user as logged in
+    .then(res => res.json())
+    .then(data => {
+      console.log("Here is the data",data)
+      return data[0]//this is the value of login status
+    })
+    .then((log)=>(log.username)?log:alert("The username/password combination does not exist. If you are a new user, please register.")
+)   .then( (user) =>{
+      console.log("Successfully called loggedin",document.getElementById('password-textfield').value,"\nHere is our hashed password", user.password)
+      bcrypt.compare(document.getElementById('password-textfield').value, user.password, function(err, result) {
+        if(result){
+          setters.setCurrentUser({...user})
+          setTimeout(()=>nav('/self-reflection'),100)
+        }else{
+          console.log(err)
+          alert('Password not correct')
+        }
+        if (err) throw err;
+      })
+    })
+    .catch(err => console.log(err))
+    }
+  
+
+
+
+/*
     fetch(ApiUrl+'/members/')
       .then(res => res.json())
       .then(data => {
-        data.forEach(el => {
-          if(username === el.username) {
+        data.forEach(el =>
+        {
+          if(username === el.username) 
+          {
             fetch(ApiUrl+`/passwords/${el.passwords_id}`)
               .then(res => res.json())
-              .then(data => {
+              .then(data => 
+              {
                 bcrypt.compare(unhashedPassword, data.password, function(err, result) {
                   // result == true
-                  console.log('Entered Username:', username);
-                  console.log('Entered Password', unhashedPassword);
-                  console.log('result:', result);
                   if(result) {
                     nav('/self-reflection')
-                  } else {
-                    alert('The username/password combination does not exist. If you are a new user, please register.')
+                    setters.setCurrentUser(username)
+                    isFound = true;
                   }
-              });
+               });
               })
           }
         })
+      }).then(()=> {
+        if (!isFound) {
+          alert('The username/password combination does not exist. If you are a new user, please register.')
+        }
       })
-
-
-
   }
-
+*/
   return (
     <>
       <h1>Login Page</h1>

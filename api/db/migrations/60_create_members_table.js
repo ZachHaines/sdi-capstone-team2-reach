@@ -10,6 +10,7 @@
     table.integer('grades_id');
     table.foreign('grades_id').references('grades.id');
     table.string('username', 50);
+    table.string('password', 256);
     table.integer('passwords_id');
     table.foreign('passwords_id').references('passwords.id');
     table.integer('roles_id');

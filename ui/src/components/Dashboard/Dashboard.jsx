@@ -21,9 +21,9 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 // import SelfReflectionPage from '../SelfReflectionPage/SelfReflectionPage';
 import { MainListItems, SecondaryListItems } from './listitems';
-
+import { useContext } from 'react';
 import propTypes from 'prop-types';
-
+import { AppContext } from '../../AppContext';
 
 function Copyright(props) {
   return (
@@ -92,7 +92,9 @@ const DashboardContent = ({DisplayItem, DisplayTitle}) => {
   const toggleDrawer = () => {
     setOpen(!open);
   };
-
+  const {values} = useContext(AppContext)
+  console.log('Values From AppContext:', values);
+  
   return (
     <ThemeProvider theme={mdTheme}>
       <Box sx={{ display: 'flex' }}>
@@ -122,7 +124,7 @@ const DashboardContent = ({DisplayItem, DisplayTitle}) => {
               noWrap
               sx={{ flexGrow: 1 }}
             >
-              {DisplayTitle}
+              {DisplayTitle} {`Signed In As ${values.currentUser.username}`}
             </Typography>
             <IconButton color="inherit">
               <Badge badgeContent={4} color="secondary">

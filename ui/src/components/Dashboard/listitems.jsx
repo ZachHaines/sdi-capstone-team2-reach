@@ -14,10 +14,13 @@ import PsychologyIcon from '@mui/icons-material/Psychology';
 import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useNavigate } from 'react-router-dom';
+import { AppContext } from '../../AppContext';
+
 
 export const MainListItems = () => {
+  // const {values, setters} = useContext(AppContext);
+  // conole.log('Current User:', values.currentUser)
   const nav = useNavigate();
-
   return (
     <React.Fragment>
       <ListItemButton onClick={()=>{nav('/self-reflection')}}>
@@ -75,7 +78,9 @@ export const MainListItems = () => {
 
 export const SecondaryListItems = () => {
   const nav = useNavigate();
-
+  // let user = values
+  // conosole.log(values)
+  // console.log('user:', user);
   return(
 
   <React.Fragment>
@@ -89,8 +94,16 @@ export const SecondaryListItems = () => {
       <ListItemIcon>
         <AccountCircleIcon />
       </ListItemIcon >
-      <ListItemText primary="Profile" />
+      <ListItemText primary="Profile" /> 
+    </ListItemButton>
+    <ListItemButton onClick={()=>{nav('/profile')}}>
+      <ListItemIcon>
+        <AccountCircleIcon />
+      </ListItemIcon >
+      <ListItemText primary={"lll1"} /> 
     </ListItemButton>
   </React.Fragment>
   )
 };
+
+

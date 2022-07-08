@@ -9,17 +9,13 @@ const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
 
 const SignUpPage = () => {
   const nav = useNavigate();
-
+  
   const signupButtonClickHandler = () => {
     let unhashedPassword = document.getElementById('password-textfield').value
     bcrypt.hash(unhashedPassword, 10, function(err, hash) {
       // Store hash in your password DB.
       console.log('unhashed Password: ', unhashedPassword)
       console.log('hashed password: ', hash)
-      let passwordData = {
-        password: hash
-
-      }
 
       let memberData = {
         first_name: document.getElementById('firstname').value,
@@ -27,9 +23,8 @@ const SignUpPage = () => {
         email_primary: document.getElementById('email-primary').value,
         email_secondary: document.getElementById('email-secondary').value,
         username: document.getElementById('username').value,  // future auto generate username from first and last name
-        passwords_id: null
+        password: hash,
       }
-      console.log(passwordData)
 
       console.log(memberData)
       let init = {
@@ -37,17 +32,9 @@ const SignUpPage = () => {
         headers: {
           'Content-Type': 'application/json;charset=utf-8'
         },
-        body: JSON.stringify(passwordData)
+        body: JSON.stringify(memberData)
       }
       
-      fetch(ApiUrl+'/passwords', init)
-      .then(res => res.json())
-      .then(data => {
-        console.log(data)
-        console.log('last id', data[data.length-1].id);
-        memberData.passwords_id = data[data.length-1].id
-
-        init.body=JSON.stringify(memberData);
         fetch(ApiUrl+'/members', init)
         .then(res => res.json())
         .then(data => {
@@ -55,19 +42,8 @@ const SignUpPage = () => {
           nav('/self-reflection')
         })
       })
-      
-      
-
-      
-      /*
-      POST end points
-        /passwords
-        / members
-      */
-
-    });
-
-  }
+    };
+  
 
   return (
     <>

@@ -12,8 +12,9 @@ const AppProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState( {
     first_name: '',
     last_name: '',
-    username: '',
+    username: 'something.something',
     id: 0,
+    roles_id: 0,
   });
 
   /* EQUIPMENT VALUES AND TYPES

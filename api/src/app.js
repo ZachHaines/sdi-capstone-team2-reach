@@ -167,6 +167,8 @@ app.get('/members', (req, res) => {
     .catch(() => res.status(404).send(`Could not retrieve members`))
 })
 
+
+
 app.get('/members/:id', (req, res) => {
     knex('members')
     .where({id: req.params.id})
@@ -446,5 +448,19 @@ app.delete('/mhpmessages/:id', (req, res) => {
     .then(data => res.status(200).json(data))
     .catch(() => res.status(404).send(`Could not delete message ${req.params.id}`))
 })
+
+
+// login
+app.post('/login', (req, res) => {
+     knex('members')
+        .select(["*"])
+        .where({username:req.body.username})//need to compare our hashbrowns
+        .then(users => {
+            console.log("Users",users)
+            let responseData =((users.length)?[{username:true, hashed_password: users[0].password, ...users[0]}]:[{username:false}])
+            res.status(200).send(responseData)
+        })
+})
+
 
 module.exports = app;
