@@ -87,7 +87,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 const mdTheme = createTheme();
 
 
-const DashboardContent = ({DisplayItem}) => {
+const DashboardContent = ({DisplayItem, DisplayTitle}) => {
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
@@ -122,7 +122,7 @@ const DashboardContent = ({DisplayItem}) => {
               noWrap
               sx={{ flexGrow: 1 }}
             >
-              Dashboard
+              {DisplayTitle}
             </Typography>
             <IconButton color="inherit">
               <Badge badgeContent={4} color="secondary">
@@ -175,7 +175,8 @@ const DashboardContent = ({DisplayItem}) => {
 }
 
 DashboardContent.propTypes = {
-  DisplayItem: propTypes.any
+  DisplayItem: propTypes.any,
+  DisplayTitle: propTypes.string
 }
 // export default function Dashboard() {
 //   return <DashboardContent />;

@@ -13,24 +13,26 @@ import ResourcePage from './components/ResourcePage/ResourcesPage';
 import ProfilePage from './components/ProfilePage/ProfilePage';
 import MemberList from './components/ReachOutPage/MemberList';
 import MHPPage from './components/MHPPage/MHPPage';
+import { AppProvider } from './AppContext';
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Routes>
-        
-        <Route path='/' element={< App/>} />
-        <Route path='/login' element={<LoginPage />} />
-        <Route path='/signup' element={<SignUpPage />} />
-        <Route path='/self-reflection' element={<DashboardContent DisplayItem={SelfReflectionPage}/>} />
-        <Route path='/reachout' element={<DashboardContent DisplayItem={MemberList}/>} />
-        <Route path='/reachout/:memberID' element={<DashboardContent DisplayItem={ReachOutPage}/>} />
-        <Route path='/admin' element={<DashboardContent DisplayItem={AdminPage}/>} />
-        <Route path='/resource' element={<DashboardContent DisplayItem={ResourcePage}/>} />
-        <Route path='/profile' element={<DashboardContent DisplayItem={ProfilePage}/>} />
-        <Route path='/mhp' element={<DashboardContent DisplayItem={MHPPage}/>} />
-      </Routes>
-    </BrowserRouter>
+    <AppProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={< App/>} />
+          <Route path='/login' element={<LoginPage />} />
+          <Route path='/signup' element={<SignUpPage />} />
+          <Route path='/self-reflection' element={<DashboardContent DisplayItem={SelfReflectionPage} DisplayTitle='Self Reflection'/>} />
+          <Route path='/reachout' element={<DashboardContent DisplayItem={MemberList} DisplayTitle='Reach Out'/>} />
+          <Route path='/reachout/:memberID' element={<DashboardContent DisplayItem={ReachOutPage} DisplayTitle='Reach Out'/>} />
+          <Route path='/admin' element={<DashboardContent DisplayItem={AdminPage} DisplayTitle='Admin'/>} />
+          <Route path='/resource' element={<DashboardContent DisplayItem={ResourcePage} DisplayTitle='Resources'/>} />
+          <Route path='/profile' element={<DashboardContent DisplayItem={ProfilePage} DisplayTitle='Profile'/>} />
+          <Route path='/mhp' element={<DashboardContent DisplayItem={MHPPage} DisplayTitle='MHP Dashboard'/>} />
+        </Routes>
+      </BrowserRouter>
+    </AppProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
