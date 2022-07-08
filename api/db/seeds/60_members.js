@@ -1,3 +1,5 @@
+// import { faker } from '@faker-js/faker';
+const { faker } = require('@faker-js/faker');
 /**
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> } 
@@ -11,6 +13,13 @@
   await knex('members').insert(randomMembers);
 
 };
+
+const fakerFirstName = faker.name.firstName();
+const fakerLastName = faker.name.lastName();
+console.log('First Name:', fakerFirstName);
+console.log('Last Name:', fakerLastName);
+
+
 
 // create random pool of first and last names
 // https://editor.p5js.org/a.j.fine1999/full/W6cllWCgE (open the console.log to view names)
@@ -49,37 +58,36 @@ function createRandomMembers(max, generated, roleId)  {
   const selectedLastNames = [];
   const phoneNumbers = [];
   const entries = [];
-
-  // generate random phone numbers
-  for (let i = 0; i < generated; i++) {
-    let digits = [];
-    for (let j = 0; j < 11; j++) {
-      digits.push(Math.floor(Math.random() * 10 )); // number 0 - 9
-    }
-    const phoneNumber = '('+digits[0]+digits[1]+digits[2]+') '+digits[3]+digits[4]+digits[5]+'-'+digits[6]+digits[7]+digits[8]+digits[9];
-    phoneNumbers.push(phoneNumber);
-  }
   
   // push random first and last name to arrays
+  /*
   const min = 1;
   max = Math.floor(max);
   for (let i = min; i <= generated; i++) {
     selectedFirstNames.push(listOfFirstNames[(Math.floor(Math.random() * (max - min + 1) + min))]); //The maximum is inclusive and the minimum is inclusive
     selectedLastNames.push(listOfLastNames[(Math.floor(Math.random() * (max - min + 1) + min))]); //The maximum is inclusive and the minimum is inclusive
   }
+  */
+
+   // create array of fake first and last names
+
+   for (let i = min; i <= generated; i++) {
+     selectedFirstNames.push(faker.name.firstName()); //The maximum is inclusive and the minimum is inclusive
+     selectedLastNames.push(faker.name.lastName()); //The maximum is inclusive and the minimum is inclusive
+   }
 
   // generate a database field object for each random entry
   for (let i = 0; i < generated; i++) {
     entries.push (
       {
-        last_name: `${selectedLastNames[i]}`,
-        first_name: `${selectedFirstNames[i]}`,
+        last_name: faker.name.lastName(),
+        first_name: faker.name.firstName(),
         grades_id: Math.floor(Math.random() * (57) + 1), // currently 57 grades in table
         username: `${selectedFirstNames[i]}.${selectedLastNames[i]}`,
         roles_id: roleId,
         units_id: Math.floor(Math.random() * (89) + 1), // currently 89 units in table
         religion: `religion`,
-        phone_number: phoneNumbers[i],
+        phone_number: faker.phone.number('###-###-####'),
         email_primary: `${selectedFirstNames[i]}.${selectedLastNames[i]}@mail.mil`,
         email_secondary:`${selectedFirstNames[i]}.${selectedLastNames[i]}@gmail.com`,
 
