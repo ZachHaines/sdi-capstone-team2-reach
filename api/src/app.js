@@ -273,6 +273,13 @@ app.get('/grades', (req, res) => {
     .then(data => res.status(200).json(data))
     .catch(() => res.status(404).send(`Could not retrieve grades`))
 })
+
+app.get('/facilities', (req, res) => {
+    knex('facilities')
+    .select('*')
+    .then(data => res.status(200).json(data))
+    .catch(() => res.status(404).send(`Could not retrieve facilities`))
+})
     
 //UPDATE-----------------------------------------------------------------------------------------------
     

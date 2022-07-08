@@ -44,16 +44,16 @@ const MHPPage = () => {
 
   return (
     <>
-      <Paper elevation={3} sx={{width: '90%', marginLeft: '5%', marginRight: '5%', paddingBottom: '2vw', marginBottom: '5vw', borderRadius: '6px'}}>
+      <Paper elevation={3} sx={{width: '100%', marginLeft: '0%', marginRight: '0%', paddingBottom: '2vw', marginBottom: '5vw', borderRadius: '6px'}}>
         <h1 style={{textAlign: 'center', ...background, borderRadius: '6px'}}>Mental Health Provider</h1>
         {isEditing ? 
         <>
-          <DataGrid sx={{height: '70vh', width: '98%', marginLeft: '1%', marginRight: '1%' }} rows={rows} columns={columns} pageSize={15} rowsPerPageOptions={[2]} checkboxSelection/>
+          <DataGrid sx={{height: '70vh', width: '98%', marginLeft: '1%', marginRight: '1%' }} rows={rows} columns={columns} pageSize={15} rowsPerPageOptions={[15]} checkboxSelection/>
           <Button onClick={() => submit()}>Submit</Button><Button onClick={() => setIsEditing(!isEditing)}>Cancel</Button>
         </>
         :
         <>
-          <DataGrid sx={{height: '70vh', width: '98%', marginLeft: '1%', marginRight: '1%' }} rows={rows} columns={columns} pageSize={15} rowsPerPageOptions={[2]} checkboxSelection/>
+          <DataGrid sx={{height: '70vh', width: '98%', marginLeft: '1%', marginRight: '1%' }} rows={rows} columns={columns} pageSize={15} rowsPerPageOptions={[15]} checkboxSelection/>
           <Button onClick={() => setIsEditing(!isEditing)}>Edit</Button>
         </>
         }
