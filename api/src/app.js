@@ -263,7 +263,7 @@ app.get('/passwords', (req, res) => {
 app.get('/passwords/:id', (req, res) => {
     knex('passwords')
     .where({id: req.params.id})
-    .then(data => res.status(200).json(data))
+    .then(data => res.status(200).json(data[0]))
     .catch(() => res.status(404).send(`Could not retrieve password ${req.params.id}`))
 })
 
