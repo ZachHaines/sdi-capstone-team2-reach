@@ -56,7 +56,6 @@ const listOfLastNames = [ // 100 names
 function createRandomMembers(max, generated, roleId)  {
   const selectedFirstNames = [];
   const selectedLastNames = [];
-  const phoneNumbers = [];
   const entries = [];
   
   // push random first and last name to arrays
@@ -71,7 +70,7 @@ function createRandomMembers(max, generated, roleId)  {
 
    // create array of fake first and last names
 
-   for (let i = min; i <= generated; i++) {
+   for (let i = 0; i < generated; i++) {
      selectedFirstNames.push(faker.name.firstName()); //The maximum is inclusive and the minimum is inclusive
      selectedLastNames.push(faker.name.lastName()); //The maximum is inclusive and the minimum is inclusive
    }
@@ -80,8 +79,8 @@ function createRandomMembers(max, generated, roleId)  {
   for (let i = 0; i < generated; i++) {
     entries.push (
       {
-        last_name: faker.name.lastName(),
-        first_name: faker.name.firstName(),
+        last_name: `${selectedLastNames[i]}`,
+        first_name: `${selectedFirstNames[i]}`,
         grades_id: Math.floor(Math.random() * (57) + 1), // currently 57 grades in table
         username: `${selectedFirstNames[i]}.${selectedLastNames[i]}`,
         roles_id: roleId,
