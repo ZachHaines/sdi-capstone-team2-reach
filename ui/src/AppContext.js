@@ -1,13 +1,20 @@
 
 
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import propTypes from 'prop-types';
+
+
+import config from './config';
+const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
 
 const AppContext = React.createContext();
 
 // Use AppProvider at the root of your project to provided to all children
 const AppProvider = ({ children }) => {
+
+  const [roles, setRoles] = useState([])
+
 
   const [currentUser, setCurrentUser] = useState( {
     first_name: '',
@@ -15,8 +22,19 @@ const AppProvider = ({ children }) => {
     username: 'something.something',
     id: 0,
     roles_id: 0,
+    role: {}
   });
 
+  useEffect(()=>{
+    fetch(ApiUrl+`/roles`)
+    .then(res=>res.json())
+    .then(data=>{
+      setRoles(data)
+      console.log(data)
+      console.log(roles)
+      setCurrentUser({...currentUser, role: data[0]})
+    })
+  }, [])
   /* EQUIPMENT VALUES AND TYPES
     table.increments();
     table.string('name', 256) // specifies type, field name, and limit (i.e. character limit)
@@ -33,11 +51,13 @@ const AppProvider = ({ children }) => {
 
 
   const values = {
-    currentUser
+    currentUser,
+    roles
   }
 
   const setters = {
-    setCurrentUser
+    setCurrentUser,
+    setRoles
   }
 
   return (

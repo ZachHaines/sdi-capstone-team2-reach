@@ -24,6 +24,7 @@ import { MainListItems, SecondaryListItems } from './listitems';
 import { useContext } from 'react';
 import propTypes from 'prop-types';
 import { AppContext } from '../../AppContext';
+import { useNavigate } from 'react-router-dom';
 
 function Copyright(props) {
   return (
@@ -94,6 +95,7 @@ const DashboardContent = ({DisplayItem, DisplayTitle}) => {
   };
   const {values} = useContext(AppContext)
   console.log('Values From AppContext:', values);
+  const nav = useNavigate();
   
   return (
     <ThemeProvider theme={mdTheme}>
@@ -119,14 +121,24 @@ const DashboardContent = ({DisplayItem, DisplayTitle}) => {
             </IconButton>
             <Typography
               component="h1"
-              variant="h6"
+              variant="h5"
               color="inherit"
               noWrap
               sx={{ flexGrow: 1 }}
             >
-              {DisplayTitle} {`Signed In As ${values.currentUser.username}`}
+              {DisplayTitle}
             </Typography>
-            <IconButton color="inherit">
+            <Typography
+              component="h1"
+              variant="h6"
+              color="inherit"
+              noWrap
+              align='left'
+              sx={{ flexGrow: 1 }}
+            >
+              {`Signed In As: ${values.currentUser.username}`}
+            </Typography>
+            <IconButton color="inherit" onClick={() => {nav('/login')}}>
               <Badge badgeContent={4} color="secondary">
                 <NotificationsIcon />
               </Badge>

@@ -166,7 +166,7 @@ const MHPPage = () => {
         {messaging ?
         <Paper id='myModal'>
           <Paper className='Modal-content'>
-            <span id="closeModal" className="Close" onClick={() => {setMessaging(!messaging)}}>&times;</span><div/>
+            <span id="closeModal" className="Close" onClick={() => {setMessaging(!messaging)}}>{userTo} &times;</span><div/>
             <textarea id='message' rows="12" placeholder='Type your message here...'/><div/>
             <Button className='submit' onClick={() => {sendMsg(userTo, values.currentUser.id, document.getElementById('message').value)}}>Submit</Button>
           </Paper>

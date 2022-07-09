@@ -14,62 +14,129 @@ import PsychologyIcon from '@mui/icons-material/Psychology';
 import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useNavigate } from 'react-router-dom';
+import { AppContext } from '../../AppContext';
 
 
 export const MainListItems = () => {
   // const {values, setters} = useContext(AppContext);
   // conole.log('Current User:', values.currentUser)
   const nav = useNavigate();
-  return (
-    <React.Fragment>
+  const {values} = React.useContext(AppContext)
+  const mainListItems = [
+    {
+      name: 'self-reflection',
+      buttonComponent:       (
       <ListItemButton onClick={()=>{nav('/self-reflection')}}>
         <ListItemIcon>
           <PsychologyIcon />
         </ListItemIcon>
         <ListItemText primary="Self Reflection"/>
       </ListItemButton>
+      )
+    },
+    {
+      name: 'reachout',
+      buttonComponent:       (
       <ListItemButton onClick={()=>{nav('/reachout')}}>
         <ListItemIcon>
           <EmojiPeopleIcon />
         </ListItemIcon>
         <ListItemText primary="Reach Out"/>
       </ListItemButton>
+      )
+    },
+    {
+      name: 'admin',
+      buttonComponent:       (
       <ListItemButton onClick={()=>{nav('/admin')}}>
         <ListItemIcon>
           <AdminPanelSettingsIcon />
         </ListItemIcon>
         <ListItemText primary="Admin" />
       </ListItemButton>
+      )
+    },
+    {
+      name: 'mhp',
+      buttonComponent:       (
       <ListItemButton onClick={()=>{nav('/mhp')}}>
         <ListItemIcon>
           <LocalHospitalIcon />
         </ListItemIcon>
         <ListItemText primary="MHP" />
       </ListItemButton>
+      )
+    },
+    {
+      name: 'chaplain',
+      buttonComponent:       (
       <ListItemButton>
         <ListItemIcon>
           <img src='../dashboardimg/Chaplain.png' height='25px' width='auto'/>
         </ListItemIcon>
         <ListItemText primary="Chaplain" />
       </ListItemButton>
+      )
+    },
+    {
+      name: 'dependent',
+      buttonComponent:       (
       <ListItemButton>
         <ListItemIcon>
           <LayersIcon />
         </ListItemIcon>
         <ListItemText primary="Dependent" />
       </ListItemButton>
+      )
+    },
+    {
+      name: 'pcm',
+      buttonComponent:       (
       <ListItemButton>
         <ListItemIcon>
           <LayersIcon />
         </ListItemIcon>
         <ListItemText primary="Primary Care Manager" />
       </ListItemButton>
+      )
+    },
+    {
+      name: 'sarc',
+      buttonComponent:       (
       <ListItemButton>
         <ListItemIcon>
           <LayersIcon />
         </ListItemIcon>
         <ListItemText primary="SARC" />
       </ListItemButton>
+      )
+    },
+  ]
+  return (
+    <React.Fragment>
+      {mainListItems.filter((e)=>{
+        if(e.name==='sarc' && values.currentUser.role.isSARC)
+          return true;
+        if(e.name==='pcm' && values.currentUser.role.isPCM)
+          return true;
+        if(e.name==='dependent' && values.currentUser.role.isDependent)
+          return true;
+        if(e.name==='chaplain' && values.currentUser.role.isChaplain)
+          return true;
+        if(e.name==='admin' && values.currentUser.role.isAdmin)
+          return true;
+        if(e.name==='reachout' && values.currentUser.role.isUser)
+          return true;
+        if(e.name==='self-reflection' && values.currentUser.role.isUser)
+          return true;
+        if(e.name==='mhp' && values.currentUser.role.isMHP)
+          return true;
+
+        return false;
+      })
+      .map((e) => {
+        return <span key={e.name}>{e.buttonComponent}</span>;
+      })}
     </React.Fragment>
   );
 }

@@ -26,7 +26,6 @@ const SignUpPage = () => {
         password: hash,
       }
 
-      console.log(memberData)
       let init = {
         method: 'POST',
         headers: {
@@ -39,7 +38,7 @@ const SignUpPage = () => {
         .then(res => res.json())
         .then(data => {
           console.log(data);
-          nav('/self-reflection')
+          nav('/login')
         })
       })
     };

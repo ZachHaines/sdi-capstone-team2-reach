@@ -1,6 +1,6 @@
 
 const { faker } = require('@faker-js/faker');
-
+const bcrypt = require('bcrypt')
 /**
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> } 
@@ -39,6 +39,7 @@ function createRandomMembers(generated, roleId)  {
         first_name: `${selectedFirstNames[i]}`,
         grades_id: Math.floor(Math.random() * (57) + 1), // currently 57 grades in table
         username: `${selectedFirstNames[i]}.${selectedLastNames[i]}`,
+        password: bcrypt.hashSync(`${selectedFirstNames[i]}.${selectedLastNames[i]}`, 10),
         roles_id: roleId,
         units_id: Math.floor(Math.random() * (89) + 1), // currently 89 units in table
         religion: `religion`,

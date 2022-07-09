@@ -9,7 +9,7 @@ const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
 
 const LoginPage = () => {
   const nav = useNavigate();
-  const {setters} = useContext(AppContext);
+  const {values, setters} = useContext(AppContext);
 
   const loginButtonClickHandler = () => {
  
@@ -35,7 +35,7 @@ const LoginPage = () => {
       console.log("Successfully called loggedin",document.getElementById('password-textfield').value,"\nHere is our hashed password", user.password)
       bcrypt.compare(document.getElementById('password-textfield').value, user.password, function(err, result) {
         if(result){
-          setters.setCurrentUser({...user})
+          setters.setCurrentUser({...user, role: values.roles[user.roles_id-1]})
           setTimeout(()=>nav('/self-reflection'),100)
         }else{
           console.log(err)
