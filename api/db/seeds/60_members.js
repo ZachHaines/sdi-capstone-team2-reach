@@ -50,7 +50,7 @@ function createRandomMembers(generated, roleId)  {
     );
   }
   return entries;
-};
+}
 
 // Call Functions 
 
