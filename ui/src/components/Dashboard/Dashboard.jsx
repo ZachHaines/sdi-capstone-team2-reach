@@ -19,15 +19,16 @@ import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import NotificationsIcon from '@mui/icons-material/Notifications';
 // import SelfReflectionPage from '../SelfReflectionPage/SelfReflectionPage';
 import { MainListItems, SecondaryListItems } from './listitems';
 import { useContext } from 'react';
 import propTypes from 'prop-types';
 import { AppContext } from '../../AppContext';
 import { useNavigate } from 'react-router-dom';
-import config from '../../config';
-const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
+// import config from '../../config';
+// const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
+import NotificationDialogButton from './NotificationDialogButton';
+
 
 function Copyright(props) {
   return (
@@ -93,7 +94,6 @@ const mdTheme = createTheme();
 
 const DashboardContent = ({DisplayItem, DisplayTitle}) => {
   const [open, setOpen] = React.useState(true);
-  const [numNotifications, setNumNotifications] = React.useState(0);
   const toggleDrawer = () => {
     setOpen(!open);
   };
@@ -102,20 +102,6 @@ const DashboardContent = ({DisplayItem, DisplayTitle}) => {
   const nav = useNavigate();
   if (!values.currentUser.role.isUser) nav('/error');
 
-  React.useEffect(()=>{
-    fetch(ApiUrl+`/mhpmessages/members/${values.currentUser.id}`)
-    .then(res=>res.json())
-    .then(data => {
-      let temp = data.filter((e) => {
-        return e.members_id_to === values.currentUser.id;
-      })
-      console.log('mhp messages fetched ', data)
-      console.log('mhp messages filtered ', temp)
-
-      setNumNotifications(temp.length)
-
-    })
-  },[])
 
 
 
@@ -167,11 +153,7 @@ const DashboardContent = ({DisplayItem, DisplayTitle}) => {
                 <LogoutIcon />
               </Badge>
             </IconButton>
-            <IconButton color="inherit" onClick={() => {nav('/receivedmessages')}}>
-              <Badge badgeContent={numNotifications} color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
+            <NotificationDialogButton />
           </Toolbar>
         </AppBar>
         <Drawer variant="permanent" open={open}>
@@ -224,5 +206,9 @@ DashboardContent.propTypes = {
 // export default function Dashboard() {
 //   return <DashboardContent />;
 // }
+
+
+
+
 
 export default DashboardContent;
