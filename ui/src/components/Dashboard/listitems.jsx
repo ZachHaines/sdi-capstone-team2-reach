@@ -70,7 +70,7 @@ export const MainListItems = () => {
     {
       name: 'chaplain',
       buttonComponent:       (
-      <ListItemButton>
+      <ListItemButton onClick={()=>{alert('this feature is not implemented yet')}}>
         <ListItemIcon>
           <img src='../dashboardimg/Chaplain.png' height='25px' width='auto'/>
         </ListItemIcon>
@@ -81,7 +81,7 @@ export const MainListItems = () => {
     {
       name: 'dependent',
       buttonComponent:       (
-      <ListItemButton>
+      <ListItemButton onClick={()=>{alert('this feature is not implemented yet')}}>
         <ListItemIcon>
           <LayersIcon />
         </ListItemIcon>
@@ -92,7 +92,7 @@ export const MainListItems = () => {
     {
       name: 'pcm',
       buttonComponent:       (
-      <ListItemButton>
+      <ListItemButton onClick={()=>{alert('this feature is not implemented yet')}}>
         <ListItemIcon>
           <LayersIcon />
         </ListItemIcon>
@@ -103,7 +103,7 @@ export const MainListItems = () => {
     {
       name: 'sarc',
       buttonComponent:       (
-      <ListItemButton>
+      <ListItemButton onClick={()=>{alert('this feature is not implemented yet')}}>
         <ListItemIcon>
           <LayersIcon />
         </ListItemIcon>
