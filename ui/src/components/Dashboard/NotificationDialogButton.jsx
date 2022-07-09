@@ -7,7 +7,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import config from '../../config';
 import { AppContext } from '../../AppContext';
-import { IconButton, Badge } from '@mui/material';
+import { IconButton, Badge, Card } from '@mui/material';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 
 const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
@@ -37,51 +37,79 @@ export default function NotificationDialogButton() {
 
     })
   },[])
-  return (
-    <>
-      <IconButton color="inherit" onClick={() => {handleClickOpen()}}>
-        <Badge badgeContent={numNotifications} color="secondary">
-          <NotificationsIcon />
-        </Badge>
-      </IconButton>
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>MHP Notifications</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            below are the message you&apos;ve received
-          </DialogContentText>
-          {
-            mhpmessages.map((e, i)=>{
-              return (
-              <DialogContentText key={e.id} onClick={()=>{
-                  const init = {
-                    method: 'DELETE',
-                    headers: {
-                      'Content-Type': 'application/json;charset=utf-8'
-                    }
-                  }
-                  fetch(ApiUrl + `/mhpmessages/${e.id}`, init)
-                  .then(res=>res.json())
-                  .then(data => {
-                    console.log(data);
-                    console.log('mhp messages fetched ', data)
-                    let front = mhpmessages.slice(0, i);
-                    let end = mhpmessages.slice(i + 1, mhpmessages.length);
-                    setMhpmessages(front.concat(end));
-                    setNumNotifications(numNotifications-1)
-                  })
-                }}>
-                {e.comment}
-                <br></br>
-              </DialogContentText>
-              )
-            })
-          }
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Close</Button>
-        </DialogActions>
-      </Dialog>
-    </>
-  );
+
+  if(mhpmessages.length <= 0)
+  {
+    return (
+      <>
+        <IconButton color="inherit" onClick={() => {handleClickOpen()}}>
+          <Badge badgeContent={numNotifications} color="secondary">
+            <NotificationsIcon />
+          </Badge>
+        </IconButton>
+        <Dialog open={open} onClose={handleClose}>
+          <DialogTitle>MHP Notifications</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              No Received Messages
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose}>Close</Button>
+          </DialogActions>
+        </Dialog>
+      </>
+    );
+  }else {
+    return (
+      <>
+        <IconButton color="inherit" onClick={() => {handleClickOpen()}}>
+          <Badge badgeContent={numNotifications} color="secondary">
+            <NotificationsIcon />
+          </Badge>
+        </IconButton>
+        <Dialog open={open} onClose={handleClose}>
+          <DialogTitle>MHP Notifications</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              below are the message you&apos;ve received
+            </DialogContentText>
+            {
+              mhpmessages.map((e, i)=>{
+                return (
+                <Card key={e.id} sx={{marginBottom: '2%', backgroundColor: '#25383C'}}>
+                  <DialogContentText sx={{color: 'white'}}  onClick={()=>{
+                      const init = {
+                        method: 'DELETE',
+                        headers: {
+                          'Content-Type': 'application/json;charset=utf-8'
+                        }
+                      }
+                      fetch(ApiUrl + `/mhpmessages/${e.id}`, init)
+                      .then(res=>res.json())
+                      .then(data => {
+                        console.log(data);
+                        console.log('mhp messages fetched ', data)
+                        let front = mhpmessages.slice(0, i);
+                        let end = mhpmessages.slice(i + 1, mhpmessages.length);
+                        setMhpmessages(front.concat(end));
+                        setNumNotifications(numNotifications-1)
+                      })
+                    }}>
+                    {e.comment}
+                    <br></br>
+                  </DialogContentText>
+                </Card>
+                )
+              })
+            }
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose}>Close</Button>
+          </DialogActions>
+        </Dialog>
+      </>
+    );
+  }
+
 }
