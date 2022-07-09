@@ -22,6 +22,7 @@ ReactDOM.render(
       <BrowserRouter>
         <Routes>
           <Route path='/' element={< App/>} />
+          <Route path='/receivedmessages' element={< App/>} />
           <Route path='/error' element={<ErrorPage />}/>
           <Route path='/login' element={<LoginPage />} />
           <Route path='/signup' element={<SignUpPage />} />

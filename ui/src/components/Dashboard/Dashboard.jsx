@@ -11,6 +11,7 @@ import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
+import LogoutIcon from '@mui/icons-material/Logout';
 import Badge from '@mui/material/Badge';
 import Container from '@mui/material/Container';
 // import Grid from '@mui/material/Grid';
@@ -25,6 +26,8 @@ import { useContext } from 'react';
 import propTypes from 'prop-types';
 import { AppContext } from '../../AppContext';
 import { useNavigate } from 'react-router-dom';
+import config from '../../config';
+const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
 
 function Copyright(props) {
   return (
@@ -90,6 +93,7 @@ const mdTheme = createTheme();
 
 const DashboardContent = ({DisplayItem, DisplayTitle}) => {
   const [open, setOpen] = React.useState(true);
+  const [numNotifications, setNumNotifications] = React.useState(0);
   const toggleDrawer = () => {
     setOpen(!open);
   };
@@ -97,6 +101,25 @@ const DashboardContent = ({DisplayItem, DisplayTitle}) => {
   console.log('Values From AppContext:', values);
   const nav = useNavigate();
   if (!values.currentUser.role.isUser) nav('/error');
+
+  React.useEffect(()=>{
+    fetch(ApiUrl+`/mhpmessages/members/${values.currentUser.id}`)
+    .then(res=>res.json())
+    .then(data => {
+      let temp = data.filter((e) => {
+        return e.members_id_to === values.currentUser.id;
+      })
+      console.log('mhp messages fetched ', data)
+      console.log('mhp messages filtered ', temp)
+
+      setNumNotifications(temp.length)
+
+    })
+  },[])
+
+
+
+
 
   return (
     <ThemeProvider theme={mdTheme}>
@@ -140,7 +163,12 @@ const DashboardContent = ({DisplayItem, DisplayTitle}) => {
               {`Signed In As: ${values.currentUser.username}`}
             </Typography>
             <IconButton color="inherit" onClick={() => {nav('/login')}}>
-              <Badge badgeContent={4} color="secondary">
+              <Badge color="secondary">
+                <LogoutIcon />
+              </Badge>
+            </IconButton>
+            <IconButton color="inherit" onClick={() => {nav('/receivedmessages')}}>
+              <Badge badgeContent={numNotifications} color="secondary">
                 <NotificationsIcon />
               </Badge>
             </IconButton>
