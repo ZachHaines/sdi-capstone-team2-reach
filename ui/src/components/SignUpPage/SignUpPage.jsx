@@ -24,6 +24,7 @@ const SignUpPage = () => {
         email_secondary: document.getElementById('email-secondary').value,
         username: document.getElementById('username').value,  // future auto generate username from first and last name
         password: hash,
+        roles_id: 1,
       }
 
       let init = {
