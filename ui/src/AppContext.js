@@ -22,7 +22,18 @@ const AppProvider = ({ children }) => {
     username: 'something.something',
     id: 0,
     roles_id: 0,
-    role: {}
+    role: {
+      id: 0,
+      isAdmin: false,
+      isChaplain: false,
+      isDependent: false,
+      isMHP: false,
+      isPCM: false,
+      isSARC: false,
+      isUser: false,
+      name: "none",
+
+    }
   });
 
   useEffect(()=>{

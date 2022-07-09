@@ -10,6 +10,7 @@ import { useContext } from 'react';
 import { AppContext } from '../../AppContext';
 // import { useNavigate } from 'react-router-dom';
 import config from '../../config';
+import { useNavigate } from 'react-router-dom';
 const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
 
 const defaultIconStyle = {
@@ -32,6 +33,11 @@ const SelfReflectionPage = () => {
 
   const {values} = useContext(AppContext);
   
+  const nav = useNavigate();
+  if (!values.currentUser.role.isUser) nav('/error');
+
+
+
   const submitSurveyHandler = () => {
 
     const newSurvey = {

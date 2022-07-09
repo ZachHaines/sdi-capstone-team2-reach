@@ -5,6 +5,7 @@ import './MHP.css'
 import config from '../../config';
 import { useContext, useEffect } from 'react';
 import { AppContext } from '../../AppContext';
+import { useNavigate } from 'react-router-dom';
 const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
 
 const MHPPage = () => {
@@ -17,10 +18,18 @@ const MHPPage = () => {
   let [rows, setRows] = useState([]); 
   let [surveyMessages, setSurveyMessages] = useState([]);
   let [mhpMessages, setMhpMessages] = useState([]); 
- 
+  const {values, setters} = useContext(AppContext);
+
+
+  const nav = useNavigate();
+
+  if(!values.currentUser.role.isMHP) nav('/error');
+  if (!values.currentUser.role.isUser) nav('/error');
+
+
+
   console.log(mhpMessages, setMhpMessages);
 
-  const {values, setters} = useContext(AppContext);
   console.log(userTo, setUserTo);
   console.log(surveyMessages, setSurveyMessages);
   console.log(values, setters);

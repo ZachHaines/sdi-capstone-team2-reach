@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import config from '../../config';
 import { useContext } from 'react';
 import { AppContext } from '../../AppContext';
+import { useNavigate } from 'react-router-dom';
 const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
 
 const AdminPage = () => {
@@ -13,6 +14,14 @@ const AdminPage = () => {
   const [members, setMembers] = useState([]);
   const [units, setUnits] = useState([]);
   const {values, setters} = useContext(AppContext);
+  const nav = useNavigate();
+
+  // check if page is not yours
+  if (!values.currentUser.role.isAdmin) nav('/error');
+  if (!values.currentUser.role.isUser) nav('/error');
+
+
+
   console.log(values)
   console.log(setters);
   const submit = () => {

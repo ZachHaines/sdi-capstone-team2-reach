@@ -14,6 +14,7 @@ import ProfilePage from './components/ProfilePage/ProfilePage';
 import MemberList from './components/ReachOutPage/MemberList';
 import MHPPage from './components/MHPPage/MHPPage';
 import { AppProvider } from './AppContext';
+import ErrorPage from './components/ErrorPage/ErrorPage';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -21,6 +22,7 @@ ReactDOM.render(
       <BrowserRouter>
         <Routes>
           <Route path='/' element={< App/>} />
+          <Route path='/error' element={<ErrorPage />}/>
           <Route path='/login' element={<LoginPage />} />
           <Route path='/signup' element={<SignUpPage />} />
           <Route path='/self-reflection' element={<DashboardContent DisplayItem={SelfReflectionPage} DisplayTitle='Self Reflection'/>} />

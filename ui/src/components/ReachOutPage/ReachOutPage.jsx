@@ -9,7 +9,7 @@ import { TextField,  Paper, Button, Slider, Grid, Typography, Stack } from '@mui
 
 // import { useNavigate } from 'react-router-dom';
 import propTypes from 'prop-types';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { AppContext } from '../../AppContext';
 import { useContext } from 'react';
 import config from '../../config';
@@ -37,6 +37,10 @@ const ReachOutPage = ({memberID}) => {
   const [HealthSliderValue, setHealthSliderValue] = React.useState(3)
   const {values} = useContext(AppContext)
 
+
+  const nav = useNavigate();
+  if (!values.currentUser.role.isUser) nav('/error');
+  
   const submitSurveyHandler = () => {
 
     const newSurvey = {

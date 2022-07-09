@@ -6,6 +6,8 @@ const ResourcePage = () => {
   let background = {backgroundColor: bgcolor}
   let underline = {textDecoration: 'underline'}
 
+  
+
   return (
     <>
       <Paper elevation={3} sx={{width: '70%', marginLeft: '15%', marginRight: '15%', paddingBottom: '2vw', marginBottom: '5vw', borderRadius: '6px'}}>

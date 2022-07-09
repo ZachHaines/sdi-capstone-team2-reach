@@ -96,7 +96,8 @@ const DashboardContent = ({DisplayItem, DisplayTitle}) => {
   const {values} = useContext(AppContext)
   console.log('Values From AppContext:', values);
   const nav = useNavigate();
-  
+  if (!values.currentUser.role.isUser) nav('/error');
+
   return (
     <ThemeProvider theme={mdTheme}>
       <Box sx={{ display: 'flex' }}>
