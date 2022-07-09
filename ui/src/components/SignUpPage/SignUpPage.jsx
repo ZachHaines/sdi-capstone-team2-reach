@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextField, Stack, Paper, Button } from '@mui/material';
+import { TextField, Stack, Paper, Button, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import config from '../../config';
 import bcrypt from 'bcryptjs';
@@ -47,10 +47,9 @@ const SignUpPage = () => {
 
   return (
     <>
-      <h1>Sign Up Page</h1>
-      <Paper className='signup-sheet' elevation={3} sx={{width: '60vw', marginLeft: '20vw', marginRight:'20vw'}}>
+      <Paper className='signup-sheet' elevation={10} sx={{width: '60vw', marginLeft: '20vw', marginRight:'20vw', marginTop: '2.5vw'}}>
         <Stack spacing={2} direction='column' sx={{width: '50vw', marginLeft: '5vw', marginRight: '5vw', paddingBottom: '2vw', marginBottom: '5vw'}}>
-          <h1>Sign-Up</h1>
+          <Typography variant='h2' align='center'>Sign-Up</Typography>
           <TextField id='firstname' label='First Name'></TextField>
           <TextField id='lastname' label='Last Name'></TextField>
           <TextField id='email-primary' label='Goverment Email'></TextField>
@@ -61,7 +60,7 @@ const SignUpPage = () => {
           <Button onClick={signupButtonClickHandler}>Create</Button>
         </Stack>
       </Paper>
-      <Paper sx={{width: '60vw', marginLeft: '20vw', marginRight:'20vw'}} elevation={2} >
+      <Paper sx={{width: '60vw', marginLeft: '20vw', marginRight:'20vw'}} elevation={5} >
         <Stack spacing={2} direction='column' sx={{width: '50vw', marginLeft: '5vw', marginRight: '5vw', paddingBottom: '2vw'}}>
           <p>
             If you already have an Account, please login

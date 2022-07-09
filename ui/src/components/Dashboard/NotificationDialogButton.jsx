@@ -71,9 +71,6 @@ export default function NotificationDialogButton() {
         <Dialog open={open} onClose={handleClose}>
           <DialogTitle>MHP Notifications</DialogTitle>
           <DialogContent>
-            <DialogContentText>
-              below are the message you&apos;ve received
-            </DialogContentText>
             {
               mhpmessages.map((e, i)=>{
                 return (

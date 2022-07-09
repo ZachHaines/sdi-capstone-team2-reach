@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import { TextField, Stack, Paper, Button } from '@mui/material';
+import { TextField, Stack, Paper, Button, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import config from '../../config';
 import bcrypt from 'bcryptjs';
@@ -82,16 +82,15 @@ const LoginPage = () => {
 */
   return (
     <>
-      <h1>Login Page</h1>
-      <Paper className='login-sheet' elevation={3} sx={{width: '60vw', marginLeft: '20vw', marginRight:'20vw'}}>
+      <Paper className='login-sheet' elevation={10} sx={{width: '60vw', marginLeft: '20vw', marginRight:'20vw', marginTop: '2.5vw'}}>
         <Stack spacing={2} direction='column' sx={{width: '50vw', marginLeft: '5vw', marginRight: '5vw', paddingBottom: '2vw', marginBottom: '5vw'}}>
-          <h1>Login</h1>
+        <Typography variant='h2' align='center'>Login</Typography>
           <TextField id='username' label='Username'></TextField>
           <TextField id='password-textfield' label='Password' type='password'></TextField>
           <Button onClick={loginButtonClickHandler}>Login</Button>
         </Stack>
       </Paper>
-      <Paper sx={{width: '60vw', marginLeft: '20vw', marginRight:'20vw'}} elevation={2} >
+      <Paper sx={{width: '60vw', marginLeft: '20vw', marginRight:'20vw'}} elevation={5} >
         <Stack spacing={2} direction='column' sx={{width: '50vw', marginLeft: '5vw', marginRight: '5vw', paddingBottom: '2vw'}}>
           <p>
             If you do not have an account, please create an account
