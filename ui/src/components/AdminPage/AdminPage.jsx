@@ -13,6 +13,8 @@ const AdminPage = () => {
   const [facilities, setFacilities] = useState([]);
   const [members, setMembers] = useState([]);
   const [units, setUnits] = useState([]);
+  const [rows, setRows] = useState([]);
+
   const {values, setters} = useContext(AppContext);
   const nav = useNavigate();
 
@@ -34,6 +36,7 @@ const AdminPage = () => {
     .then(res=>res.json())
     .then(data=>{
      setMembers(data);
+     setRows(data)
     })
     let f = fetch(ApiUrl+'/facilities')
     .then(res=>res.json())
@@ -52,31 +55,42 @@ const AdminPage = () => {
     })
   },[])
 
-  const columns = [
-    { field: 'id', headerName: 'ID', width: 50 },
-    { field: 'unit', headerName: 'Unit', width: 130 },
-    { field: 'command', headerName: 'Command', width: 180 },
-    { field: 'provider', headerName: 'Provider', width: 100 },
-    { field: 'mtf', headerName: 'MTF', width: 100 },
-  ]
+  const rowEditStopHandler = (event) => {
+    console.log('row stop event', event)
+    console.log(rows)
+    let temp = event.row
+    console.log('temp before changing row', temp)
+    temp[event.field] = event.value
+    console.log('temp after changing row', temp)
+    const newSurvey = {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8'
+      },
+      body: JSON.stringify(temp)
+    }
+    fetch(ApiUrl + `/members/${event.row.id}`, newSurvey)
+    .then(res => res.json())
+    .then(data=>{
+      console.log(data);
+    })
 
-  const rows = [
-    { id: 1, unit: 'x', command: 'Space Systems Command', provider: 'Snow', mtf: 'Jon'},
-    { id: 2, token: '1', date: 'Today', provider: 'Lannister', mtf: 'Cersei', command: 'Space Systems Command', unit: 'x', status: 'Good to go' },
-    { id: 3, token: '1', date: 'Today', provider: 'Lannister', mtf: 'Jaime', command: 'Space Systems Command', unit: 'x', status: 'Good to go' },
-    { id: 4, token: '1', date: '07/06/2022', provider: 'Stark', mtf: 'Arya', command: 'Space Systems Command', unit: 'x', status: 'Good to go' },
-    { id: 5, token: '1', date: '07/06/2022', provider: 'Snow', mtf: 'Jon', command: 'Space Systems Command', unit: 'x', status: 'Good to go' },
-    { id: 6, token: '1', date: '07/06/2022', provider: 'Lannister', mtf: 'Cersei', command: 'Space Systems Command', unit: 'x', status: 'Good to go' },
-    { id: 7, token: '1', date: '07/06/2022', provider: 'Lannister', mtf: 'Jaime', command: 'Space Systems Command', unit: 'x', status: 'Good to go' },
-    { id: 8, token: '1', date: '07/05/2022', provider: 'Stark', mtf: 'Arya', command: 'Space Systems Command', unit: 'x', status: 'Good to go' },
-    { id: 9, token: '1', date: '07/05/2022', provider: 'Snow', mtf: 'Jon', command: 'Space Systems Command', unit: 'x', status: 'Good to go' },
-    { id: 10, token: '1', date: '07/05/2022', provider: 'Lannister', mtf: 'Cersei', command: 'Space Systems Command', unit: 'x', status: 'Good to go' },
-    { id: 11, token: '1', date: '07/05/2022', provider: 'Lannister', mtf: 'Jaime', command: 'Space Systems Command', unit: 'x', status: 'Good to go' },
-    { id: 12, token: '1', date: '07/05/2022', provider: 'Stark', mtf: 'Arya', command: 'Space Systems Command', unit: 'x', status: 'Good to go' },
-    { id: 13, token: '1', date: '07/05/2022', provider: 'Snow', mtf: 'Jon', command: 'Space Systems Command', unit: 'x', status: 'Good to go' },
-    { id: 14, token: '1', date: '07/04/2022', provider: 'Lannister', mtf: 'Cersei', command: 'Space Systems Command', unit: 'x', status: 'Good to go' },
-    { id: 15, token: '1', date: '07/04/2022', provider: 'Lannister', mtf: 'Jaime', command: 'Space Systems Command', unit: 'x', status: 'Good to go' },
-    { id: 16, token: '1', date: '07/04/2022', provider: 'Stark', mtf: 'Arya', command: 'Space Systems Command', unit: 'x', status: 'Good to go' },
+
+  }
+
+  const columns = [
+    { field: 'id', headerName: 'ID', width: 50, editable: false },
+    { field: 'first_name', headerName: 'First Name', width: 120, editable: true },
+    { field: 'last_name', headerName: 'Last Name', width: 120, editable: true  },
+    { field: 'units_id', headerName: 'Unit ID', width: 75, editable: false  },
+    { field: 'grades_id', headerName: 'Grade ID', width: 75, editable: false  },
+    { field: 'religion', headerName: 'Religious Preference', width: 150, editable: true  },
+    { field: 'phone_number', headerName: 'Phone #', width: 120, editable: true  },
+    { field: 'email_primary', headerName: 'Primary Email', width: 150, editable: true  },
+    { field: 'email_secondary', headerName: 'Secondary Email', width: 150, editable: true  },
+    { field: 'roles_id', headerName: 'Permission ID', width: 150, editable: true  },
+
+
   ]
   console.log('facilities ',facilities)
   console.log('units ',units)
@@ -135,15 +149,15 @@ const AdminPage = () => {
         </Grid>
       </Paper>
       <Paper sx={{ padding: '1%'}} columns={2}>
-        <h2>Saved Organizations</h2>
+        <h2>Saved Users</h2>
         {isEditing ? 
         <>
-          <DataGrid sx={{height: '70vh', width: '98%', marginLeft: '1%', marginRight: '1%' }} rows={rows} columns={columns} pageSize={15} rowsPerPageOptions={[15, 30]} checkboxSelection/>
+          <DataGrid sx={{height: '70vh', width: '98%', marginLeft: '1%', marginRight: '1%' }} rows={rows} columns={columns} pageSize={15} rowsPerPageOptions={[15, 30]} checkboxSelection onCellEditCommit={rowEditStopHandler}/>
           <Button onClick={() => submit()}>Submit</Button><Button onClick={() => setIsEditing(!isEditing)}>Cancel</Button>
         </>
         :
         <>
-          <DataGrid sx={{height: '70vh', width: '98%', marginLeft: '1%', marginRight: '1%' }} rows={rows} columns={columns} pageSize={15} rowsPerPageOptions={[15, 30]} checkboxSelection/>
+          <DataGrid sx={{height: '70vh', width: '98%', marginLeft: '1%', marginRight: '1%' }} rows={rows} columns={columns} pageSize={15} rowsPerPageOptions={[15, 30]} checkboxSelection onCellEditCommit={rowEditStopHandler}/>
           <Button onClick={() => setIsEditing(!isEditing)}>Edit</Button>
         </>
         }
