@@ -60,7 +60,10 @@ const AdminPage = () => {
     console.log(rows)
     let temp = event.row
     console.log('temp before changing row', temp)
+    if(event.field === undefined) return;
+    if (temp[event.field] === undefined) return;
     temp[event.field] = event.value
+
     console.log('temp after changing row', temp)
     const newSurvey = {
       method: 'PATCH',
@@ -74,12 +77,14 @@ const AdminPage = () => {
     .then(data=>{
       console.log(data);
     })
+    .catch(err => console.log(err));
 
 
   }
 
   const columns = [
     { field: 'id', headerName: 'ID', width: 50, editable: false },
+    { field: 'username', headerName: 'Username', width: 120, editable: true },
     { field: 'first_name', headerName: 'First Name', width: 120, editable: true },
     { field: 'last_name', headerName: 'Last Name', width: 120, editable: true  },
     { field: 'units_id', headerName: 'Unit ID', width: 75, editable: false  },
