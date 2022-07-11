@@ -42,9 +42,9 @@ const createRandomSurveys = () => {
     res.push({
       members_id_to: member_id_to[n],
       members_id_from: Math.floor(Math.random() * 100 + 1),
-      family: Math.floor(Math.random() * 3 + 1),
+      family: Math.floor(Math.random() * 2 + 2),
       social: Math.floor(Math.random() * 3 + 1),
-      legal: Math.floor(Math.random() * 3 + 1),
+      legal: Math.floor(Math.random() * 2 + 2),
       date: randomDate(),
       work: Math.floor(Math.random() * 3 + 1),
       health: Math.floor(Math.random() * 3 + 1),
