@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
-
+const calculateCumulation = require('./calculateCumulation');
 app.use(cors());
 app.use(express.json());
 
@@ -196,6 +196,136 @@ app.get('/members/joined', (req, res) => {
     .catch(() => res.status(404).send(`Could not retrieve members`))
 })
 
+app.get('/members/mhp', (req, res) => {
+    knex('members')
+    .join('roles', 'roles.id', '=', 'members.roles_id')
+    .join('units', 'units.id', '=', 'members.units_id')
+    .join('grades', 'grades.id', '=', 'members.grades_id')
+    .join('commands', 'commands.id', '=', 'units.commands_id')    
+    .join('agencies', 'agencies.id', '=', 'commands.agencies_id')
+    .join('survey_messages', 'survey_messages.members_id_to', '=', 'members.id')
+    .join('messages_mhp', 'messages_mhp.members_id_to', '=', 'members.id')
+    .select( 
+        'members.id as id',
+        'members.last_name as last_name',
+        'members.first_name as first_name',
+        'grades.grade as grade',
+        'members.username as username',
+        'members.password as password',
+        'roles.name as roles_name',
+        'units.abbreviation as abbrev',
+        'members.religion as religion',
+        'units.name as unit',
+        'commands.name as command',
+        'agencies.name as agency',
+        'members.phone_number as phone_number',
+        'members.email_primary as email_primary',
+        'members.email_secondary as email_secondary',
+        'survey_messages.family as family',
+        'survey_messages.social as social',
+        'survey_messages.legal as legal',
+        'survey_messages.work as work',
+        'survey_messages.health as health',
+        'survey_messages.comment as survey_comment',
+        'survey_messages.date as survey_date',
+        'messages_mhp.comment as mhp_comment',
+        'messages_mhp.date as mhp_date',
+    )
+    .then(data => {
+
+        let resultArr = []
+        data.forEach((element)=>{
+            
+            let isAlreadyInTempRows = false
+            let tempRowIndex = 0;
+            resultArr.forEach((e, i)=>{ // check if survey to line is already in rows
+              if (e.id === element.id) {
+                isAlreadyInTempRows = true
+                tempRowIndex = i
+              }
+            })
+
+
+            
+            let sum = calculateCumulation(element, new Date());
+
+            
+
+            
+            // check short range date
+            // check mid range date
+            // check long range date
+            
+            
+
+
+            
+            if (isAlreadyInTempRows){
+                console.log('duplicate message', tempRowIndex)
+                resultArr[tempRowIndex].red += redsSum;
+                resultArr[tempRowIndex].green += greensSum;
+                resultArr[tempRowIndex].yellow += yellowsSum;
+      
+              }else{
+                resultArr.push({ 
+                  id: element.members_id_to,
+                  token: element.members_id_to,
+                  date: element.date,
+                  red: sum.reds,
+                  yellow: sum.yellows,
+                  green: sum.greens,
+                //   redLong: redsSum,
+                //   yellowLong: yellowsSum,
+                //   greenLong: greensSum, 
+                //   redMid: redsSum,
+                //   yellowMid: yellowsSum,
+                //   greenMid: greensSum, 
+                //   redShort: redsSum,
+                //   yellowShort: yellowsSum,
+                //   greenShort: greensSum,
+                //   lastMHPContact: '',
+                  riskShort: 0,
+                  riskMid: 0,
+                  riskLong: 0,
+                  riskSum: 0,
+                })
+              }
+
+        })
+
+
+
+
+        // { 
+        //     id: element.members_id_to,
+        //     token: element.members_id_to,
+        //     date: element.date,
+        //     red: redsSum,
+        //     yellow: yellowsSum,
+        //     green: greensSum,
+        //     redLong: redsSum,
+        //     yellowLong: yellowsSum,
+        //     greenLong: greensSum, 
+        //     redMid: redsSum,
+        //     yellowMid: yellowsSum,
+        //     greenMid: greensSum, 
+        //     redShort: redsSum,
+        //     yellowShort: yellowsSum,
+        //     greenShort: greensSum,
+        //     lastMHPContact: '',
+        //     riskShort: 0,
+        //     riskMid: 0,
+        //     riskLong: 0,
+        //     riskSum: 0,
+        //   }
+        res.status(200).json(resultArr)
+    })
+    .catch((e) => {
+        console.log(e);
+        res.status(404).send(`Could not retrieve members`)
+    })
+})
+
 
 app.get('/members/:id', (req, res) => {
     knex('members')
@@ -225,6 +355,15 @@ app.get('/surveymessages', (req, res) => {
     knex('survey_messages')
     .select('*')    
     .then(data => res.status(200).json(data))
+    .catch(() => res.status(404).send(`Could not retrieve surveys`))
+})
+
+// mhp_data
+app.get('/mhpdata', (req, res) => {
+    knex('survey_messages')
+    .join('')
+    .select('*')    
+    .then(surveyData => res.status(200).json(surveyData))
     .catch(() => res.status(404).send(`Could not retrieve surveys`))
 })
 

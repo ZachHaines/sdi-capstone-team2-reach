@@ -8,6 +8,7 @@ import { AppContext } from '../../AppContext';
 import { useNavigate } from 'react-router-dom';
 const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
 
+
 const MHPPage = () => {
 
   let bgcolor = '#' + '80A1D4'
@@ -50,68 +51,82 @@ const MHPPage = () => {
             tempRowIndex = i
           }
         })
+        // cumulate concerns
+
+        // let redsShort = 0;
+        // let yellowsShort = 0;
+        // let greensShort = 0;
+
+        // let redsMid = 0;
+        // let yellowsMid = 0;
+        // let greensMid = 0;
+
+        // let redsLong = 0;
+        // let yellowsLong = 0;
+        // let greensLong = 0;
+        
+        let redsSum = 0;
+        let yellowsSum = 0;
+        let greensSum = 0;
+
+        // check short range date
+        // check mid range date
+        // check long range date
+
+        if(element.family === 1) redsSum++;
+        else if (element.family === 2) yellowsSum++;
+        else if (element.family === 3) greensSum++;
+
+        if(element.health === 1) redsSum++;
+        else if (element.health === 2) yellowsSum++;
+        else if (element.health === 3) greensSum++;
+        
+        if(element.legal === 1) redsSum++;
+        else if (element.legal === 2) yellowsSum++;
+        else if (element.legal === 3) greensSum++;
+
+        if(element.social === 1) redsSum++;
+        else if (element.social === 2) yellowsSum++;
+        else if (element.social === 3) greensSum++;
+
+        if(element.work === 1) redsSum++;
+        else if (element.work === 2) yellowsSum++;
+        else if (element.work === 3) greensSum++;
+
+        
         if (isAlreadyInTempRows){
           console.log('duplicate message', tempRowIndex)
-          let reds = 0;
-          let yellows = 0;
-          let greens = 0;
-          if(element.family === 1) reds++;
-          else if (element.family === 2) yellows++;
-          else if (element.family === 3) greens++;
-
-          if(element.health === 1) reds++;
-          else if (element.health === 2) yellows++;
-          else if (element.health === 3) greens++;
-          
-          if(element.legal === 1) reds++;
-          else if (element.legal === 2) yellows++;
-          else if (element.legal === 3) greens++;
-
-          if(element.social === 1) reds++;
-          else if (element.social === 2) yellows++;
-          else if (element.social === 3) greens++;
-
-          if(element.work === 1) reds++;
-          else if (element.work === 2) yellows++;
-          else if (element.work === 3) greens++;
-          tempRows[tempRowIndex].red += reds;
-          tempRows[tempRowIndex].green += greens;
-          tempRows[tempRowIndex].yellow += yellows;
+          tempRows[tempRowIndex].red += redsSum;
+          tempRows[tempRowIndex].green += greensSum;
+          tempRows[tempRowIndex].yellow += yellowsSum;
 
         }else{
-          let reds = 0;
-          let yellows = 0;
-          let greens = 0;
-          if(element.family === 1) reds++;
-          else if (element.family === 2) yellows++;
-          else if (element.family === 3) greens++;
-
-          if(element.health === 1) reds++;
-          else if (element.health === 2) yellows++;
-          else if (element.health === 3) greens++;
-          
-          if(element.legal === 1) reds++;
-          else if (element.legal === 2) yellows++;
-          else if (element.legal === 3) greens++;
-
-          if(element.social === 1) reds++;
-          else if (element.social === 2) yellows++;
-          else if (element.social === 3) greens++;
-
-          if(element.work === 1) reds++;
-          else if (element.work === 2) yellows++;
-          else if (element.work === 3) greens++;
-          
           tempRows.push({ 
             id: element.members_id_to,
             token: element.members_id_to,
             date: element.date,
-            red: reds,
-            yellow: yellows,
-            green: greens, 
+            red: redsSum,
+            yellow: yellowsSum,
+            green: greensSum,
+            redLong: redsSum,
+            yellowLong: yellowsSum,
+            greenLong: greensSum, 
+            redMid: redsSum,
+            yellowMid: yellowsSum,
+            greenMid: greensSum, 
+            redShort: redsSum,
+            yellowShort: yellowsSum,
+            greenShort: greensSum,
+            lastMHPContact: '',
+            riskShort: 0,
+            riskMid: 0,
+            riskLong: 0,
+            riskSum: 0,
+
           })
         }
       })
+
       setRows(tempRows)
     })
   }, [])
@@ -188,39 +203,6 @@ const MHPPage = () => {
 
 export default MHPPage;
 
-    // await fetch(ApiUrl + `/surveymessages`)
-    // .then(res=>res.json())
-    // .then(surveyData=>{
-    //   console.log(surveyData)
-    //   setSurveyMessages(surveyData)
-    //   console.log(surveyMessages)
-      
-    //   fetch(ApiUrl + `/members`)
-    //   .then(res => res.json())
-    //   .then(membersData => {
-    //   //   { id: 3, token: '1', date: 'Today', provider: 'Lannister', mtf: 'Jaime', command: 'Space Systems Command', unit: 'x', status: 'Good to go' },
-    //     let tempRows = []
-    //     membersData.forEach(element => {
-    //       // let reds = 0;
-    //       // let yellows = 0;
-    //       // let greens = 0;
-    //       // loop through surveyMessages
-    //         // if the message is about this user (element)
+// const concernCumulator = (surveyData) => {
 
-
-    //       tempRows.push({ 
-    //         id: element.id,
-    //         token: element.username,
-    //         date: 'Today',
-    //         mtf: element.facilities_id,
-    //         command: 'Placeholder',
-    //         unit: element.units_id,
-    //         reds: 0,
-    //         yellows: 0,
-    //         greens: 0, 
-    //       })
-        
-    //       })
-    //     setRows(tempRows)
-    //   })
-    // })
+// }
