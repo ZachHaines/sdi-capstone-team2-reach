@@ -1,6 +1,3 @@
-
-
-
 import React, { useEffect, useState } from "react";
 import propTypes from 'prop-types';
 
@@ -14,7 +11,6 @@ const AppContext = React.createContext();
 const AppProvider = ({ children }) => {
 
   const [roles, setRoles] = useState([])
-
 
   const [currentUser, setCurrentUser] = useState( {
     first_name: '',
@@ -41,8 +37,6 @@ const AppProvider = ({ children }) => {
     .then(res=>res.json())
     .then(data=>{
       setRoles(data)
-      // console.log(data)
-      // console.log(roles)
       setCurrentUser({...currentUser, role: data[0]})
     })
   }, [])
