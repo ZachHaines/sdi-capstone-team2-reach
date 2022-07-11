@@ -46,6 +46,9 @@ function createRandomMembers(generated, roleId)  {
         phone_number: faker.phone.number('###-###-####'),
         email_primary: `${selectedFirstNames[i]}.${selectedLastNames[i]}@mail.mil`,
         email_secondary:`${selectedFirstNames[i]}.${selectedLastNames[i]}${domains[domainIndex]}`,
+        locations_id: Math.floor(Math.random() * (74) + 1),
+        installations_id: Math.floor(Math.random() * (100) + 1),
+        facilities_id: Math.floor(Math.random() * (100) + 1),
       }
     );
   }

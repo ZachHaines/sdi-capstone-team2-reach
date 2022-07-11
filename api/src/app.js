@@ -196,6 +196,75 @@ app.get('/members/joined', (req, res) => {
     .catch(() => res.status(404).send(`Could not retrieve members`))
 })
 
+//members join table in admin page
+app.get('/members/joinadmin', (req, res) => {
+    knex('members')
+    .join('roles', 'roles.id', '=', 'members.roles_id')
+    .join('units', 'units.id', '=', 'members.units_id')
+    .join('grades', 'grades.id', '=', 'members.grades_id')
+    .join('commands', 'commands.id', '=', 'units.commands_id')    
+    .join('agencies', 'agencies.id', '=', 'commands.agencies_id')
+    .join('facilities', 'facilities.id', '=', 'members.facilities_id')
+    .join('installations', 'installations.id', '=', 'members.installations_id')
+    .join('locations', 'locations.id', '=', 'members.locations_id')
+    .select( 
+        'members.id as id',
+        'members.last_name as last_name',
+        'members.first_name as first_name',
+        'grades.grade as grade',
+        'members.username as username',
+        'members.password as password',
+        'roles.name as roles_name',
+        'units.abbreviation as abbrev',
+        'members.religion as religion',
+        'units.name as unit',
+        'commands.name as command',
+        'agencies.name as agency',
+        'members.phone_number as phone_number',
+        'members.email_primary as email_primary',
+        'members.email_secondary as email_secondary',
+        'facilities.name as facilities_name',
+        'installations.name as installations_name',
+        'locations.name as locations_name'
+    )
+    .then(data => res.status(200).json(data))
+    .catch(() => res.status(404).send(`Could not retrieve members`))
+})
+
+app.get('/members/joinadmin/:id', (req, res) => {
+    knex('members')
+    .join('roles', 'roles.id', '=', 'members.roles_id')
+    .join('units', 'units.id', '=', 'members.units_id')
+    .join('grades', 'grades.id', '=', 'members.grades_id')
+    .join('commands', 'commands.id', '=', 'units.commands_id')    
+    .join('agencies', 'agencies.id', '=', 'commands.agencies_id')
+    .join('facilities', 'facilities.id', '=', 'members.facilities_id')
+    .join('installations', 'installations.id', '=', 'members.installations_id')
+    .join('locations', 'locations.id', '=', 'members.locations_id')
+    .select( 
+        'members.id as id',
+        'members.last_name as last_name',
+        'members.first_name as first_name',
+        'grades.grade as grade',
+        'members.username as username',
+        'members.password as password',
+        'roles.name as roles_name',
+        'units.abbreviation as abbrev',
+        'members.religion as religion',
+        'units.name as unit',
+        'commands.name as command',
+        'agencies.name as agency',
+        'members.phone_number as phone_number',
+        'members.email_primary as email_primary',
+        'members.email_secondary as email_secondary',
+        'facilities.name as facilities_name',
+        'installations.name as installations_name',
+        'locations.name as locations_name'
+    )
+    
+    .then(data => res.status(200).json(data))
+    .catch(() => res.status(404).send(`Could not retrieve members`))
+})
 
 app.get('/members/:id', (req, res) => {
     knex('members')
@@ -318,83 +387,87 @@ app.get('/facilities', (req, res) => {
 })
     
 //UPDATE-----------------------------------------------------------------------------------------------
-    
-//agencies
-app.patch('/agencies/:id', (req, res) => {
-    knex('agencies')
-    .update(req.body)
-    .where({id: req.params.id})
-    .then(data => res.status(200).json(data))
-    .catch(() => res.status(404).send(`Could not update agency ${req.params.id}`))
-})
+{   
+    //agencies
+    app.patch('/agencies/:id', (req, res) => {
+        knex('agencies')
+        .update(req.body)
+        .where({id: req.params.id})
+        .then(data => res.status(200).json(data))
+        .catch(() => res.status(404).send(`Could not update agency ${req.params.id}`))
+    })
 
-//commands
-app.patch('/commands/:id', (req, res) => {
-    knex('commands')
-    .update(req.body)
-    .where({id: req.params.id})
-    .then(data => res.status(200).json(data))
-    .catch(() => res.status(404).send(`Could not update command ${req.params.id}`))
-})
+    //commands
+    app.patch('/commands/:id', (req, res) => {
+        knex('commands')
+        .update(req.body)
+        .where({id: req.params.id})
+        .then(data => res.status(200).json(data))
+        .catch(() => res.status(404).send(`Could not update command ${req.params.id}`))
+    })
 
-//units
-app.patch('/units/:id', (req, res) => {
-    knex('units')
-    .update(req.body)
-    .where({id: req.params.id})
-    .then(data => res.status(200).json(data))
-    .catch(() => res.status(404).send(`Could not update unit ${req.params.id}`))
-})
+    //units
+    app.patch('/units/:id', (req, res) => {
+        knex('units')
+        .update(req.body)
+        .where({id: req.params.id})
+        .then(data => res.status(200).json(data))
+        .catch(() => res.status(404).send(`Could not update unit ${req.params.id}`))
+    })
 
-//locations
-app.patch('/locations/:id', (req, res) => {
-    knex('locations')
-    .update(req.body)
-    .where({id: req.params.id})
-    .then(data => res.status(200).json(data))
-    .catch(() => res.status(404).send(`Could not update location ${req.params.id}`))
-})
+    //locations
+    app.patch('/locations/:id', (req, res) => {
+        knex('locations')
+        .update(req.body)
+        .where({id: req.params.id})
+        .then(data => res.status(200).json(data))
+        .catch(() => res.status(404).send(`Could not update location ${req.params.id}`))
+    })
 
-//facilities
-app.patch('/facilities/:id', (req, res) => {
-    knex('facilities')
-    .update(req.body)
-    .where({id: req.params.id})
-    .then(data => res.status(200).json(data))
-    .catch(() => res.status(404).send(`Could not update facility ${req.params.id}`))
-})
+    //facilities
+    app.patch('/facilities/:id', (req, res) => {
+        knex('facilities')
+        .update(req.body)
+        .where({id: req.params.id})
+        .then(data => res.status(200).json(data))
+        .catch(() => res.status(404).send(`Could not update facility ${req.params.id}`))
+    })
 
-//installations
-app.patch('/installations/:id', (req, res) => {
-    knex('installations')
-    .update(req.body)
-    .where({id: req.params.id})
-    .then(data => res.status(200).json(data))
-    .catch(() => res.status(404).send(`Could not update installation ${req.params.id}`))
-})
+    //installations
+    app.patch('/installations/:id', (req, res) => {
+        knex('installations')
+        .update(req.body)
+        .where({id: req.params.id})
+        .then(data => res.status(200).json(data))
+        .catch(() => res.status(404).send(`Could not update installation ${req.params.id}`))
+    })
 
-//passwords
-app.patch('/passwords/:id', (req, res) => {
-    knex('passwords')
-    .update(req.body)
-    .where({id: req.params.id})
-    .then(data => res.status(200).json(data))
-    .catch(() => res.status(404).send(`Could not update password ${req.params.id}`))
-})
+    //passwords
+    app.patch('/passwords/:id', (req, res) => {
+        knex('passwords')
+        .update(req.body)
+        .where({id: req.params.id})
+        .then(data => res.status(200).json(data))
+        .catch(() => res.status(404).send(`Could not update password ${req.params.id}`))
+    })
 
-//members
-app.patch('/members/:id', (req, res) => {
-    knex('members')
-    .update(req.body)
-    .where({id: req.params.id})
-    // .then(()=> knex('members')
-    //     .select('*').
-    //     where({id: req.params.id})
-    // ) 
-    .then(data => res.status(200).json(data))
-    .catch(() => res.status(404).send(`Could not update member ${req.params.id}`))        
-})
-
+    //members
+    app.patch('/members/:id', (req, res) => {
+        var numberRegex = /^\d+$/;
+        let {unit, grade, phone_number} = req.body
+        if(numberRegex.test(phone_number)){    
+            knex('members')
+            .update(req.body)
+            .where({id: req.params.id})
+            // .then(()=> knex('members')
+            //     .select('*').
+            //     where({id: req.params.id})
+            // ) 
+            .then(data => res.status(200).json(data))
+            .catch(() => res.status(404).send(`Could not update member ${req.params.id}`))   
+        }     
+    })
+}
 //DELETE-----------------------------------------------------------------------------------------------
 
 //agencies

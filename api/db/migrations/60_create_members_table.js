@@ -21,6 +21,12 @@
     table.string('phone_number', 50);
     table.string('email_primary', 50);
     table.string('email_secondary', 50);
+    table.integer('locations_id');
+    table.foreign('locations_id').references('locations.id');
+    table.integer('installations_id');
+    table.foreign('installations_id').references('installations.id');
+    table.integer('facilities_id');
+    table.foreign('facilities_id').references('facilities.id');
   });
 };
 
