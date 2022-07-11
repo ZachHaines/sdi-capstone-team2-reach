@@ -36,98 +36,11 @@ const MHPPage = () => {
   console.log(values, setters);
   
   useEffect( async ()=>{
-    fetch(ApiUrl + `/surveyMessages`)
+    fetch(ApiUrl + `/members/mhp`)
     .then(res=>res.json())
     .then(surveyData=>{
-      let tempRows = []
-      console.log(tempRows)
-      console.log('survey Data: ', surveyData)
-      surveyData.forEach((element)=>{
-        let isAlreadyInTempRows = false
-        let tempRowIndex = 0;
-        tempRows.forEach((e, i)=>{ // check if survey to line is already in rows
-          if (e.id === element.members_id_to) {
-            isAlreadyInTempRows = true
-            tempRowIndex = i
-          }
-        })
-        // cumulate concerns
-
-        // let redsShort = 0;
-        // let yellowsShort = 0;
-        // let greensShort = 0;
-
-        // let redsMid = 0;
-        // let yellowsMid = 0;
-        // let greensMid = 0;
-
-        // let redsLong = 0;
-        // let yellowsLong = 0;
-        // let greensLong = 0;
-        
-        let redsSum = 0;
-        let yellowsSum = 0;
-        let greensSum = 0;
-
-        // check short range date
-        // check mid range date
-        // check long range date
-
-        if(element.family === 1) redsSum++;
-        else if (element.family === 2) yellowsSum++;
-        else if (element.family === 3) greensSum++;
-
-        if(element.health === 1) redsSum++;
-        else if (element.health === 2) yellowsSum++;
-        else if (element.health === 3) greensSum++;
-        
-        if(element.legal === 1) redsSum++;
-        else if (element.legal === 2) yellowsSum++;
-        else if (element.legal === 3) greensSum++;
-
-        if(element.social === 1) redsSum++;
-        else if (element.social === 2) yellowsSum++;
-        else if (element.social === 3) greensSum++;
-
-        if(element.work === 1) redsSum++;
-        else if (element.work === 2) yellowsSum++;
-        else if (element.work === 3) greensSum++;
-
-        
-        if (isAlreadyInTempRows){
-          console.log('duplicate message', tempRowIndex)
-          tempRows[tempRowIndex].red += redsSum;
-          tempRows[tempRowIndex].green += greensSum;
-          tempRows[tempRowIndex].yellow += yellowsSum;
-
-        }else{
-          tempRows.push({ 
-            id: element.members_id_to,
-            token: element.members_id_to,
-            date: element.date,
-            red: redsSum,
-            yellow: yellowsSum,
-            green: greensSum,
-            redLong: redsSum,
-            yellowLong: yellowsSum,
-            greenLong: greensSum, 
-            redMid: redsSum,
-            yellowMid: yellowsSum,
-            greenMid: greensSum, 
-            redShort: redsSum,
-            yellowShort: yellowsSum,
-            greenShort: greensSum,
-            lastMHPContact: '',
-            riskShort: 0,
-            riskMid: 0,
-            riskLong: 0,
-            riskSum: 0,
-
-          })
-        }
-      })
-
-      setRows(tempRows)
+      console.log(surveyData)
+      setRows(surveyData)
     })
   }, [])
 
@@ -159,12 +72,16 @@ const MHPPage = () => {
   }
 
   const columns = [
-    { field: 'id', headerName: 'ID', width: 50 },
-    { field: 'token', headerName: 'Token', width: 150 },
+    { field: 'id', headerName: 'ID', width: 75 },
+    { field: 'token', headerName: 'Token', width: 75 },
     { field: 'date', headerName: 'Last Reach Date', width: 200 },
-    { field: 'red', headerName: 'High Concern', width: 150 },
-    { field: 'yellow', headerName: 'Mild Concern', width: 150 },
-    { field: 'green', headerName: 'No Concern', width: 150 },
+    { field: 'riskShort', headerName: 'Short Term Risk', width: 125 },
+    { field: 'riskMid', headerName: 'Mid Term Risk', width: 125 },
+    { field: 'riskLong', headerName: 'Long Term Risk', width: 125 },
+    { field: 'riskSum', headerName: 'All Term Risk', width: 125 },
+    { field: 'red', headerName: 'High Concern', width: 125 },
+    { field: 'yellow', headerName: 'Mild Concern', width: 125 },
+    { field: 'green', headerName: 'No Concern', width: 125 },
   ]
   
   const rowClickHandler = (event) => {

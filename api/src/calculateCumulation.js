@@ -1,16 +1,23 @@
 
 
 
-const calculateCumulation = (element, date) => {
-  
-  console.log(date)
+const calculateCumulation = (element, months) => {
+  const surveyDate = new Date(element.survey_date)
+  console.log(element.survey_date);
+
+  const compareDate = new Date();
+  compareDate.setMonth(compareDate.getMonth() - months) 
+
+  console.log('compare date', compareDate)
   
   // sum calculation
   let redsSum = 0;
   let yellowsSum = 0;
   let greensSum = 0;
 
-  
+  // if surveyDate is earlier than the compareDate, then return all 0's
+  if(testDate(surveyDate, compareDate))
+    return {reds: redsSum, yellows: yellowsSum, greens: greensSum};
 
   if(element.family === 1) redsSum++;
   else if (element.family === 2) yellowsSum++;
@@ -36,11 +43,23 @@ const calculateCumulation = (element, date) => {
 
 }
 
-const shortRangeDate = new Date (`2022-05-11T15:31:36.955Z`)
-console.log('Short Range Date:', shortRangeDate);
-const element = {}
 
-calculateCumulation(element, shortRangeDate)
+
+
+const testDate = (msgDate, compareDate) => {
+
+  console.log('firstDate:', msgDate)
+  console.log('secondDate:', compareDate)
+  const result = ( msgDate < compareDate);
+  console.log('Result:', result)
+  return result;
+   
+}
+const msgDate = new Date (`2022-03-12T15:31:36.955Z`)
+const compareDate = new Date();
+compareDate.setMonth(compareDate.getMonth() - 3)
+
+testDate (msgDate, compareDate);
 
 
 module.exports = calculateCumulation;

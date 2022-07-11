@@ -203,8 +203,8 @@ app.get('/members/mhp', (req, res) => {
     .join('grades', 'grades.id', '=', 'members.grades_id')
     .join('commands', 'commands.id', '=', 'units.commands_id')    
     .join('agencies', 'agencies.id', '=', 'commands.agencies_id')
+    // .join('messages_mhp', 'messages_mhp.members_id_to', '=', 'members.id')
     .join('survey_messages', 'survey_messages.members_id_to', '=', 'members.id')
-    .join('messages_mhp', 'messages_mhp.members_id_to', '=', 'members.id')
     .select( 
         'members.id as id',
         'members.last_name as last_name',
@@ -228,11 +228,11 @@ app.get('/members/mhp', (req, res) => {
         'survey_messages.health as health',
         'survey_messages.comment as survey_comment',
         'survey_messages.date as survey_date',
-        'messages_mhp.comment as mhp_comment',
-        'messages_mhp.date as mhp_date',
+        // 'messages_mhp.comment as mhp_comment',
+        // 'messages_mhp.date as mhp_date',
     )
     .then(data => {
-
+        // console.log(data)
         let resultArr = []
         data.forEach((element)=>{
             
@@ -242,82 +242,70 @@ app.get('/members/mhp', (req, res) => {
               if (e.id === element.id) {
                 isAlreadyInTempRows = true
                 tempRowIndex = i
+                
               }
             })
-
-
-            
-            let sum = calculateCumulation(element, new Date());
-
-            
+            console.log('isAlreadyInTempRows', isAlreadyInTempRows);
+            let sum = calculateCumulation(element, 1000);
+            let short = calculateCumulation(element, 3)
+            let mid = calculateCumulation(element, 6)
+            let long = calculateCumulation(element, 12)
 
             
             // check short range date
             // check mid range date
             // check long range date
-            
-            
-
-
-            
             if (isAlreadyInTempRows){
                 console.log('duplicate message', tempRowIndex)
-                resultArr[tempRowIndex].red += redsSum;
-                resultArr[tempRowIndex].green += greensSum;
-                resultArr[tempRowIndex].yellow += yellowsSum;
-      
+                // sum
+                resultArr[tempRowIndex].red += sum.reds;
+                resultArr[tempRowIndex].green += sum.greens;
+                resultArr[tempRowIndex].yellow += sum.yellows;
+                // longs
+                resultArr[tempRowIndex].redLong += long.reds;
+                resultArr[tempRowIndex].greenLong += long.greens;
+                resultArr[tempRowIndex].yellowLong += long.yellows;
+                // mids
+                resultArr[tempRowIndex].redMid += mid.reds;
+                resultArr[tempRowIndex].greenMid += mid.greens;
+                resultArr[tempRowIndex].yellowMid += mid.yellows;
+                // shorts
+                resultArr[tempRowIndex].redShort += short.reds;
+                resultArr[tempRowIndex].greenShort += short.greens;
+                resultArr[tempRowIndex].yellowShort += short.yellows;
               }else{
                 resultArr.push({ 
-                  id: element.members_id_to,
-                  token: element.members_id_to,
-                  date: element.date,
-                  red: sum.reds,
-                  yellow: sum.yellows,
-                  green: sum.greens,
-                //   redLong: redsSum,
-                //   yellowLong: yellowsSum,
-                //   greenLong: greensSum, 
-                //   redMid: redsSum,
-                //   yellowMid: yellowsSum,
-                //   greenMid: greensSum, 
-                //   redShort: redsSum,
-                //   yellowShort: yellowsSum,
-                //   greenShort: greensSum,
-                //   lastMHPContact: '',
-                  riskShort: 0,
-                  riskMid: 0,
-                  riskLong: 0,
-                  riskSum: 0,
+                    id: element.id,
+                    token: element.id,
+                    date: element.survey_date,
+                    red: sum.reds,
+                    yellow: sum.yellows,
+                    green: sum.greens,
+                    redLong: long.reds,
+                    yellowLong: long.yellows,
+                    greenLong: long.greens, 
+                    redMid: mid.reds,
+                    yellowMid: mid.yellows,
+                    greenMid: mid.greens, 
+                    redShort: short.reds,
+                    yellowShort: short.yellows,
+                    greenShort: short.greens,
+                    lastMHPContact: '',
+                    riskShort: 0,
+                    riskMid: 0,
+                    riskLong: 0,
+                    riskSum: 0,
                 })
               }
 
         })
+        resultArr.forEach(e => {
+            e.riskSum = Math.floor((e.red * 5 + e.yellow*1)/(e.red+e.yellow+e.green) * 20);
+            e.riskLong = Math.floor((e.redLong * 5 + e.yellowLong*1)/(e.redLong+e.yellowLong+e.greenLong) * 20)
+            e.riskMid = Math.floor((e.redMid * 5 + e.yellowMid*1)/(e.redMid+e.yellowMid+e.greenMid) * 20)
+            e.riskShort = Math.floor((e.redShort * 5 + e.yellowShort*1)/(e.redShort+e.yellowShort+e.greenShort) * 20)
 
-
-
-
-        // { 
-        //     id: element.members_id_to,
-        //     token: element.members_id_to,
-        //     date: element.date,
-        //     red: redsSum,
-        //     yellow: yellowsSum,
-        //     green: greensSum,
-        //     redLong: redsSum,
-        //     yellowLong: yellowsSum,
-        //     greenLong: greensSum, 
-        //     redMid: redsSum,
-        //     yellowMid: yellowsSum,
-        //     greenMid: greensSum, 
-        //     redShort: redsSum,
-        //     yellowShort: yellowsSum,
-        //     greenShort: greensSum,
-        //     lastMHPContact: '',
-        //     riskShort: 0,
-        //     riskMid: 0,
-        //     riskLong: 0,
-        //     riskSum: 0,
-        //   }
+        })
         res.status(200).json(resultArr)
     })
     .catch((e) => {
