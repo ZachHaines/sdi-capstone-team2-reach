@@ -162,12 +162,6 @@ export const SecondaryListItems = () => {
       </ListItemIcon >
       <ListItemText primary="Profile" /> 
     </ListItemButton>
-    <ListItemButton onClick={()=>{nav('/profile')}}>
-      <ListItemIcon>
-        <AccountCircleIcon />
-      </ListItemIcon >
-      <ListItemText primary={"lll1"} /> 
-    </ListItemButton>
   </React.Fragment>
   )
 };
