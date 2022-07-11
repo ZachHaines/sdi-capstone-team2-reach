@@ -167,6 +167,34 @@ app.get('/members', (req, res) => {
     .catch(() => res.status(404).send(`Could not retrieve members`))
 })
 
+//members join table
+app.get('/members/joined', (req, res) => {
+    knex('members')
+    .join('roles', 'roles.id', '=', 'members.roles_id')
+    .join('units', 'units.id', '=', 'members.units_id')
+    .join('grades', 'grades.id', '=', 'members.grades_id')
+    .join('commands', 'commands.id', '=', 'units.commands_id')    
+    .join('agencies', 'agencies.id', '=', 'commands.agencies_id')
+    .select( 
+        'members.id as id',
+        'members.last_name as last_name',
+        'members.first_name as first_name',
+        'grades.grade as grade',
+        'members.username as username',
+        'members.password as password',
+        'roles.name as roles_name',
+        'units.abbreviation as abbrev',
+        'members.religion as religion',
+        'units.name as unit',
+        'commands.name as command',
+        'agencies.name as agency',
+        'members.phone_number as phone_number',
+        'members.email_primary as email_primary',
+        'members.email_secondary as email_secondary',
+    )
+    .then(data => res.status(200).json(data))
+    .catch(() => res.status(404).send(`Could not retrieve members`))
+})
 
 
 app.get('/members/:id', (req, res) => {
