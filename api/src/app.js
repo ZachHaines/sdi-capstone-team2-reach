@@ -353,8 +353,12 @@ app.patch('/members/:id', (req, res) => {
     knex('members')
     .update(req.body)
     .where({id: req.params.id})
+    // .then(()=> knex('members')
+    //     .select('*').
+    //     where({id: req.params.id})
+    // ) 
     .then(data => res.status(200).json(data))
-    .catch(() => res.status(404).send(`Could not update member ${req.params.id}`))
+    .catch(() => res.status(404).send(`Could not update member ${req.params.id}`))        
 })
 
 //DELETE-----------------------------------------------------------------------------------------------

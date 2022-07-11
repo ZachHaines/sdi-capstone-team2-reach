@@ -41,25 +41,11 @@ const AppProvider = ({ children }) => {
     .then(res=>res.json())
     .then(data=>{
       setRoles(data)
-      console.log(data)
-      console.log(roles)
+      // console.log(data)
+      // console.log(roles)
       setCurrentUser({...currentUser, role: data[0]})
     })
   }, [])
-  /* EQUIPMENT VALUES AND TYPES
-    table.increments();
-    table.string('name', 256) // specifies type, field name, and limit (i.e. character limit)
-    table.integer('subcategory_id');    
-    table.foreign('subcategory_id').references('subcategory.id');
-    table.string('caliber', 128);
-    table.integer('max_range_meters');
-    table.boolean('armored');
-    table.string('country', 256);
-    table.string('image', 1024);
-*/
-
-
-
 
   const values = {
     currentUser,
