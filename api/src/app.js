@@ -242,7 +242,7 @@ app.get('/resources', (req, res) => {
     knex('resources')
     .select('*')    
     .then(data => res.status(200).json(data))
-    .catch(() => res.status(404).send(`Could not retrieve units`))
+    .catch(() => res.status(404).send(`Could not retrieve resources`))
 })
 
 app.get('/resources/:id', (req, res) => {
@@ -306,7 +306,13 @@ app.get('/grades', (req, res) => {
 
 app.get('/facilities', (req, res) => {
     knex('facilities')
-    .select('*')
+    .join('locations', 'locations.id', '=', 'facilities.locations_id')
+    .select(
+        'facilities.id as id',
+        'facilities.name as name',
+        'facilities.url as url',
+        'locations.name as location'
+    )
     .then(data => res.status(200).json(data))
     .catch(() => res.status(404).send(`Could not retrieve facilities`))
 })
