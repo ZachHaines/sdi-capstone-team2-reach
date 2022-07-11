@@ -2,6 +2,8 @@
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> } 
  */
+const { faker } = require('@faker-js/faker');
+
 exports.seed = async function(knex) {
   // Deletes ALL existing entries
   await knex('survey_messages').del()
@@ -25,5 +27,41 @@ exports.seed = async function(knex) {
     {members_id_to: 37, members_id_from: 53, family: 3, social: 2, legal: 1, work: 3, health: 2, comment: 'worried their legal issues is bringing them down'},
   
   ]);
+  await knex('survey_messages').insert(createRandomSurveys());
 };
 
+const createRandomSurveys = () => {
+  let res = [];
+
+  
+  for (let i = 0; i < 500; i++)
+  {
+    const member_id_to = [43, 53, 68, 52, 48, 37];
+    const n = Math.floor(Math.random() * 6);
+    
+    res.push({
+      members_id_to: member_id_to[n],
+      members_id_from: Math.floor(Math.random() * 100 + 1),
+      family: Math.floor(Math.random() * 3 + 1),
+      social: Math.floor(Math.random() * 3 + 1),
+      legal: Math.floor(Math.random() * 3 + 1),
+      date: randomDate(),
+      work: Math.floor(Math.random() * 3 + 1),
+      health: Math.floor(Math.random() * 3 + 1),
+      comment: 'health, work, and family lowering morale'}
+    )
+  }
+
+  return res;
+}
+
+
+function randomDate() {
+  let start = new Date();
+  start.setMonth(start.getMonth() - 18);
+  let end = new Date()
+
+  return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
+}
+
+randomDate()

@@ -43,9 +43,6 @@ const calculateCumulation = (element, months) => {
 
 }
 
-
-
-
 const testDate = (msgDate, compareDate) => {
 
   console.log('firstDate:', msgDate)
