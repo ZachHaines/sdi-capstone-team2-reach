@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { /*TextField, Stack,*/ Paper, Grid /*Button*/ } from '@mui/material';
 import config from '../../config';
-import ErrorPage from '../ErrorPage/ErrorPage';
 import { Link } from "react-router-dom";
 
 const ResourcePage = () => {
@@ -11,7 +10,7 @@ const ResourcePage = () => {
   const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
   const [resources, setResources] = useState([]);
   const [facilities, setFacilities] = useState([{id:0, name: 'Facility', locations_id: 0, url: ''}]);
-
+  console.log(setResources);
   console.log('FaCilIties!!!:', facilities)
 
   // fetch resources
@@ -67,7 +66,7 @@ const ResourcePage = () => {
 
           {facilities.map(facility => {
             return (
-              <Grid item xs={1}>
+              <Grid key={facility.id} item xs={1}>
               <h3 style={background}> <Link to={facility.url}>{facility.name}</Link></h3>
               <p>location: {facility.location}</p>
               <p>phone number</p>
