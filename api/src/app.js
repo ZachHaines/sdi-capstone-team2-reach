@@ -633,7 +633,7 @@ app.get('/facilities', (req, res) => {
                 .catch(() => res.status(404).send(`Could not update member ${req.params.id}`))   
             //if phone number is not a number and is defined then send back a good ol error 
             }
-        else if(numberRegex.test(phone_number.replace('-','').replace('-','').replace('-','')) ){    
+        else if(numberRegex.test(phone_number.replace('-','').replace('-','').replace('-',''))){    
             knex('members')
             .update(req.body)
             .where({id: req.params.id})
@@ -641,8 +641,7 @@ app.get('/facilities', (req, res) => {
             .catch(() => res.status(404).send(`Could not update member ${req.params.id}`))   
         //if phone number is not a number and is defined then send back a good ol error 
         }
-})
-    
+    })
 }
 //DELETE-----------------------------------------------------------------------------------------------
 
