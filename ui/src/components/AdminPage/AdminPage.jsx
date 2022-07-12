@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
-import { Paper, /*Grid, TextField, Select, Button*/ } from '@mui/material';
+import { Paper } from '@mui/material';
 import { useEffect } from 'react';
 import config from '../../config';
 import { useContext } from 'react';
@@ -10,7 +10,7 @@ const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
 
 const AdminPage = () => {
   const [rows, setRows] = useState([]);
-  const {values, /*setters*/} = useContext(AppContext);
+  const {values } = useContext(AppContext);
   const nav = useNavigate();
   const [units, setUnits] = useState([])
   const [grades, setGrades] = useState([])
@@ -62,12 +62,27 @@ const AdminPage = () => {
     })
   },[])
 
-  const rowEditStopHandler = (event) => {
-    let temp = event.row
+  const getIdFromName = (name, arr) => {
+    let res = 0;
+    console.log(arr);
+    arr.forEach((e, i)=>{
+      if(e === name) {res = i + 1}
+    });   
+    return res;
+  }
 
-    if(event.field === undefined) return;
-    if (temp[event.field] === undefined) return;
-    temp[event.field] = event.value
+  const rowEditStopHandler = (event) => {
+    let temp = {};
+    
+    if (event.field === 'installations_name') temp.installations_id = getIdFromName(event.value, installations);
+    else if (event.field === 'locations_name') temp.locations_id = getIdFromName(event.value, locations);
+    else if (event.field === 'grade') temp.grades_id = getIdFromName(event.value, grades);
+    else if (event.field === 'unit') temp.units_id = getIdFromName(event.value, units);
+    else if (event.field === 'roles_name') temp.roles_id = getIdFromName(event.value, roles);
+    else if (event.field === 'facilities_name') temp.facilities_id = getIdFromName(event.value, facilities);
+    else if (event.field === 'phone_number') {
+      temp.phone_number = event.value;
+    }
 
     const updatedMember = {
       method: 'PATCH',
@@ -76,25 +91,27 @@ const AdminPage = () => {
       },
       body: JSON.stringify(temp)
     }
-    fetch(ApiUrl + `/members/${event.row.id}`, updatedMember)
+    console.log(updatedMember);
+    
+    fetch(ApiUrl + `/members/${event.id}`, updatedMember)
     .then(res => res.json())
     .then(data=>{
       console.log(data);
     })
     .catch(err => console.log(err));
   }
-  //unit, grade, phone_number
+
   const columns = [
-    { field: 'id', headerName: 'ID', width: 50, editable: false,},
-    { field: 'username', headerName: 'Username', width: 120, editable: false },
-    { field: 'first_name', headerName: 'First Name', width: 120, editable: false },
-    { field: 'last_name', headerName: 'Last Name', width: 120, editable: false  },
+    { field: 'id', headerName: 'ID', width: 50, editable: false},
+    { field: 'username', headerName: 'Username', width: 120, editable: false},
+    { field: 'first_name', headerName: 'First Name', width: 120, editable: false},
+    { field: 'last_name', headerName: 'Last Name', width: 120, editable: false},
     { field: 'unit', headerName: 'Unit', width: 75, editable: true, type: 'singleSelect', valueOptions: units},
     { field: 'grade', headerName: 'Grade', width: 75, editable: true, type: 'singleSelect', valueOptions: grades},
-    { field: 'religion', headerName: 'Religious Preference', width: 150, editable: false },
-    { field: 'phone_number', headerName: 'Phone #', width: 120, editable: true },
-    { field: 'email_primary', headerName: 'Primary Email', width: 150, editable: false },
-    { field: 'email_secondary', headerName: 'Secondary Email', width: 150, editable: false },
+    { field: 'religion', headerName: 'Religious Preference', width: 150, editable: false},
+    { field: 'phone_number', headerName: 'Phone #', width: 120, editable: true},
+    { field: 'email_primary', headerName: 'Primary Email', width: 150, editable: false},
+    { field: 'email_secondary', headerName: 'Secondary Email', width: 150, editable: false},
     { field: 'roles_name', headerName: 'Role', width: 150, editable: true, type: 'singleSelect', valueOptions: roles},
     { field: 'locations_name', headerName: 'Location', width: 150, editable: true, type: 'singleSelect', valueOptions: locations},
     { field: 'facilities_name', headerName: 'Facility', width: 150, editable: true, type: 'singleSelect', valueOptions: facilities},
@@ -112,54 +129,3 @@ const AdminPage = () => {
 }
 
 export default AdminPage;
-
-{/* <Paper sx={{ padding: '1%', marginBottom: '1%'}}>
-<h2>Your Information</h2>
-<Grid container columns={2}>
-  <Grid item xs={1}>
-    Installation
-  </Grid>
-  <Grid item xs={1}>
-    <Select>
-
-    </Select>
-    <TextField />
-  </Grid>
-  <Grid item xs={1}>
-    Treatment Facility
-  </Grid>
-  <Grid item xs={1}>
-    <Select>
-
-    </Select>
-    <TextField />
-  </Grid>
-  <Grid item xs={1}>
-    Agency/Service
-  </Grid>
-  <Grid item xs={1}>
-    <Select>
-
-    </Select>
-    <TextField />
-  </Grid>
-  <Grid item xs={1}>
-    Command
-  </Grid>
-  <Grid item xs={1}>
-    <Select>
-
-    </Select>
-    <TextField />
-  </Grid>
-  <Grid item xs={1}>
-    Unit
-  </Grid>
-  <Grid item xs={1}>
-    <Select>
-
-    </Select>
-    <TextField />
-  </Grid>
-</Grid>
-</Paper> */}
