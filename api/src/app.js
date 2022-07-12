@@ -343,7 +343,13 @@ app.get('/members/joinadmin', (req, res) => {
         'members.email_secondary as email_secondary',
         'facilities.name as facilities_name',
         'installations.name as installations_name',
-        'locations.name as locations_name'
+        'locations.name as locations_name',
+        'units.id as units_id',
+        'grades.id as grades_id',
+        'locations.id as locations_id',
+        'facilities.id as facilities_id',
+        'installations.id as installations_id',
+        'roles.id as roles_id',
     )
     .then(data => res.status(200).json(data))
     .catch(() => res.status(404).send(`Could not retrieve members`))
@@ -379,7 +385,7 @@ app.get('/members/joinadmin/:id', (req, res) => {
         'installations.name as installations_name',
         'locations.name as locations_name'
     )
-    
+    .where({'members.id': req.params.id})
     .then(data => res.status(200).json(data))
     .catch(() => res.status(404).send(`Could not retrieve members`))
 })
@@ -578,21 +584,55 @@ app.get('/facilities', (req, res) => {
         .catch(() => res.status(404).send(`Could not update password ${req.params.id}`))
     })
 
+    app.patch('/members/joinadmin/:id', (req, res) => {
+        knex('members')
+        .join('roles', 'roles.id', '=', 'members.roles_id')
+        .join('units', 'units.id', '=', 'members.units_id')
+        .join('grades', 'grades.id', '=', 'members.grades_id')
+        .join('commands', 'commands.id', '=', 'units.commands_id')    
+        .join('agencies', 'agencies.id', '=', 'commands.agencies_id')
+        .join('facilities', 'facilities.id', '=', 'members.facilities_id')
+        .join('installations', 'installations.id', '=', 'members.installations_id')
+        .join('locations', 'locations.id', '=', 'members.locations_id')
+        .select( 
+            'members.id as id',
+            'members.last_name as last_name',
+            'members.first_name as first_name',
+            'grades.grade as grade',
+            'members.username as username',
+            'members.password as password',
+            'roles.name as roles_name',
+            'units.abbreviation as abbrev',
+            'members.religion as religion',
+            'units.name as unit',
+            'commands.name as command',
+            'agencies.name as agency',
+            'members.phone_number as phone_number',
+            'members.email_primary as email_primary',
+            'members.email_secondary as email_secondary',
+            'facilities.name as facilities_name',
+            'installations.name as installations_name',
+            'locations.name as locations_name'
+        )
+        .where({'members.id': req.params.id})
+        .update(req.body)
+        .then(data => res.status(200).json(data))
+        .catch(() => res.status(404).send(`Could not retrieve members`))
+    })
+
+        
     //members
     app.patch('/members/:id', (req, res) => {
         var numberRegex = /^\d+$/;
-        let {unit, grade, phone_number} = req.body
-        if(numberRegex.test(phone_number)){    
+        let {phone_number} = req.body
+        if(numberRegex.test(phone_number.replace('-','').replace('-','').replace('-','')) || (phone_number===undefined)){    
             knex('members')
             .update(req.body)
             .where({id: req.params.id})
-            // .then(()=> knex('members')
-            //     .select('*').
-            //     where({id: req.params.id})
-            // ) 
             .then(data => res.status(200).json(data))
             .catch(() => res.status(404).send(`Could not update member ${req.params.id}`))   
-        }     
+        }//if phone number is not a number and is defined then send back a good ol error
+        else res.status(404).send(`Could not update member because of the phone number ${req.params.id}`)  
     })
 }
 //DELETE-----------------------------------------------------------------------------------------------

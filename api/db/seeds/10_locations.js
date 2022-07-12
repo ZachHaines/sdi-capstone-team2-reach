@@ -61,7 +61,7 @@ exports.seed = async function(knex) {
     {name: 'Armed Forces Pacific', isConus: false},
     {name: 'Australia', isConus: false},
     {name: 'Bahrain', isConus: false},
-    {name: 'Bahrain', isConus: false},
+    {name: 'Bahrain_2', isConus: false},
     {name: 'British Indian Ocean Territory', isConus: false},
     {name: 'Cuba', isConus: false},
     {name: 'Germany', isConus: false},
