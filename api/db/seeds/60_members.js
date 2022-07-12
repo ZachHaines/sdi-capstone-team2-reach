@@ -9,13 +9,48 @@ const bcrypt = require('bcryptjs')
  exports.seed = async function(knex) {
   // Deletes ALL existing entries
   await knex('members').del()
+  await knex('members').insert(teamMembers);
   await knex('members').insert(randomAdmins);
   await knex('members').insert(randomMHPs);
   await knex('members').insert(randomChaplains);
   await knex('members').insert(randomMembers);
+
 };
 
 // 'generated' is the number of random records requested
+function createTeamMembers()  {
+  const selectedFirstNames = ['Ryan', 'Zach', 'Calvin', 'Anthony', 'Cybyl'];
+  const selectedLastNames = ['Guinter', 'Haines', 'Suratos', 'Fine', 'Hancock' ];
+  const entries = [];
+  // loop over names
+  for(let i = 0; i < selectedFirstNames.length; i++)
+  {
+    // loop over roles (user (1), admin (2), mhp (3))
+    for(let j = 1; j < 4; j++)
+    {
+      entries.push (
+        {
+          last_name: `${selectedLastNames[i]}`,
+          first_name: `${selectedFirstNames[i]}`,
+          grades_id: Math.floor(Math.random() * (57) + 1), // currently 57 grades in table
+          username: `${selectedFirstNames[i]}.${selectedLastNames[i]}.${j}`,
+          password: bcrypt.hashSync(`${selectedFirstNames[i]}.${selectedLastNames[i]}.${j}`, 10),
+          roles_id: j,
+          units_id: 81, // Space Systems Command
+          religion: `None`,
+          phone_number: faker.phone.number('###-###-####'),
+          email_primary: `${selectedFirstNames[i]}.${selectedLastNames[i]}@mail.mil`,
+          email_secondary:`${selectedFirstNames[i]}.${selectedLastNames[i]}@gmail.com`,
+          locations_id: 30, // New Mexico
+          installations_id: 222, // Kirtland AFB
+          facilities_id: 89, // 377th Medical Group, Kirtland AFB
+        }
+        );      
+    }
+  }
+  return entries;
+}
+
 function createRandomMembers(generated, roleId)  {
   const selectedFirstNames = [];
   const selectedLastNames = [];
@@ -55,7 +90,12 @@ function createRandomMembers(generated, roleId)  {
   return entries;
 }
 
+/* ------------------------------------------------------------ */
+
 // Call Functions 
+
+// Dev Team Members
+const teamMembers = createTeamMembers();
 
 // User
 let generated = 70;
