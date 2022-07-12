@@ -15,6 +15,7 @@ import MemberList from './components/ReachOutPage/MemberList';
 import MHPPage from './components/MHPPage/MHPPage';
 import { AppProvider } from './AppContext';
 import ErrorPage from './components/ErrorPage/ErrorPage';
+import MemberMessagesPage from './components/MemberMessagesPage/MemberMessagesPage';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -23,6 +24,7 @@ ReactDOM.render(
         <Routes>
           <Route path='/' element={< App/>} />
           <Route path='/receivedmessages' element={< App/>} />
+          <Route path='/membermessages' element={<DashboardContent DisplayItem={MemberMessagesPage} DisplayTitle='Messages'/>} />
           <Route path='/error' element={<ErrorPage />}/>
           <Route path='/login' element={<LoginPage />} />
           <Route path='/signup' element={<SignUpPage />} />

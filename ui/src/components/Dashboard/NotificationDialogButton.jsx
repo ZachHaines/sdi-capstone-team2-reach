@@ -9,7 +9,7 @@ import config from '../../config';
 import { AppContext } from '../../AppContext';
 import { IconButton, Badge, Card, CardContent } from '@mui/material';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-
+import MemberMessagesPage from '../MemberMessagesPage/MemberMessagesPage';
 const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
 
 export default function NotificationDialogButton() {
@@ -71,7 +71,7 @@ export default function NotificationDialogButton() {
         <Dialog open={open} onClose={handleClose}>
           <DialogTitle>MHP Notifications</DialogTitle>
           <DialogContent>
-            {
+            {/* {
               mhpmessages.map((e, i)=>{
                 return (
                 <Card key={e.id} sx={{marginBottom: '2%', backgroundColor: '#25383C'}}>
@@ -99,7 +99,8 @@ export default function NotificationDialogButton() {
                 </Card>
                 )
               })
-            }
+            } */}
+            <MemberMessagesPage />
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose}>Close</Button>

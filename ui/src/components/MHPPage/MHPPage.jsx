@@ -129,7 +129,6 @@ const MHPPage = () => {
           </Card>
           {mhpMessages.map((message) => {
             return (
-              // check if element id === message id
               <Card key={message.id} sx={ userTo === message.members_id_to ? messageStyle.fromMHP : messageStyle.toMember}>
                 <p>{`${message.date}`}</p>
                 <p>{`${message.comment}`}</p>

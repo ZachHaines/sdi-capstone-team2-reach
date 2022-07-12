@@ -13,6 +13,7 @@ import EmojiPeopleIcon from '@mui/icons-material/EmojiPeople';
 import PsychologyIcon from '@mui/icons-material/Psychology';
 import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import ChatIcon from '@mui/icons-material/Chat';
 import { useNavigate } from 'react-router-dom';
 import { AppContext } from '../../AppContext';
 
@@ -42,6 +43,17 @@ export const MainListItems = () => {
           <EmojiPeopleIcon />
         </ListItemIcon>
         <ListItemText primary="Reach Out"/>
+      </ListItemButton>
+      )
+    },
+    {
+      name: 'messages',
+      buttonComponent:       (
+      <ListItemButton onClick={()=>{nav('/membermessages')}}>
+        <ListItemIcon>
+          <ChatIcon />
+        </ListItemIcon>
+        <ListItemText primary="Message Provider"/>
       </ListItemButton>
       )
     },
@@ -128,6 +140,8 @@ export const MainListItems = () => {
         if(e.name==='reachout' && values.currentUser.role.isUser)
           return true;
         if(e.name==='self-reflection' && values.currentUser.role.isUser)
+          return true;
+        if(e.name==='messages' && values.currentUser.role.isUser)
           return true;
         if(e.name==='mhp' && values.currentUser.role.isMHP)
           return true;
