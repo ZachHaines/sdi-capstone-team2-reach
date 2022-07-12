@@ -625,15 +625,24 @@ app.get('/facilities', (req, res) => {
     app.patch('/members/:id', (req, res) => {
         var numberRegex = /^\d+$/;
         let {phone_number} = req.body
-        if(numberRegex.test(phone_number.replace('-','').replace('-','').replace('-','')) || (phone_number===undefined)){    
+        if(phone_number===undefined){    
+                knex('members')
+                .update(req.body)
+                .where({id: req.params.id})
+                .then(data => res.status(200).json(data))
+                .catch(() => res.status(404).send(`Could not update member ${req.params.id}`))   
+            //if phone number is not a number and is defined then send back a good ol error 
+            }
+        else if(numberRegex.test(phone_number.replace('-','').replace('-','').replace('-','')) ){    
             knex('members')
             .update(req.body)
             .where({id: req.params.id})
             .then(data => res.status(200).json(data))
             .catch(() => res.status(404).send(`Could not update member ${req.params.id}`))   
-        }//if phone number is not a number and is defined then send back a good ol error
-        else res.status(404).send(`Could not update member because of the phone number ${req.params.id}`)  
-    })
+        //if phone number is not a number and is defined then send back a good ol error 
+        }
+})
+    
 }
 //DELETE-----------------------------------------------------------------------------------------------
 
