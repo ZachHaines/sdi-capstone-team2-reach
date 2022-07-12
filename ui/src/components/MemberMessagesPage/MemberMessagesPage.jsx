@@ -4,7 +4,7 @@ import './messages.css'
 import config from '../../config';
 import { useContext, useEffect } from 'react';
 import { AppContext } from '../../AppContext';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
 const messageStyle = {
   fromMember: {backgroundColor: "#1976d2", textAlign:'right', marginBottom:'1%', marginLeft:'35%', marginRight:'1%',padding: '1%'},
@@ -16,15 +16,15 @@ const MemberMessagesPage = () => {
   console.log(messageStyle);
   let bgcolor = '#' + '80A1D4'
   let background = {backgroundColor: bgcolor}
-  let [isEditing, setIsEditing] = useState(false);
+  // let [isEditing, setIsEditing] = useState(false);
   let [messaging, setMessaging] = useState(false);
   
    
   // let [surveyMessages, setSurveyMessages] = useState([]);
   let [mhpMessages, setMhpMessages] = useState([]); 
-  const { values, setters } = useContext(AppContext);
+  const { values } = useContext(AppContext);
   
-  const nav = useNavigate();
+  // const nav = useNavigate();
 
   console.log('values:', values.currentUser.role.isUser)
 
@@ -41,25 +41,27 @@ const MemberMessagesPage = () => {
     .catch(err=>console.log(err))
   }, [])
   
-  const submit = () => {
-    setIsEditing(!isEditing)
-  }
+  // const submit = () => {
+  //   setIsEditing(!isEditing)
+  // }
 
-  const sendMsg = (member_to, member_from, comment) => {
+  const sendMsg = (/*member_to, member_from, comment*/) => {
     setTimeout(() => {
       setMessaging(!messaging)
     }, 750)
-    const newMsg = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8'
-      },
-      body: JSON.stringify({
-        members_id_to: member_to,
-        members_id_from: member_from,
-        comment: comment,
-      })
-    }
+
+    // console.log(member_to, member_from, comment)
+    // const newMsg = {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json;charset=utf-8'
+    //   },
+    //   body: JSON.stringify({
+    //     members_id_to: member_to,
+    //     members_id_from: member_from,
+    //     comment: comment,
+    //   })
+    // }
   }
 
 

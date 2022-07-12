@@ -7,7 +7,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import config from '../../config';
 import { AppContext } from '../../AppContext';
-import { IconButton, Badge, Card, CardContent } from '@mui/material';
+import { IconButton, Badge} from '@mui/material';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MemberMessagesPage from '../MemberMessagesPage/MemberMessagesPage';
 const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
