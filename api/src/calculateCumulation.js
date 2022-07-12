@@ -3,12 +3,12 @@
 
 const calculateCumulation = (element, months) => {
   const surveyDate = new Date(element.survey_date)
-  console.log(element.survey_date);
+  // console.log(element.survey_date);
 
   const compareDate = new Date();
   compareDate.setMonth(compareDate.getMonth() - months) 
 
-  console.log('compare date', compareDate)
+  // console.log('compare date', compareDate)
   
   // sum calculation
   let redsSum = 0;
@@ -44,14 +44,10 @@ const calculateCumulation = (element, months) => {
 }
 
 const testDate = (msgDate, compareDate) => {
-
-  console.log('firstDate:', msgDate)
-  console.log('secondDate:', compareDate)
   const result = ( msgDate < compareDate);
-  console.log('Result:', result)
-  return result;
-   
+  return result;  
 }
+
 const msgDate = new Date (`2022-03-12T15:31:36.955Z`)
 const compareDate = new Date();
 compareDate.setMonth(compareDate.getMonth() - 3)

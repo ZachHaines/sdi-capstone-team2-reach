@@ -9,11 +9,11 @@ const bcrypt = require('bcryptjs')
  exports.seed = async function(knex) {
   // Deletes ALL existing entries
   await knex('members').del()
-  await knex('members').insert(teamMembers);
   await knex('members').insert(randomAdmins);
   await knex('members').insert(randomMHPs);
   await knex('members').insert(randomChaplains);
   await knex('members').insert(randomMembers);
+  await knex('members').insert(teamMembers);
 
 };
 

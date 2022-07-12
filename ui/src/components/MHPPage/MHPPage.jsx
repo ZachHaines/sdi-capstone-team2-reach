@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Paper, Button } from '@mui/material';
+import { Paper, Button, Card } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import './MHP.css'
 import config from '../../config';
@@ -7,10 +7,14 @@ import { useContext, useEffect } from 'react';
 import { AppContext } from '../../AppContext';
 import { useNavigate } from 'react-router-dom';
 const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
+const messageStyle = {
+  fromMHP: {backgroundColor: "blue", textAlign:'right', marginBottom:'1%', marginLeft:'35%', padding: '1%'},
+  toMember: {backgroundColor: "gray", textAlign:'left', marginBottom:'1%', marginRight:'35%', padding: '1%'}  
+};
 
 
 const MHPPage = () => {
-
+  console.log(messageStyle);
   let bgcolor = '#' + '80A1D4'
   let background = {backgroundColor: bgcolor}
   let [isEditing, setIsEditing] = useState(false);
@@ -20,6 +24,7 @@ const MHPPage = () => {
   let [surveyMessages, setSurveyMessages] = useState([]);
   let [mhpMessages, setMhpMessages] = useState([]); 
   const {values, setters} = useContext(AppContext);
+  
 
 
   const nav = useNavigate();
@@ -42,6 +47,7 @@ const MHPPage = () => {
       console.log(surveyData)
       setRows(surveyData)
     })
+    
   }, [])
 
   const submit = () => {
@@ -85,8 +91,14 @@ const MHPPage = () => {
   ]
   
   const rowClickHandler = (event) => {
-    setMessaging(!messaging)
-    setUserTo(event.row.id);
+    fetch(ApiUrl + `/mhpmessages/members/${event.row.id}`)
+    .then(res=>res.json())
+    .then(data=>{
+      setMhpMessages(data);
+      setMessaging(!messaging)
+      setUserTo(event.row.id);
+    })
+    .catch(err=>console.log(err))
   }
 
   return (
@@ -100,18 +112,32 @@ const MHPPage = () => {
         </>
         :
         <>
-          <DataGrid sx={{height: '70vh', width: '98%', marginLeft: '1%', marginRight: '1%' }} rows={rows} columns={columns} pageSize={15} rowsPerPageOptions={[15]}  onRowDoubleClick={rowClickHandler}/>
+          <DataGrid sx={{height: '70vh', width: '98%', marginLeft: '1%', marginRight: '1%' }} 
+            rows={rows} columns={columns}
+            pageSize={15}
+            rowsPerPageOptions={[15]}
+            onRowDoubleClick={rowClickHandler}/>
           <Button onClick={() => setIsEditing(!isEditing)}>Edit</Button><Button onClick={() => setMessaging(!messaging)}>Message</Button>
         </>
         }
         {messaging ?
         <Paper id='myModal'>
-          <Paper className='Modal-content'>
+          {mhpMessages.map((message) => {
+            return (
+              // check if element id === message id
+              <Card key={message.id} sx={ userTo === message.members_id_to ? messageStyle.fromMHP : messageStyle.toMember}>
+                <p>{`${message.date}`}</p>
+                <p>{`${message.comment}`}</p>
+              </Card>
+            )
+          })}
+          <Paper className='Modal-content' elevation={5}>
             <span id="closeModal" className="Close" onClick={() => {setMessaging(!messaging)}}>{userTo} &times;</span><div/>
             <textarea id='message' rows="12" placeholder='Type your message here...'/><div/>
             <Button className='submit' onClick={() => {sendMsg(userTo, values.currentUser.id, document.getElementById('message').value)}}>Submit</Button>
           </Paper>
-        </Paper> : <></>
+        </Paper>
+         : <></>
         }
       </Paper>
     </>

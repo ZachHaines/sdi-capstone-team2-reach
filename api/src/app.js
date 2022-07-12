@@ -93,8 +93,7 @@ app.post('/mhpmessages', (req, res) => {
 //READ-----------------------------------------------------------------------------------------------
     
 app.get('/', (req, res) => {
-    
-    console.log('checking this stuff')
+
     res.set("Access-Control-Allow-Origin", "*");
     res.status(200).send('App root route running');
 })
@@ -216,7 +215,7 @@ app.get('/members/mhp', (req, res) => {
                 
               }
             })
-            console.log('isAlreadyInTempRows', isAlreadyInTempRows);
+            // console.log('isAlreadyInTempRows', isAlreadyInTempRows);
             let sum = calculateCumulation(element, 1000);
             let short = calculateCumulation(element, 3)
             let mid = calculateCumulation(element, 6)
@@ -227,7 +226,7 @@ app.get('/members/mhp', (req, res) => {
             // check mid range date
             // check long range date
             if (isAlreadyInTempRows){
-                console.log('duplicate message', tempRowIndex)
+                // console.log('duplicate message', tempRowIndex)
                 // sum
                 resultArr[tempRowIndex].red += sum.reds;
                 resultArr[tempRowIndex].green += sum.greens;
@@ -403,7 +402,25 @@ app.get('/mhpmessages/members/:memberId', (req, res) => {
     knex('messages_mhp')
     .where({members_id_to: req.params.memberId})
     .orWhere({members_id_from: req.params.memberId})
-    .then(data => res.status(200).json(data))
+    .then((data) => {
+        // sort by: [i].date ex: 2022-07-12T16:28:08.720Z
+        let result = []
+        result = data.concat([]).sort((a,b)=>{
+            const dateA = new Date(a.date);
+            const dateB = new Date(b.date);
+            
+            if (dateA < dateB) {
+                return 1;
+            }
+            if (dateA > dateB) {
+                return -1;
+            }
+            return 0;
+        })
+        
+        return result;
+    })
+    .then(sortedResult => {res.status(200).json(sortedResult)})
     .catch(() => res.status(404).send(`Could not retrieve messages`))
 })
 
