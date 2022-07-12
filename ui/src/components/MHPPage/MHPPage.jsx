@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Paper, Button, Card } from '@mui/material';
+import { Paper, Button, Card, TextField } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import './MHP.css'
 import config from '../../config';
@@ -8,8 +8,8 @@ import { AppContext } from '../../AppContext';
 import { useNavigate } from 'react-router-dom';
 const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
 const messageStyle = {
-  fromMHP: {backgroundColor: "blue", textAlign:'right', marginBottom:'1%', marginLeft:'35%', padding: '1%'},
-  toMember: {backgroundColor: "gray", textAlign:'left', marginBottom:'1%', marginRight:'35%', padding: '1%'}  
+  fromMHP: {backgroundColor: "#1976d2", textAlign:'right', marginBottom:'1%', marginLeft:'35%', marginRight:'1%',padding: '1%'},
+  toMember: {backgroundColor: "lightgray", textAlign:'left', marginBottom:'1%', marginRight:'35%', marginLeft:'1%',padding: '1%'}  
 };
 
 
@@ -122,6 +122,11 @@ const MHPPage = () => {
         }
         {messaging ?
         <Paper id='myModal'>
+          <Card elevation={5} sx={{margin:'1%', textAlign:'center', padding:'1%'}}>
+            <span id="closeModal" onClick={() => {setMessaging(!messaging)}}>Messages to Member # {userTo}:</span><div/>
+            <TextField id='message' rows="12" placeholder='Type your message here...' fullWidth /><div/>
+            <Button className='submit' onClick={() => {sendMsg(userTo, values.currentUser.id, document.getElementById('message').value)}}>Submit</Button>
+          </Card>
           {mhpMessages.map((message) => {
             return (
               // check if element id === message id
@@ -131,11 +136,6 @@ const MHPPage = () => {
               </Card>
             )
           })}
-          <Paper className='Modal-content' elevation={5}>
-            <span id="closeModal" className="Close" onClick={() => {setMessaging(!messaging)}}>{userTo} &times;</span><div/>
-            <textarea id='message' rows="12" placeholder='Type your message here...'/><div/>
-            <Button className='submit' onClick={() => {sendMsg(userTo, values.currentUser.id, document.getElementById('message').value)}}>Submit</Button>
-          </Paper>
         </Paper>
          : <></>
         }

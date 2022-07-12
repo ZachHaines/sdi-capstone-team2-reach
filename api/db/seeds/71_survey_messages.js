@@ -42,9 +42,9 @@ const createRandomSurveys = () => {
     res.push({
       members_id_to: member_id_to[n],
       members_id_from: Math.floor(Math.random() * 100 + 1),
-      family: Math.floor(Math.random() * 2 + 2),
-      social: Math.floor(Math.random() * 3 + 1),
-      legal: Math.floor(Math.random() * 2 + 2),
+      family: Math.floor(Math.random() * 2 + 1),
+      social: Math.floor(Math.random() * 2 + 1),
+      legal: Math.floor(Math.random() * 2 + 1),
       date: randomDate(),
       work: Math.floor(Math.random() * 3 + 1),
       health: Math.floor(Math.random() * 3 + 1),
@@ -58,7 +58,7 @@ const createRandomSurveys = () => {
 
 function randomDate() {
   let start = new Date();
-  start.setMonth(start.getMonth() - 18);
+  start.setMonth(start.getMonth() - 15);
   let end = new Date()
 
   return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));

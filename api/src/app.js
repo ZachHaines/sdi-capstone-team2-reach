@@ -217,7 +217,7 @@ app.get('/members/mhp', (req, res) => {
             })
             // console.log('isAlreadyInTempRows', isAlreadyInTempRows);
             let sum = calculateCumulation(element, 1000);
-            let short = calculateCumulation(element, 3)
+            let short = calculateCumulation(element, 1)
             let mid = calculateCumulation(element, 6)
             let long = calculateCumulation(element, 12)
 
