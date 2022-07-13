@@ -31,7 +31,7 @@ ReactDOM.render(
           <Route path='/self-reflection' element={<DashboardContent DisplayItem={SelfReflectionPage} DisplayTitle='Self Reflection'/>} />
           <Route path='/reachout' element={<DashboardContent DisplayItem={MemberList} DisplayTitle='Reach Out'/>} />
           <Route path='/reachout/:memberID' element={<DashboardContent DisplayItem={ReachOutPage} DisplayTitle='Reach Out'/>} />
-          <Route path='/admin' element={<DashboardContent sx={{ marginLeft: '1%', marginRight: '1%'}} DisplayItem={AdminPage} DisplayTitle='Admin'/>} />
+          <Route path='/admin' element={<DashboardContent DisplayItem={AdminPage} DisplayTitle='Admin'/>} />
           <Route path='/resource' element={<DashboardContent DisplayItem={ResourcePage} DisplayTitle='Resources'/>} />
           <Route path='/profile' element={<DashboardContent DisplayItem={ProfilePage} DisplayTitle='Profile'/>} />
           <Route path='/mhp' element={<DashboardContent DisplayItem={MHPPage} DisplayTitle='MHP Dashboard'/>} />

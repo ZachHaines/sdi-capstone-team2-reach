@@ -1,6 +1,6 @@
 /* eslint-disable */
 import React from 'react';
-import { TextField,  Paper, Alert, Button, Slider, Grid, Typography, Stack, Card } from '@mui/material';
+import { TextField,  Paper, Alert, Button, Slider, Grid, Typography, Stack, Card, Fade} from '@mui/material';
 import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
 import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt';
 import SentimentNeutralIcon from '@mui/icons-material/SentimentNeutral';
@@ -14,18 +14,20 @@ import { useContext } from 'react';
 import { AppContext } from '../../AppContext';
 // import { useNavigate } from 'react-router-dom';
 import config from '../../config';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import propTypes from 'prop-types';
-import { primaryTheme, SurveyCard } from '../Shared/CustomComponents';
+import {primaryTheme, SurveyCard, CommentCard, capitalizeFirstLetter, SurveyTextField, SurveySlider, SurveyPaper, SurveySubmitButton, SurveyTypography, notificationColors, TitleTypography, TitleCard} from '../Shared/CustomComponents';
+import { Box } from '@mui/system';
+import { useEffect } from 'react';
 
 const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
 const categories = ['family', 'social', 'legal', 'work', 'health'];
 
 const SelfReflectionPage = () => {
   const defaultIconStyle = {
-    satisfied: {color: 'green' , backgroundColor: '#C6EFCE', fontSize:'100px'},
-    neutral: {color: 'yellow', backgroundColor: '#FFF1BA'},
-    dissatisfied: {color: 'red', backgroundColor: '#FFC7CE'}
+    satisfied: {color: 'green' , backgroundColor: notificationColors.green, height:'6em', width:'auto'},
+    neutral: {color: 'yellow', backgroundColor: notificationColors.yellow, height:'3em', width:'auto'},
+    dissatisfied: {color: 'red', backgroundColor: notificationColors.red, height:'3em', width:'auto'}
   }
   const [IconsSX, setIconsSX] = React.useState({
     family: defaultIconStyle,
@@ -41,11 +43,26 @@ const SelfReflectionPage = () => {
     work: 3,
     health: 3
   })
+  let params = useParams();
 
   const {values} = useContext(AppContext);
   const nav = useNavigate();
   if (!values.currentUser.role.isUser) nav('/error');
 
+  const [member, setMember] = React.useState(undefined);
+  useEffect(()=>{
+    fetch(ApiUrl + `/members/${params.memberID}`)
+    .then(res=>res.json())
+    .then(data => {
+      setMember(data[0])
+      console.log(data[0]);
+      if(!params.hasOwnProperty(membersID))
+      {
+        setMember({});
+      }
+   }) 
+   .catch(err => console.log(err))
+  },[params])
   const submitSurveyHandler = () => {
     console.log(SliderValues, IconsSX)
     const newSurvey = {
@@ -85,71 +102,80 @@ const SelfReflectionPage = () => {
     if(e.target.value===1)
     {
       tempIconsSX[category] = ( {
-        satisfied: {color: 'green' , backgroundColor: '#C6EFCE'},
-        neutral: {color: 'yellow', backgroundColor: '#FFF1BA'},
-        dissatisfied: {color: 'red', backgroundColor: '#FFC7CE', fontSize:'100px'}
+        satisfied: {color: 'green' , backgroundColor: notificationColors.green, height:'3em', width:'auto'},
+        neutral: {color: 'yellow', backgroundColor: notificationColors.yellow, height:'3em', width:'auto'},
+        dissatisfied: {color: 'red', backgroundColor: notificationColors.red, height:'6em', width:'auto'}
       })
     }
     else if(e.target.value===2)
     {
       tempIconsSX[category] = (  {
-        satisfied: {color: 'green' , backgroundColor: '#C6EFCE'},
-        neutral: {color: 'yellow', backgroundColor: '#FFF1BA', fontSize:'100px'},
-        dissatisfied: {color: 'red', backgroundColor: '#FFC7CE'}
+        satisfied: {color: 'green' , backgroundColor: notificationColors.green, height:'3em', width:'auto'},
+        neutral: {color: 'yellow', backgroundColor: notificationColors.yellow, height:'6em', width:'auto'},
+        dissatisfied: {color: 'red', backgroundColor: notificationColors.red, height:'3em', width:'auto'}
       })
     }
     else if(e.target.value===3){
-      tempIconsSX[category] = (  {
-        satisfied: {color: 'green' , backgroundColor: '#C6EFCE', fontSize:'100px'},
-        neutral: {color: 'yellow', backgroundColor: '#FFF1BA'},
-        dissatisfied: {color: 'red', backgroundColor: '#FFC7CE'}
+      tempIconsSX[category] = (   {
+        satisfied: {color: 'green' , backgroundColor: notificationColors.green, height:'6em', width:'auto'},
+        neutral: {color: 'yellow', backgroundColor: notificationColors.yellow, height:'3em', width:'auto'},
+        dissatisfied: {color: 'red', backgroundColor: notificationColors.red, height:'3em', width:'auto'}
       })
     }
 
     setIconsSX(tempIconsSX);
   }
 
+
+  console.log(member);
   return (
     <>
       {/* <Dashboard /> */}
-      <Paper elevation={3} sx={{width: '100%', marginLeft: '0%', marginRight: '0%', paddingBottom: '2vw', marginBottom: '5%', paddingLeft: '2%', paddingRight: '2%'}}>
-        <h1 style={{textAlign: 'center'}}>Self Reflection Page</h1>
+      <SurveyPaper theme={primaryTheme} elevation={3} sx={{width: '100%', marginLeft: '0%', marginRight: '0%', paddingBottom: '2vw', marginBottom: '5%', paddingLeft: '2%', paddingRight: '2%'}}>
+        {/* <h1 style={{textAlign: 'center'}}>Self Reflection Page</h1> */}
+        {member === '' || member === undefined?
+          <TitleTypography theme={primaryTheme} align='center'>Self Reflection</TitleTypography>
+          :
+          <TitleTypography theme={primaryTheme} align='center'>Reaching Out For {`${member.first_name} ${member.last_name}`}</TitleTypography>
+        }
         {categories.map((category) => {
           return (
           <SurveyCard theme={primaryTheme}>
-            <Typography variant='h4' align='center'>
-              {category}
-            </Typography>
+            <SurveyTypography theme={primaryTheme} variant='h4' align='center'>
+              {capitalizeFirstLetter(category)}
+            </SurveyTypography>
             <Stack direction='row'  justifyContent='space-between'>
-              <SentimentVeryDissatisfiedIcon sx={IconsSX[category].dissatisfied}/>
-              <SentimentNeutralIcon sx={IconsSX[category].neutral}/>
-              <SentimentSatisfiedAltIcon sx={IconsSX[category].satisfied}/>
+              <img src='../reachoutimg/handshake.png' alt='handshake emoji' style={IconsSX[category].dissatisfied} />
+              <img src='../reachoutimg/ok-hand.png' alt='ok-hand emoji' style={IconsSX[category].neutral} />
+              <img src='../reachoutimg/thumbs-up.png' alt='thumbs-up emoji' style={IconsSX[category].satisfied} />
             </Stack>
-            <Slider
-              id={`${category}-slider`}
-              name={`${category}-slider`}
-              defaultValue={3}
-              step={1}
-              marks
-              min={1}
-              max={3}
-              track={false}
-              onChange={(e)=>{
-                sliderOnChangeHandler(e, category);
-                setFamilySliderValue(e.target.value)
-              }}
-            ></Slider>
+            <Box sx ={{width: '87%', marginLeft: '6.5%', marginRight: '6.5%'}}>
+              <SurveySlider theme={primaryTheme}
+                id={`${category}-slider`}
+                name={`${category}-slider`}
+                defaultValue={3}
+                step={1}
+                marks
+                min={1}
+                max={3}
+                track={false}
+                onChange={(e)=>{
+                  sliderOnChangeHandler(e, category);
+                  setFamilySliderValue(e.target.value)
+                }}
+              ></SurveySlider>
+            </Box>
           </SurveyCard>
           )
         })}
-        <SurveyCard theme={primaryTheme}>
-          <Typography variant='h4' align='center'>
+        <SurveyCard theme={primaryTheme} sx={{backgroundColor: primaryTheme.color2}}>
+          <SurveyTypography theme={primaryTheme} variant='h4' align='center'>
             Comments
-          </Typography>
-          <TextField id='comments-textfield' label='Comments' maxRows={5} minRows={3} multiline sx={{width: '100%'}}></TextField>
+          </SurveyTypography>
+          <SurveyTextField theme={primaryTheme} id='comments-textfield' label='Comments' maxRows={5} minRows={3} multiline sx={{width: '100%'}} />
         </SurveyCard>
         <SelfReflectionPageSubmitButton callback={submitSurveyHandler} onClick={()=>{console.log(SliderValues, IconsSX)}}/>
-      </Paper>
+      </SurveyPaper>
     </>
   )
 }
@@ -189,13 +215,15 @@ const SelfReflectionPageSubmitButton = ({callback}) => {
 
   return (
     <div>
-      <Button onClick={handleClick}>Submit</Button>
+      <SurveySubmitButton theme={primaryTheme} onClick={handleClick}>Submit</SurveySubmitButton>
       <Snackbar
+        anchorOrigin={{vertical:'bottom', horizontal:'center'}}
         open={open}
         autoHideDuration={5000}
         onClose={handleClose}
         message="Survey Submitted"
         action={action}
+        TransitionComponent={Fade}
       >
         <Alert onClose = {handleClose} severity='success'>Survey Submitted</Alert>
       </Snackbar>
@@ -206,149 +234,3 @@ SelfReflectionPageSubmitButton.propTypes = {
   callback: propTypes.any,
 }
 export default SelfReflectionPage;
-
-
-
-
-
-{/* <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 1, md: 1 }} columns={2} >
-<Grid item xs={1}>
-  <Typography variant='h4' align='center'>
-    Family
-  </Typography>
-</Grid>
-<Grid item xs={1}>
-  <Stack direction='row'  justifyContent='space-between'>
-    <SentimentVeryDissatisfiedIcon sx={FamilyIconSX.dissatisfied}/>
-    <SentimentNeutralIcon sx={FamilyIconSX.neutral}/>
-    <SentimentSatisfiedAltIcon sx={FamilyIconSX.satisfied}/>
-  </Stack>
-  <Slider
-    id='family-slider'
-    name='family-slider'
-    defaultValue={3}
-    step={1}
-    marks
-    min={1}
-    max={3}
-    track={false}
-    onChange={(e)=>{
-      sliderOnChangeHandler(e);
-      setFamilySliderValue(e.target.value)
-     }}
-  ></Slider>
-</Grid>
-<Grid item xs={1}>
-  <Typography variant='h4' align='center'>
-    Social
-  </Typography>
-</Grid>
-<Grid item xs={1}>
-  <Stack direction='row' justifyContent='space-between'>
-    <SentimentVeryDissatisfiedIcon sx={SocialIconSX.dissatisfied}/>
-    <SentimentNeutralIcon sx={SocialIconSX.neutral}/>
-    <SentimentSatisfiedAltIcon sx={SocialIconSX.satisfied}/>
-  </Stack>
-  <Slider
-    id='social-slider'
-    name='social-slider'
-    defaultValue={3}
-    step={1}
-    marks
-    min={1}
-    max={3}
-    track={false}
-    onChange={(e)=>{
-      sliderOnChangeHandler(e)
-      setSocialSliderValue(e.target.value)
-    }}
-  ></Slider>
-</Grid>
-<Grid item xs={1}>
-  <Typography variant='h4' align='center'>
-    Legal
-  </Typography>
-</Grid>
-<Grid item xs={1}>
-  <Stack direction='row' justifyContent='space-between'>
-    <SentimentVeryDissatisfiedIcon sx={LegalIconSX.dissatisfied}/>
-    <SentimentNeutralIcon sx={LegalIconSX.neutral}/>
-    <SentimentSatisfiedAltIcon sx={LegalIconSX.satisfied}/>
-  </Stack>
-  <Slider
-    id='legal-slider'
-    name='legal-slider'
-    defaultValue={3}
-    step={1}
-    marks
-    min={1}
-    max={3}
-    track={false}
-    onChange={(e)=>{
-      setLegalSliderValue(e.target.value)
-      sliderOnChangeHandler(e)
-    }}
-  ></Slider>
-</Grid>
-<Grid item xs={1}>
-  <Typography variant='h4' align='center'>
-    Work
-  </Typography>
-</Grid>
-<Grid item xs={1}>
-  <Stack direction='row' justifyContent='space-between'>
-    <SentimentVeryDissatisfiedIcon sx={WorkIconSX.dissatisfied}/>
-    <SentimentNeutralIcon sx={WorkIconSX.neutral}/>
-    <SentimentSatisfiedAltIcon sx={WorkIconSX.satisfied}/>
-  </Stack>
-  <Slider
-    id='work-slider'
-    name='work-slider'
-    defaultValue={3}
-    step={1}
-    marks
-    min={1}
-    max={3}
-    track={false}
-    onChange={(e)=>{
-      setWorkSliderValue(e.target.value)
-      sliderOnChangeHandler(e)
-    }}
-  ></Slider>
-</Grid>
-<Grid item xs={1}>
-  <Typography variant='h4' align='center'>
-    Health
-  </Typography>
-</Grid>
-<Grid item xs={1}>
-  <Stack direction='row' justifyContent='space-between'>
-    <SentimentVeryDissatisfiedIcon sx={HealthIconSX.dissatisfied}/>
-    <SentimentNeutralIcon sx={HealthIconSX.neutral}/>
-    <SentimentSatisfiedAltIcon sx={HealthIconSX.satisfied}/>
-  </Stack>
-  <Slider
-    id='health-slider'
-    name='health-slider'
-    defaultValue={3}
-    step={1}
-    marks
-    min={1}
-    max={3}
-    track={false}
-    onChange={(e)=>{
-      setHealthSliderValue(e.target.value)
-      sliderOnChangeHandler(e)
-    }}
-  ></Slider>
-</Grid>
-<Grid item xs={1}>
-  <Typography variant='h4' align='center'>
-      Comments
-  </Typography>
-</Grid>
-
-<Grid item xs={1}>
-  <TextField id='comments-textfield' label='Comments' maxRows={5} minRows={3} multiline sx={{width: '100%'}}></TextField>
-</Grid>
-</Grid> */}

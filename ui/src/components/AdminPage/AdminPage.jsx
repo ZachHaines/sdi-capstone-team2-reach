@@ -6,9 +6,11 @@ import config from '../../config';
 import { useContext } from 'react';
 import { AppContext } from '../../AppContext';
 import { useNavigate } from 'react-router-dom';
+import "./AdminPage.css"
 const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
 
 const AdminPage = () => {
+
   const [rows, setRows] = useState([]);
   const {values } = useContext(AppContext);
   const nav = useNavigate();

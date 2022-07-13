@@ -28,7 +28,7 @@ import { useNavigate } from 'react-router-dom';
 // import config from '../../config';
 // const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
 import NotificationDialogButton from './NotificationDialogButton';
-
+import "./Dashboard.css"
 
 function Copyright(props) {
   return (
@@ -104,7 +104,7 @@ const DashboardContent = ({DisplayItem, DisplayTitle}) => {
   const nav = useNavigate();
   if (!values.currentUser.role.isUser) nav('/error');
 
-
+let containerStyle = {marginLeft:"0vw", mt: 4, mb: 4, width: "85vw" , backgroundColor:"131, 197, 190"}
 
 
 
@@ -188,10 +188,11 @@ const DashboardContent = ({DisplayItem, DisplayTitle}) => {
             flexGrow: 1,
             height: '100vh',
             overflow: 'auto',
+            marginLeft:"0vw"
           }}
         >
           <Toolbar />
-          <Container maxWidth='lg' sx={{ mt: 4, mb: 4 }}>
+          <Container maxWidth='lg' sx={{...containerStyle}}>
             <DisplayItem />
             {/* above is the page we are displaing */}
             <Copyright sx={{ pt: 4 }} />
