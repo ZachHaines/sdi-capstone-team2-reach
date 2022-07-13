@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Paper, Button, Card, TextField } from '@mui/material';
+import { Paper, Button, Card, TextField, Typography } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import './MHP.css'
 import config from '../../config';
@@ -7,9 +7,15 @@ import { useContext, useEffect } from 'react';
 import { AppContext } from '../../AppContext';
 import { useNavigate } from 'react-router-dom';
 const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
+
+// blue color options: #1982FC, #1976d2
 const messageStyle = {
-  fromMHP: {backgroundColor: "#1976d2", textAlign:'right', marginBottom:'1%', marginLeft:'35%', marginRight:'1%',padding: '1%'},
-  toMember: {backgroundColor: "lightgray", textAlign:'left', marginBottom:'1%', marginRight:'35%', marginLeft:'1%',padding: '1%'}  
+  toMember: {backgroundImage: 'linear-gradient(to bottom right, #4898f6, #1982FC)',  borderRadius: '8px 24px 0px 24px', textAlign:'left', color:'white', float:'right', clear: 'both', minWidth: '2%', maxWidth: '65%', marginBottom:'1%', marginLeft:'35%', marginRight:'1%',padding: '1%'},
+  toMHP: {backgroundColor: "lightgray", borderRadius: '24px 8px 24px 0px',textAlign:'left', float:'left', clear: 'both', minWidth: '2%', maxWidth: '65%', marginBottom:'1%', marginRight:'35%', marginLeft:'1%',padding: '1%'}  
+};
+const dateStyle = {
+  toMember: {color: 'gray', textAlign:'right',  float:'right', clear: 'both', marginRight:'1%', marginBottom: 0, padding: '1%'},
+  toMHP: {color: 'gray', textAlign:'left',  float:'left', clear: 'both', marginLeft:'1%', marginBottom: 0, padding: '1%'}  
 };
 
 
@@ -139,6 +145,7 @@ const MHPPage = () => {
         }
         {messaging ?
         <Paper id='myModal'>
+        
           <Card elevation={5} sx={{margin:'1%', textAlign:'center', padding:'1%'}}>
             <span id="closeModal" onClick={() => {setMessaging(!messaging)}}> 
               { (userTo === 0) ? `No user selected...` : `Messages to Member # ${userTo}` }
@@ -146,14 +153,24 @@ const MHPPage = () => {
             <TextField id='message' rows="12" placeholder='Type your message here...' fullWidth /><div/>
             <Button className='submit' onClick={() => {sendMsg(userTo, values.currentUser.id, document.getElementById('message').value)}}>Submit</Button>
           </Card>
-          {mhpMessages.map((message) => {
-            return (
-              <Card key={message.id} sx={ userTo === message.members_id_to ? messageStyle.fromMHP : messageStyle.toMember}>
-                <p>{`${message.date}`}</p>
-                <p>{`${message.comment}`}</p>
-              </Card>
-            )
-          })}
+          <div>
+            {mhpMessages.map((message) => {
+              return (
+                <div key={message.id}>
+                  <p style={ userTo === message.members_id_to ? dateStyle.toMember : dateStyle.toMHP }>
+                    {`${message.date}`}
+                  </p>
+                  {/* <Card style={ userTo === message.members_id_to ? messageStyle.toMember : messageStyle.toMHP} sx={{shape: 'rounded'}}>
+                    {`${message.comment}`}
+                  </Card> */}
+                  <Typography style={ userTo === message.members_id_to ? messageStyle.toMember : messageStyle.toMHP} >
+                    {`${message.comment}`}
+                  </Typography>
+                </div>
+              )
+            })}
+            <h3 style={{textAlign:'center', clear:'both'}}>End of Messages...</h3>
+          </div>
         </Paper>
          : <></>
         }
