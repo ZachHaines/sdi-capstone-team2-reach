@@ -69,7 +69,6 @@ const MHPPage = () => {
   }
 
   const columns = [
-    { field: 'id', headerName: 'ID', width: 75 },
     { field: 'token', headerName: 'Token', width: 75 },
     { field: 'date', headerName: 'Last Reach Date', width: 200 },
     { field: 'riskShort', headerName: 'Short Term Risk', width: 125 },

@@ -27,7 +27,7 @@ import { AppContext } from '../../AppContext';
 import { useNavigate } from 'react-router-dom';
 // import config from '../../config';
 // const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
-import NotificationDialogButton from './NotificationDialogButton';
+// import NotificationDialogButton from './NotificationDialogButton';
 import "./Dashboard.css"
 
 function Copyright(props) {
@@ -155,7 +155,7 @@ let containerStyle = {marginLeft:"0vw", mt: 4, mb: 4, width: "85vw" , background
                 <LogoutIcon />
               </Badge>
             </IconButton>
-            <NotificationDialogButton />
+            {/* <NotificationDialogButton /> */}
           </Toolbar>
         </AppBar>
         <Drawer variant="permanent" open={open}>

@@ -20,7 +20,7 @@ const notificationColors = {
 
 const SurveyPaper = styled(Paper)(({theme}) => ({
   color: theme.color1,
-  backgroundColor: theme.color5,
+  backgroundColor: theme.color4,
   padding: '2%',
   marginBottom: '1%',
 }));
@@ -46,7 +46,7 @@ const NameTypography = styled(Card)(({theme}) => ({
 
 }));
 const TitleTypography = styled(Card)(({theme}) => ({
-  color: theme.color4,
+  color: theme.color3,
   backgroundColor: theme.color1,
   fontSize: '36pt',
   padding: '2%',
@@ -54,12 +54,13 @@ const TitleTypography = styled(Card)(({theme}) => ({
 }));
 
 const TitleCard = styled(Card)(({theme}) => ({
-  color: theme.color4,
+  color: theme.color3,
   backgroundColor: theme.color1,
   padding: '2%',
   marginBottom: '1%',
   width:'auto',
   height:'20%',
+  fontFamily: 'ROBOTO',
 }));
 
 const capitalizeFirstLetter = (text) => {

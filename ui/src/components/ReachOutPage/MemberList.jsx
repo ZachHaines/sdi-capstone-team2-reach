@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { Grid, MenuItem, Paper, Select, TextField } from '@mui/material';
 import React from 'react';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AppContext } from '../../AppContext';
 import config from '../../config';
@@ -14,33 +14,47 @@ const MemberList = () => {
   const [members, setMembers] = React.useState([]);
   const [displayMembers, setDisplayMembers] = React.useState([]);
   const [units, setUnits] = React.useState([]);
+  const [commands, setCommands] = React.useState([]);
+  const [agencies, setAgencies] = React.useState([]);
+
   const [selectUnit, setSelectUnit] = React.useState(values.currentUser.units_id);
 
   const nav = useNavigate();
   if (!values.currentUser.role.isUser) nav('/error');
 
-  React.useEffect(()=>{
-   fetch(ApiUrl+'/units')
-   .then(res=>res.json())
-   .then(data=>{
-    console.log(data)
-    setUnits(data);
-   })
-   .then(()=>{
-    fetch(ApiUrl+'/members')
+ useEffect(async ()=>{
+    await fetch(ApiUrl+'/commands')
+    .then(res=>{res.json()})
+    .then(data=>{
+      setCommands(data)
+    })
+    await fetch(ApiUrl+'/agencies')
+    .then(res=>{res.json()})
+    .then(data=>{
+      setAgencies(data)
+    })
+
+    await fetch(ApiUrl+'/units')
     .then(res=>res.json())
     .then(data=>{
-     console.log(data)
-     setMembers(data);
-     setSelectUnit(values.currentUser.units_id)
-     let temp = data.concat([])
-     temp = temp.filter((e)=>{
-       return e.units_id === values.currentUser.units_id
-     })
-     console.log(temp);
-     setDisplayMembers(temp);
+    console.log(data)
+    setUnits(data);
     })
-   })
+    .then(()=>{
+      fetch(ApiUrl+'/members')
+      .then(res=>res.json())
+      .then(data=>{
+        console.log(data)
+        setMembers(data);
+        setSelectUnit(values.currentUser.units_id)
+        let temp = data.concat([])
+        temp = temp.filter((e)=>{
+          return e.units_id === values.currentUser.units_id
+        })
+        console.log(temp);
+        setDisplayMembers(temp);
+      })
+    })
 
   }, [])
   console.log(members, displayMembers);
@@ -87,6 +101,41 @@ const MemberList = () => {
           })}
 
         </SurveyTextField>
+        <SurveyTextField theme={primaryTheme}
+          select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={selectUnit}
+          label="commands"
+          defaultValue={values.currentUser.units_id}
+          onChange={handleChange}
+        >
+          <MenuItem  value={0}>N/A</MenuItem>
+          {units.map((e) => {
+            return (
+              <MenuItem key={e.id} value={e.id}>{e.name}</MenuItem>
+            )
+          })}
+
+        </SurveyTextField>
+        <SurveyTextField theme={primaryTheme}
+          select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={selectUnit}
+          label="units"
+          defaultValue={values.currentUser.units_id}
+          onChange={handleChange}
+        >
+          <MenuItem  value={0}>N/A</MenuItem>
+          {units.map((e) => {
+            return (
+              <MenuItem key={e.id} value={e.id}>{e.name}</MenuItem>
+            )
+          })}
+
+        </SurveyTextField>
+
       </SurveyCard>
       <SurveyPaper theme={primaryTheme} elevation={3}>
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 1, md: 1 }} columns={12} >
