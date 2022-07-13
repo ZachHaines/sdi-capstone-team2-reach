@@ -10,12 +10,12 @@ const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
 
 // blue color options: #1982FC, #1976d2
 const messageStyle = {
-  toMember: {backgroundImage: 'linear-gradient(to bottom right, #4898f6, #1982FC)',  borderRadius: '8px 24px 0px 24px', textAlign:'left', color:'white', float:'right', clear: 'both', minWidth: '2%', maxWidth: '65%', marginBottom:'1%', marginLeft:'35%', marginRight:'1%',padding: '1%'},
-  toMHP: {backgroundColor: "lightgray", borderRadius: '24px 8px 24px 0px',textAlign:'left', float:'left', clear: 'both', minWidth: '2%', maxWidth: '65%', marginBottom:'1%', marginRight:'35%', marginLeft:'1%',padding: '1%'}  
+  fromMHP: {backgroundImage: 'linear-gradient(to bottom right, #4898f6, #1982FC)',  borderRadius: '8px 24px 0px 24px', textAlign:'left', color:'white', float:'right', clear: 'both', minWidth: '2%', maxWidth: '65%', marginBottom:'1%', marginLeft:'35%', marginRight:'1%',padding: '1%'},
+  fromUser: {backgroundColor: "lightgray", borderRadius: '24px 8px 24px 0px',textAlign:'left', float:'left', clear: 'both', minWidth: '2%', maxWidth: '65%', marginBottom:'1%', marginRight:'35%', marginLeft:'1%',padding: '1%'}  
 };
 const dateStyle = {
-  toMember: {color: 'gray', textAlign:'right',  float:'right', clear: 'both', marginRight:'1%', marginBottom: 0, padding: '1%'},
-  toMHP: {color: 'gray', textAlign:'left',  float:'left', clear: 'both', marginLeft:'1%', marginBottom: 0, padding: '1%'}  
+  fromMHP: {color: 'gray', textAlign:'right',  float:'right', clear: 'both', marginRight:'1%', marginBottom: 0, padding: '1%'},
+  fromUser: {color: 'gray', textAlign:'left',  float:'left', clear: 'both', marginLeft:'1%', marginBottom: 0, padding: '1%'}  
 };
 
 
@@ -47,7 +47,7 @@ const MHPPage = () => {
 
   const sendMsg = (member_to, member_from, comment) => {
     setTimeout(() => {
-      setMessaging(!messaging)
+      setMessaging(!!messaging)
     }, 750)
     const newMsg = {
       method: 'POST',
@@ -63,8 +63,12 @@ const MHPPage = () => {
     
     fetch(`${ApiUrl}/mhpmessages`, newMsg)
     .then(res => res.json())
-    .then(data => {
-    console.log(data);
+    .then(()=> {
+      fetch(ApiUrl + `/mhpmessages/members/${userTo}`)
+      .then(res=>res.json())
+      .then(data=> setMhpMessages(data))
+      .then(()=> document.getElementById('message').value = '')
+      .catch(err=>console.log(err))
     })
   }
 
@@ -145,10 +149,10 @@ const MHPPage = () => {
               let sendDate = new Date (message.date);
               return (
                 <div key={message.id}>
-                  <p style={ userTo === message.members_id_to ? dateStyle.toMember : dateStyle.toMHP }>
+                  <p style={ userTo === message.members_id_to ? dateStyle.fromMHP : dateStyle.fromUser }>
                     {sendDate.toLocaleString()}
                   </p>
-                  <Typography style={ userTo === message.members_id_to ? messageStyle.toMember : messageStyle.toMHP} >
+                  <Typography style={ userTo === message.members_id_to ? messageStyle.fromMHP : messageStyle.fromUser} >
                     {`${message.comment}`}
                   </Typography>
                 </div>

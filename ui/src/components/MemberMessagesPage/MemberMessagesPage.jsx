@@ -1,90 +1,104 @@
-import React, { useState } from 'react';
-import { Paper, Button, Card, TextField } from '@mui/material';
-import './messages.css'
+import React, { useState, useEffect, useContext } from 'react';
+import { Paper, Button, Card, TextField, Typography } from '@mui/material';
+import './MemberMessagesPage.css'
 import config from '../../config';
-import { useContext, useEffect } from 'react';
 import { AppContext } from '../../AppContext';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
+
+// blue color options: #1982FC, #1976d2
 const messageStyle = {
-  fromMember: {backgroundColor: "#1976d2", textAlign:'right', marginBottom:'1%', marginLeft:'35%', marginRight:'1%',padding: '1%'},
-  toProvider: {backgroundColor: "lightgray", textAlign:'left', marginBottom:'1%', marginRight:'35%', marginLeft:'1%',padding: '1%'}  
+  fromUser: {backgroundImage: 'linear-gradient(to bottom right, #4898f6, #1982FC)',  borderRadius: '8px 24px 0px 24px', textAlign:'left', color:'white', float:'right', clear: 'both', minWidth: '2%', maxWidth: '65%', marginBottom:'1%', marginLeft:'35%', marginRight:'1%',padding: '1%'},
+  fromMHP: {backgroundColor: "lightgray", borderRadius: '24px 8px 24px 0px',textAlign:'left', float:'left', clear: 'both', minWidth: '2%', maxWidth: '65%', marginBottom:'1%', marginRight:'35%', marginLeft:'1%',padding: '1%'}  
+};
+const dateStyle = {
+  fromUser: {color: 'gray', textAlign:'right',  float:'right', clear: 'both', marginRight:'1%', marginBottom: 0, padding: '1%'},
+  fromMHP: {color: 'gray', textAlign:'left',  float:'left', clear: 'both', marginLeft:'1%', marginBottom: 0, padding: '1%'}  
 };
 
 
 const MemberMessagesPage = () => {
-  console.log(messageStyle);
+
   let bgcolor = '#' + '80A1D4'
   let background = {backgroundColor: bgcolor}
-  // let [isEditing, setIsEditing] = useState(false);
-  let [messaging, setMessaging] = useState(false);
-  
-   
-  // let [surveyMessages, setSurveyMessages] = useState([]);
   let [mhpMessages, setMhpMessages] = useState([]); 
   const { values } = useContext(AppContext);
+  const memberID = values.currentUser.id;
   
-  // const nav = useNavigate();
-
-  console.log('values:', values.currentUser.role.isUser)
-
-  // if (!values.currentUser.role.isUser) nav('/error');
+  const nav = useNavigate();
+  if (!values.currentUser.role.isUser) nav('/error');
 
   useEffect(()=> {
-    fetch(ApiUrl + `/mhpmessages/members/${values.currentUser.id}`)
-    .then(res=>res.json())
-    .then(data=>{
-      console.log('Fetch Member Messages:', data) 
-      setMhpMessages(data);
-      setMessaging(!messaging)
-    })
-    .catch(err=>console.log(err))
-  }, [])
+    fetch(ApiUrl + `/mhpmessages/members/${memberID}`)
+        .then(res=>res.json())
+        .then(data=> setMhpMessages(data))
+        .catch(err=>console.log(err))
+  },[])
   
-  // const submit = () => {
-  //   setIsEditing(!isEditing)
-  // }
+  
+  const sendMsg = (member_from, comment) => {
 
-  const sendMsg = (/*member_to, member_from, comment*/) => {
-    setTimeout(() => {
-      setMessaging(!messaging)
-    }, 750)
-
-    // console.log(member_to, member_from, comment)
-    // const newMsg = {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json;charset=utf-8'
-    //   },
-    //   body: JSON.stringify({
-    //     members_id_to: member_to,
-    //     members_id_from: member_from,
-    //     comment: comment,
-    //   })
-    // }
+    // POST config settings
+    const newMsg = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8'
+      },
+      body: JSON.stringify({
+        members_id_from: member_from,
+        comment: comment,
+      })
+    }
+    // POST message to database
+    fetch(`${ApiUrl}/mhpmessages`, newMsg)
+    .then(res => res.json())
+    fetch(ApiUrl + `/mhpmessages/members/${memberID}`)
+    .then(res=>res.json())
+    .then(data=> setMhpMessages(data))
+    // Fetch updated messages and set state to re-render page
+    .then(()=> {
+      fetch(ApiUrl + `/mhpmessages/members/${memberID}`)
+      .then(res=>res.json())
+      .then(data=> setMhpMessages(data))
+      .then(()=> document.getElementById('message').value = '')
+      .catch(err=>console.log(err))
+    })
   }
 
 
   return (
     <>
       <Paper elevation={3} sx={{width: '100%', marginLeft: '0%', marginRight: '0%', paddingBottom: '2vw', marginBottom: '5vw', borderRadius: '6px'}}>
-        <h1 style={{textAlign: 'center', ...background, borderRadius: '6px'}}>Messages to Mental Health Provider</h1>
-        <Paper id='myModal'>
-          <Card elevation={5} sx={{margin:'1%', textAlign:'center', padding:'1%'}}>
-            <span id="closeModal" onClick={() => {setMessaging(!messaging)}}>New Message to MHP:</span><div/>
+        {/* Header */}
+        <h1 style={{textAlign: 'center', ...background, borderRadius: '6px'}}>Messages With Mental Health Provider</h1>
+        {/* Chat Message Box */}
+        <Card elevation={5} sx={{margin:'1%', textAlign:'center', padding:'1%'}}>
+            <span id="closeModal"> 
+              { `New Message` }
+            </span><div/>
             <TextField id='message' rows="12" placeholder='Type your message here...' fullWidth /><div/>
-            <Button className='submit' onClick={() => {sendMsg(null, values.currentUser.id, document.getElementById('message').value)}}>Submit</Button>
+            <Button className='submit' onClick={() => {sendMsg(memberID, document.getElementById('message').value)}}>Submit</Button>
           </Card>
 
-          {mhpMessages.map((message) => {
-            return (
-              // check if element id === message id
-              <Card key={message.id} sx={ values.currentUser.id === message.members_id_from ? messageStyle.fromMember : messageStyle.toProvider}>
-                <p>{`${message.date}`}</p>
-                <p>{`${message.comment}`}</p>
-              </Card>
-            )
-          })}
+        {/* Display Messages in Descending Chronological Order (Earliest to Latest */}
+        <Paper id='myModal'>
+          <div>
+            {mhpMessages.map((message) => {
+              let sendDate = new Date (message.date);
+              return (
+                <div key={message.id}>
+                  <p style={ memberID === message.members_id_to ? dateStyle.fromUser : dateStyle.fromMHP  }>
+                    {sendDate.toLocaleString()}
+                  </p>
+                  <Typography style={ memberID === message.members_id_to ? messageStyle.fromUser : messageStyle.fromMHP } >
+                    {`${message.comment}`}
+                  </Typography>
+                </div>
+              )
+            })}
+            {/* If there are no messages to display, render no messages instead of end of messages */}
+            <h3 style={{textAlign:'center', clear:'both'}}>End of Messages...</h3>
+          </div>
         </Paper>
       </Paper>
     </>
@@ -92,4 +106,3 @@ const MemberMessagesPage = () => {
 }
 
 export default MemberMessagesPage;
-
