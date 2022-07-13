@@ -28,9 +28,9 @@ const MHPPage = () => {
   let [userTo, setUserTo] = useState(0);
   let [singleSelectUser, setSingleSelectUser] = useState(0);
   let [rows, setRows] = useState([]); 
-  let [surveyMessages, setSurveyMessages] = useState([]);
+  // let [surveyMessages, setSurveyMessages] = useState([]);
   let [mhpMessages, setMhpMessages] = useState([]); 
-  const {values, setters} = useContext(AppContext);
+  const { values } = useContext(AppContext);
   
   const nav = useNavigate();
 
@@ -45,10 +45,6 @@ const MHPPage = () => {
       setRows(surveyData)
     })
   }, [])
-
-  const submit = () => {
-    setIsEditing(!isEditing)
-  }
 
   const sendMsg = (member_to, member_from, comment) => {
     setTimeout(() => {
