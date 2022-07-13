@@ -54,25 +54,29 @@ const LoginPage = () => {
     }
   
   return (
-    <>
-      <img src='./public/designimg/reaching-hands.jpeg' className='login-image' alt='military service member clasping hand with another'/>
-      <Paper className='login-sheet' elevation={10} sx={{width: '60vw', marginLeft: '20vw', marginRight:'20vw', marginTop: '2.5vw'}}>
+    <div style={{'backgroundColor': '#83C5BE', position: 'absolute', overflow: 'auto', top: 0, left: 0, right: 0, bottom: 0}}>
+      <img src='designimg/reaching-hands.jpeg' className='login-image' alt='military service member clasping hand with another' 
+      style={{display: 'block', 'marginLeft': 'auto', 'marginRight': 'auto', marginTop: '2%', borderRadius: '32px', boxShadow:'0 0 8px #006D77'}}/>
+      <Paper className='login-sheet' elevation={10} sx={{width: '60vw', marginLeft: '20vw', marginRight:'20vw', marginTop: '2.5vw', backgroundColor: '#006D77', boxShadow:'0 0 8px #006D77', borderRadius: '16px'}}>
         <Stack spacing={2} direction='column' sx={{width: '50vw', marginLeft: '5vw', marginRight: '5vw', paddingBottom: '2vw', marginBottom: '5vw'}}>
-        <Typography variant='h2' align='center'>Login</Typography>
-          <TextField id='username' label='Username'></TextField>
-          <TextField id='password-textfield' label='Password' type='password'></TextField>
-          <Button onClick={loginButtonClickHandler}>Login</Button>
+        <Typography variant='h2' align='center' sx={{'font-family': 'Roboto', 'color': '#EDF6F9', marginLeft: '0%', marginTop: '1%'}}>LOGIN</Typography>
+          <TextField id='username' label='Username' color='success' sx={{backgroundColor: '#EDF6F9', borderRadius: '16px'}}></TextField>
+          <TextField id='password-textfield' label='Password' type='password' color='success' sx={{backgroundColor: '#EDF6F9', borderRadius: '16px'}}></TextField>
+          <Button onClick={loginButtonClickHandler} sx={{'font-family': 'Roboto', 'color': '#FFDDD2', 'fontSize': '24px', backgroundColor: '#E29578', borderRadius: '16px'}}>LOGIN</Button>
         </Stack>
       </Paper>
-      <Paper sx={{width: '60vw', marginLeft: '20vw', marginRight:'20vw'}} elevation={5} >
-        <Stack spacing={2} direction='column' sx={{width: '50vw', marginLeft: '5vw', marginRight: '5vw', paddingBottom: '2vw'}}>
-          <p>
-            If you do not have an account, please create an account
+      <Paper sx={{width: '30vw', marginLeft: '35vw', marginRight:'35vw', backgroundColor: '#006D77', boxShadow:'0 0 8px #006D77', borderRadius: '16px'}} elevation={5} >
+        <Stack spacing={2} direction='column' sx={{width: '28vw', marginLeft: '1vw', marginRight: '1vw', paddingBottom: '2vw'}}>
+          <p style={{textAlign: 'center', 'font-family': 'Roboto', 'color': '#EDF6F9', 'fontSize': '20px', marginBottom: '0px'}}>
+            If you do not have an account,
           </p>
-          <Button onClick={()=>{nav('/signup')}}>Sign Up</Button>
+          <p style={{textAlign: 'center', 'font-family': 'Roboto', 'color': '#EDF6F9', 'fontSize': '20px', marginTop: '0px'}}>
+            please create an account
+          </p>
+          <Button onClick={()=>{nav('/signup')}} sx={{'font-family': 'Roboto', 'color': '#FFDDD2', 'fontSize': '14px', backgroundColor: '#E29578', borderRadius: '16px' }}>Sign Up</Button>
         </Stack>
       </Paper>
-    </>
+    </div>
   )
 }
 export default LoginPage;
