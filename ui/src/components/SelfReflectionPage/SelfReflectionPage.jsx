@@ -1,45 +1,70 @@
+/* eslint-disable */
 import React from 'react';
-import { TextField,  Paper, Button, Slider, Grid, Typography, Stack } from '@mui/material';
+import { TextField,  Paper, Alert, Button, Slider, Grid, Typography, Stack, Card, Fade} from '@mui/material';
 import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
 import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt';
 import SentimentNeutralIcon from '@mui/icons-material/SentimentNeutral';
 // import Dashboard from '../Dashboard/Dashboard.jsx'
 // import Dashboard from '../Dashboard/Dashboard.jsx'
 // import { textAlign } from '@mui/system';
+import Snackbar from '@mui/material/Snackbar';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 import { useContext } from 'react';
 import { AppContext } from '../../AppContext';
 // import { useNavigate } from 'react-router-dom';
 import config from '../../config';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import propTypes from 'prop-types';
+import {primaryTheme, SurveyCard, CommentCard, capitalizeFirstLetter, SurveyTextField, SurveySlider, SurveyPaper, SurveySubmitButton, SurveyTypography, notificationColors, TitleTypography, TitleCard} from '../Shared/CustomComponents';
+import { Box } from '@mui/system';
+import { useEffect } from 'react';
+
 const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
+const categories = ['family', 'social', 'legal', 'work', 'health'];
 
-const defaultIconStyle = {
-  satisfied: {color: 'green' , backgroundColor: '#C6EFCE', fontSize:'100px'},
-  neutral: {color: 'yellow', backgroundColor: '#FFF1BA'},
-  dissatisfied: {color: 'red', backgroundColor: '#FFC7CE'}
-}
 const SelfReflectionPage = () => {
-  const [FamilyIconSX, setFamilyIconSX] = React.useState(defaultIconStyle)
-  const [SocialIconSX, setSocialIconSX] = React.useState(defaultIconStyle)
-  const [LegalIconSX, setLegalIconSX] = React.useState(defaultIconStyle)
-  const [WorkIconSX, setWorkIconSX] = React.useState(defaultIconStyle)
-  const [HealthIconSX, setHealthIconSX] = React.useState(defaultIconStyle)
-
-  const [FamilySliderValue, setFamilySliderValue] = React.useState(3)
-  const [SocialSliderValue, setSocialSliderValue] = React.useState(3)
-  const [LegalSliderValue, setLegalSliderValue] = React.useState(3)
-  const [WorkSliderValue, setWorkSliderValue] = React.useState(3)
-  const [HealthSliderValue, setHealthSliderValue] = React.useState(3)
+  const defaultIconStyle = {
+    satisfied: {color: 'green' , backgroundColor: notificationColors.green, height:'6em', width:'auto'},
+    neutral: {color: 'yellow', backgroundColor: notificationColors.yellow, height:'3em', width:'auto'},
+    dissatisfied: {color: 'red', backgroundColor: notificationColors.red, height:'3em', width:'auto'}
+  }
+  const [IconsSX, setIconsSX] = React.useState({
+    family: defaultIconStyle,
+    social: defaultIconStyle,
+    legal: defaultIconStyle,
+    work: defaultIconStyle,
+    health: defaultIconStyle
+  })
+  const [SliderValues, setSliderValues] = React.useState({
+    family: 3,
+    social: 3,
+    legal: 3,
+    work: 3,
+    health: 3
+  })
+  let params = useParams();
 
   const {values} = useContext(AppContext);
-  
   const nav = useNavigate();
   if (!values.currentUser.role.isUser) nav('/error');
 
-
-
+  const [member, setMember] = React.useState(undefined);
+  useEffect(()=>{
+    fetch(ApiUrl + `/members/${params.memberID}`)
+    .then(res=>res.json())
+    .then(data => {
+      setMember(data[0])
+      console.log(data[0]);
+      if(!params.hasOwnProperty(membersID))
+      {
+        setMember({});
+      }
+   }) 
+   .catch(err => console.log(err))
+  },[params])
   const submitSurveyHandler = () => {
-
+    console.log(SliderValues, IconsSX)
     const newSurvey = {
       method: 'POST',
       headers: {
@@ -48,81 +73,86 @@ const SelfReflectionPage = () => {
       body: JSON.stringify({
         members_id_to: values.currentUser.id,
         members_id_from: values.currentUser.id,
-        family: FamilySliderValue,
-        social: SocialSliderValue,
-        legal: LegalSliderValue,
-        work: WorkSliderValue,
-        health: HealthSliderValue,
+        family: SliderValues.family,
+        social: SliderValues.social,
+        legal: SliderValues.legal,
+        work: SliderValues.work,
+        health: SliderValues.health,
         comment: document.getElementById('comments-textfield').value,
       })
     }
-    console.log('survey header: ', newSurvey);
+    // console.log('survey header: ', newSurvey);
 
     fetch(`${ApiUrl}/surveymessages`, newSurvey)
     .then(res => res.json())
     .then(data => {
-      console.log(data);
+      return data;
     })
+    .catch(err=>console.log(err));
   }
   
-  const sliderOnChangeHandler = (e) => {
+  const sliderOnChangeHandler = (e, category) => {
     // let value = document.getElementById('family-slider').defaultValue
     // console.log(value);
 
-    let setIcons = setFamilyIconSX
-    if(e.target.name === 'family-slider') {
-      setIcons = setFamilyIconSX
-    }
-    else if(e.target.name === 'social-slider') setIcons = setSocialIconSX;
-    else if(e.target.name === 'legal-slider') setIcons = setLegalIconSX;
-    else if(e.target.name === 'work-slider') setIcons = setWorkIconSX;
-    else if(e.target.name === 'health-slider') setIcons = setHealthIconSX;
-
+    let tempIconsSX = JSON.parse(JSON.stringify(IconsSX));
+    let tempSliderValue = JSON.parse(JSON.stringify(SliderValues));
+    tempSliderValue[category] = e.target.value;
+    setSliderValues(tempSliderValue);
     if(e.target.value===1)
     {
-      setIcons( {
-        satisfied: {color: 'green' , backgroundColor: '#C6EFCE'},
-        neutral: {color: 'yellow', backgroundColor: '#FFF1BA'},
-        dissatisfied: {color: 'red', backgroundColor: '#FFC7CE', fontSize:'100px'}
+      tempIconsSX[category] = ( {
+        satisfied: {color: 'green' , backgroundColor: notificationColors.green, height:'3em', width:'auto'},
+        neutral: {color: 'yellow', backgroundColor: notificationColors.yellow, height:'3em', width:'auto'},
+        dissatisfied: {color: 'red', backgroundColor: notificationColors.red, height:'6em', width:'auto'}
       })
     }
     else if(e.target.value===2)
     {
-      setIcons(  {
-        satisfied: {color: 'green' , backgroundColor: '#C6EFCE'},
-        neutral: {color: 'yellow', backgroundColor: '#FFF1BA', fontSize:'100px'},
-        dissatisfied: {color: 'red', backgroundColor: '#FFC7CE'}
+      tempIconsSX[category] = (  {
+        satisfied: {color: 'green' , backgroundColor: notificationColors.green, height:'3em', width:'auto'},
+        neutral: {color: 'yellow', backgroundColor: notificationColors.yellow, height:'6em', width:'auto'},
+        dissatisfied: {color: 'red', backgroundColor: notificationColors.red, height:'3em', width:'auto'}
       })
     }
     else if(e.target.value===3){
-      setIcons(  {
-        satisfied: {color: 'green' , backgroundColor: '#C6EFCE', fontSize:'100px'},
-        neutral: {color: 'yellow', backgroundColor: '#FFF1BA'},
-        dissatisfied: {color: 'red', backgroundColor: '#FFC7CE'}
+      tempIconsSX[category] = (   {
+        satisfied: {color: 'green' , backgroundColor: notificationColors.green, height:'6em', width:'auto'},
+        neutral: {color: 'yellow', backgroundColor: notificationColors.yellow, height:'3em', width:'auto'},
+        dissatisfied: {color: 'red', backgroundColor: notificationColors.red, height:'3em', width:'auto'}
       })
     }
+
+    setIconsSX(tempIconsSX);
   }
 
+
+  console.log(member);
   return (
     <>
       {/* <Dashboard /> */}
-      <Paper elevation={3} sx={{width: '75%', marginLeft: '12.5%', marginRight: '12.5%', paddingBottom: '2vw', marginBottom: '5%', paddingLeft: '2%', paddingRight: '2%'}}>
-        <h1 style={{textAlign: 'center'}}>Self Reflection Page</h1>
-        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 1, md: 1 }} columns={2} >
-            <Grid item xs={1}>
-              <Typography variant='h4' align='center'>
-                Family
-              </Typography>
-            </Grid>
-            <Grid item xs={1}>
-              <Stack direction='row'  justifyContent='space-between'>
-                <SentimentVeryDissatisfiedIcon sx={FamilyIconSX.dissatisfied}/>
-                <SentimentNeutralIcon sx={FamilyIconSX.neutral}/>
-                <SentimentSatisfiedAltIcon sx={FamilyIconSX.satisfied}/>
-              </Stack>
-              <Slider
-                id='family-slider'
-                name='family-slider'
+      <SurveyPaper theme={primaryTheme} elevation={3} sx={{width: '100%', marginLeft: '0%', marginRight: '0%', paddingBottom: '2vw', marginBottom: '5%', paddingLeft: '2%', paddingRight: '2%'}}>
+        {/* <h1 style={{textAlign: 'center'}}>Self Reflection Page</h1> */}
+        {member === '' || member === undefined?
+          <TitleTypography theme={primaryTheme} align='center'>Self Reflection</TitleTypography>
+          :
+          <TitleTypography theme={primaryTheme} align='center'>Reaching Out For {`${member.first_name} ${member.last_name}`}</TitleTypography>
+        }
+        {categories.map((category) => {
+          return (
+          <SurveyCard theme={primaryTheme}>
+            <SurveyTypography theme={primaryTheme} variant='h4' align='center'>
+              {capitalizeFirstLetter(category)}
+            </SurveyTypography>
+            <Stack direction='row'  justifyContent='space-between'>
+              <img src='../reachoutimg/handshake.png' alt='handshake emoji' style={IconsSX[category].dissatisfied} />
+              <img src='../reachoutimg/ok-hand.png' alt='ok-hand emoji' style={IconsSX[category].neutral} />
+              <img src='../reachoutimg/thumbs-up.png' alt='thumbs-up emoji' style={IconsSX[category].satisfied} />
+            </Stack>
+            <Box sx ={{width: '87%', marginLeft: '6.5%', marginRight: '6.5%'}}>
+              <SurveySlider theme={primaryTheme}
+                id={`${category}-slider`}
+                name={`${category}-slider`}
                 defaultValue={3}
                 step={1}
                 marks
@@ -130,129 +160,77 @@ const SelfReflectionPage = () => {
                 max={3}
                 track={false}
                 onChange={(e)=>{
-                  sliderOnChangeHandler(e);
+                  sliderOnChangeHandler(e, category);
                   setFamilySliderValue(e.target.value)
-                 }}
-              ></Slider>
-            </Grid>
-            <Grid item xs={1}>
-              <Typography variant='h4' align='center'>
-                Social
-              </Typography>
-            </Grid>
-            <Grid item xs={1}>
-              <Stack direction='row' justifyContent='space-between'>
-                <SentimentVeryDissatisfiedIcon sx={SocialIconSX.dissatisfied}/>
-                <SentimentNeutralIcon sx={SocialIconSX.neutral}/>
-                <SentimentSatisfiedAltIcon sx={SocialIconSX.satisfied}/>
-              </Stack>
-              <Slider
-                id='social-slider'
-                name='social-slider'
-                defaultValue={3}
-                step={1}
-                marks
-                min={1}
-                max={3}
-                track={false}
-                onChange={(e)=>{
-                  sliderOnChangeHandler(e)
-                  setSocialSliderValue(e.target.value)
                 }}
-              ></Slider>
-            </Grid>
-            <Grid item xs={1}>
-              <Typography variant='h4' align='center'>
-                Legal
-              </Typography>
-            </Grid>
-            <Grid item xs={1}>
-              <Stack direction='row' justifyContent='space-between'>
-                <SentimentVeryDissatisfiedIcon sx={LegalIconSX.dissatisfied}/>
-                <SentimentNeutralIcon sx={LegalIconSX.neutral}/>
-                <SentimentSatisfiedAltIcon sx={LegalIconSX.satisfied}/>
-              </Stack>
-              <Slider
-                id='legal-slider'
-                name='legal-slider'
-                defaultValue={3}
-                step={1}
-                marks
-                min={1}
-                max={3}
-                track={false}
-                onChange={(e)=>{
-                  setLegalSliderValue(e.target.value)
-                  sliderOnChangeHandler(e)
-                }}
-              ></Slider>
-            </Grid>
-            <Grid item xs={1}>
-              <Typography variant='h4' align='center'>
-                Work
-              </Typography>
-            </Grid>
-            <Grid item xs={1}>
-              <Stack direction='row' justifyContent='space-between'>
-                <SentimentVeryDissatisfiedIcon sx={WorkIconSX.dissatisfied}/>
-                <SentimentNeutralIcon sx={WorkIconSX.neutral}/>
-                <SentimentSatisfiedAltIcon sx={WorkIconSX.satisfied}/>
-              </Stack>
-              <Slider
-                id='work-slider'
-                name='work-slider'
-                defaultValue={3}
-                step={1}
-                marks
-                min={1}
-                max={3}
-                track={false}
-                onChange={(e)=>{
-                  setWorkSliderValue(e.target.value)
-                  sliderOnChangeHandler(e)
-                }}
-              ></Slider>
-            </Grid>
-            <Grid item xs={1}>
-              <Typography variant='h4' align='center'>
-                Health
-              </Typography>
-            </Grid>
-            <Grid item xs={1}>
-              <Stack direction='row' justifyContent='space-between'>
-                <SentimentVeryDissatisfiedIcon sx={HealthIconSX.dissatisfied}/>
-                <SentimentNeutralIcon sx={HealthIconSX.neutral}/>
-                <SentimentSatisfiedAltIcon sx={HealthIconSX.satisfied}/>
-              </Stack>
-              <Slider
-                id='health-slider'
-                name='health-slider'
-                defaultValue={3}
-                step={1}
-                marks
-                min={1}
-                max={3}
-                track={false}
-                onChange={(e)=>{
-                  setHealthSliderValue(e.target.value)
-                  sliderOnChangeHandler(e)
-                }}
-              ></Slider>
-            </Grid>
-            <Grid item xs={1}>
-              <Typography variant='h4' align='center'>
-                  Comments
-              </Typography>
-            </Grid>
-
-            <Grid item xs={1}>
-              <TextField id='comments-textfield' label='Comments' maxRows={5} minRows={3} multiline sx={{width: '100%'}}></TextField>
-            </Grid>
-        </Grid>
-        <Button onClick={submitSurveyHandler}>Submit</Button>
-      </Paper>
+              ></SurveySlider>
+            </Box>
+          </SurveyCard>
+          )
+        })}
+        <SurveyCard theme={primaryTheme} sx={{backgroundColor: primaryTheme.color2}}>
+          <SurveyTypography theme={primaryTheme} variant='h4' align='center'>
+            Comments
+          </SurveyTypography>
+          <SurveyTextField theme={primaryTheme} id='comments-textfield' label='Comments' maxRows={5} minRows={3} multiline sx={{width: '100%'}} />
+        </SurveyCard>
+        <SelfReflectionPageSubmitButton callback={submitSurveyHandler} onClick={()=>{console.log(SliderValues, IconsSX)}}/>
+      </SurveyPaper>
     </>
   )
 }
 
+
+const SelfReflectionPageSubmitButton = ({callback}) => {
+  const [open, setOpen] = React.useState(false);
+
+  const handleClick = () => {
+    setOpen(true);
+    callback();
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+  const action = (
+    <React.Fragment>
+      <Button color="secondary" size="small" onClick={handleClose}>
+        Close
+      </Button>
+      <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={handleClose}
+      >
+        <CloseIcon fontSize="small" />
+      </IconButton>
+    </React.Fragment>
+  );
+
+  return (
+    <div>
+      <SurveySubmitButton theme={primaryTheme} onClick={handleClick}>Submit</SurveySubmitButton>
+      <Snackbar
+        anchorOrigin={{vertical:'bottom', horizontal:'center'}}
+        open={open}
+        autoHideDuration={5000}
+        onClose={handleClose}
+        message="Survey Submitted"
+        action={action}
+        TransitionComponent={Fade}
+      >
+        <Alert onClose = {handleClose} severity='success'>Survey Submitted</Alert>
+      </Snackbar>
+    </div>
+  );
+}
+SelfReflectionPageSubmitButton.propTypes = {
+  callback: propTypes.any,
+}
 export default SelfReflectionPage;

@@ -1,36 +1,61 @@
+/* eslint-disable */
 import { Grid, MenuItem, Paper, Select, TextField } from '@mui/material';
 import React from 'react';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AppContext } from '../../AppContext';
 import config from '../../config';
+import {primaryTheme, NameTypography, SurveySelect, SurveyCard, CommentCard, capitalizeFirstLetter, SurveyTextField, SurveySlider, SurveyPaper, SurveySubmitButton, SurveyTypography, notificationColors, TitleTypography, TitleCard} from '../Shared/CustomComponents';
 
 const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
 
 const MemberList = () => {
+  const {values} = useContext(AppContext);
   const [members, setMembers] = React.useState([]);
   const [displayMembers, setDisplayMembers] = React.useState([]);
   const [units, setUnits] = React.useState([]);
-  const [selectUnit, setSelectUnit] = React.useState(0);
-  const {values} = useContext(AppContext);
+  const [commands, setCommands] = React.useState([]);
+  const [agencies, setAgencies] = React.useState([]);
+
+  const [selectUnit, setSelectUnit] = React.useState(values.currentUser.units_id);
 
   const nav = useNavigate();
   if (!values.currentUser.role.isUser) nav('/error');
 
-  React.useEffect(()=>{
-   fetch(ApiUrl+'/members')
-   .then(res=>res.json())
-   .then(data=>{
-    console.log(data)
-    setMembers(data);
-    setDisplayMembers(data);
-   })
-   fetch(ApiUrl+'/units')
-   .then(res=>res.json())
-   .then(data=>{
+ useEffect(async ()=>{
+    await fetch(ApiUrl+'/commands')
+    .then(res=>{res.json()})
+    .then(data=>{
+      setCommands(data)
+    })
+    await fetch(ApiUrl+'/agencies')
+    .then(res=>{res.json()})
+    .then(data=>{
+      setAgencies(data)
+    })
+
+    await fetch(ApiUrl+'/units')
+    .then(res=>res.json())
+    .then(data=>{
     console.log(data)
     setUnits(data);
-   })
+    })
+    .then(()=>{
+      fetch(ApiUrl+'/members')
+      .then(res=>res.json())
+      .then(data=>{
+        console.log(data)
+        setMembers(data);
+        setSelectUnit(values.currentUser.units_id)
+        let temp = data.concat([])
+        temp = temp.filter((e)=>{
+          return e.units_id === values.currentUser.units_id
+        })
+        console.log(temp);
+        setDisplayMembers(temp);
+      })
+    })
+
   }, [])
   console.log(members, displayMembers);
   const nameSearchHandler = (event) => {
@@ -54,15 +79,18 @@ const MemberList = () => {
 
   return (
     <>
-      <h1>Reach Out To...</h1>
-      <Paper elevation={3} sx={{marginBottom: '1vw'}}>
-        <TextField id='search-text-box' onChange={nameSearchHandler} placeholder={'search by name'} label='search'/>
-        <Select
+      <TitleTypography theme={primaryTheme}>
+        Reach Out To...
+      </TitleTypography>
+      <SurveyCard theme={primaryTheme} elevation={3} sx={{marginBottom: '1vw'}}>
+        <SurveyTextField theme={primaryTheme} id='search-text-box' onChange={nameSearchHandler} placeholder={'search by name'} label='search'/>
+        <SurveyTextField theme={primaryTheme}
+          select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={selectUnit}
           label="units"
-          defaultValue={0}
+          defaultValue={values.currentUser.units_id}
           onChange={handleChange}
         >
           <MenuItem  value={0}>N/A</MenuItem>
@@ -72,27 +100,61 @@ const MemberList = () => {
             )
           })}
 
-        </Select>
-      </Paper>
-      <Paper elevation={3}>
-        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 1, md: 1 }} columns={2} >
+        </SurveyTextField>
+        <SurveyTextField theme={primaryTheme}
+          select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={selectUnit}
+          label="commands"
+          defaultValue={values.currentUser.units_id}
+          onChange={handleChange}
+        >
+          <MenuItem  value={0}>N/A</MenuItem>
+          {units.map((e) => {
+            return (
+              <MenuItem key={e.id} value={e.id}>{e.name}</MenuItem>
+            )
+          })}
+
+        </SurveyTextField>
+        <SurveyTextField theme={primaryTheme}
+          select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={selectUnit}
+          label="units"
+          defaultValue={values.currentUser.units_id}
+          onChange={handleChange}
+        >
+          <MenuItem  value={0}>N/A</MenuItem>
+          {units.map((e) => {
+            return (
+              <MenuItem key={e.id} value={e.id}>{e.name}</MenuItem>
+            )
+          })}
+
+        </SurveyTextField>
+
+      </SurveyCard>
+      <SurveyPaper theme={primaryTheme} elevation={3}>
+        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 1, md: 1 }} columns={12} >
           {displayMembers.map((e)=>{
             return (
-              <Grid item xs={1} key={e.id}>
-                <Link key={e.id} to={`/reachout/${e.id}`}>
-                  <p >
-                    {/* username, last name, first name, unit_name, command_name, agency_name */}
-                    {e.username}, 
-                    {e.last_name}, 
-                    {e.first_name}, 
-                    {e.units_id}, 
-                  </p>
-                </Link>
+              <Grid item xs={6} sm ={4} md={3} key={e.id}>
+                  <Link key={e.id} to={`/reachout/${e.id}`} sx={{}}>
+                      <NameTypography variant='h1' theme = {primaryTheme} align='center'>
+                        {`${e.username}`}
+                      </NameTypography>
+                      {/* <p>
+                        {`${e.username}`}
+                      </p> */}
+                  </Link>
               </Grid>
             )
           })}
         </Grid>
-      </Paper>
+      </SurveyPaper>
     </>
   )
 }
