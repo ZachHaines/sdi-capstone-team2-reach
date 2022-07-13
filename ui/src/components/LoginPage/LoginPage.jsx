@@ -65,15 +65,15 @@ const LoginPage = () => {
           <Button onClick={loginButtonClickHandler} sx={{'font-family': 'Roboto', 'color': '#FFDDD2', 'fontSize': '24px', backgroundColor: '#E29578', borderRadius: '16px'}}>LOGIN</Button>
         </Stack>
       </Paper>
-      <Paper sx={{width: '30vw', marginLeft: '35vw', marginRight:'35vw', backgroundColor: '#006D77', boxShadow:'0 0 8px #006D77', borderRadius: '16px'}} elevation={5} >
-        <Stack spacing={2} direction='column' sx={{width: '28vw', marginLeft: '1vw', marginRight: '1vw', paddingBottom: '2vw'}}>
-          <p style={{textAlign: 'center', 'font-family': 'Roboto', 'color': '#EDF6F9', 'fontSize': '20px', marginBottom: '0px'}}>
+      <Paper sx={{width: '40vw', marginLeft: '30vw', marginRight:'30vw', backgroundColor: '#006D77', boxShadow:'0 0 8px #006D77', borderRadius: '16px'}} elevation={5} >
+        <Stack spacing={2} direction='column' sx={{width: '38vw', marginLeft: '1vw', marginRight: '1vw', paddingBottom: '2vw'}}>
+          <p style={{textAlign: 'center', 'font-family': 'Roboto', 'color': '#EDF6F9', 'fontSize': '24px', marginBottom: '0px'}}>
             If you do not have an account,
           </p>
-          <p style={{textAlign: 'center', 'font-family': 'Roboto', 'color': '#EDF6F9', 'fontSize': '20px', marginTop: '0px'}}>
+          <p style={{textAlign: 'center', 'font-family': 'Roboto', 'color': '#EDF6F9', 'fontSize': '24px', marginTop: '0px'}}>
             please create an account
           </p>
-          <Button onClick={()=>{nav('/signup')}} sx={{'font-family': 'Roboto', 'color': '#FFDDD2', 'fontSize': '14px', backgroundColor: '#E29578', borderRadius: '16px' }}>Sign Up</Button>
+          <Button onClick={()=>{nav('/signup')}} sx={{'font-family': 'Roboto', 'color': '#FFDDD2', 'fontSize': '20px', backgroundColor: '#E29578', borderRadius: '16px' }}>Sign Up</Button>
         </Stack>
       </Paper>
     </div>

@@ -36,7 +36,7 @@ function Copyright(props) {
       <Typography variant="body2" color="text.secondary" align="center" {...props}>
         {'Copyright © '}
         <Link color="inherit" href="https://mui.com/">
-          Your Website
+          Reach
         </Link>{' '}
         {new Date().getFullYear()}
         {'.'}
@@ -68,6 +68,7 @@ const AppBar = styled(MuiAppBar, {
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
     '& .MuiDrawer-paper': {
+      backgroundColor: '#EDF6F9',
       position: 'relative',
       whiteSpace: 'nowrap',
       width: drawerWidth,
@@ -113,7 +114,7 @@ const DashboardContent = ({DisplayItem, DisplayTitle}) => {
     <ThemeProvider theme={mdTheme}>
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
-        <AppBar position="absolute" open={open}>
+        <AppBar position="absolute" open={open} sx={{backgroundColor: '#006D77'}}>
           <Toolbar
             sx={{
               pr: '24px', // keep right padding when drawer closed
@@ -136,9 +137,10 @@ const DashboardContent = ({DisplayItem, DisplayTitle}) => {
               variant="h5"
               color="inherit"
               noWrap
-              sx={{ flexGrow: 1 }}
+              sx={{ flexGrow: 1,
+                fontFamily: 'Roboto' }}
             >
-              {DisplayTitle}
+              {DisplayTitle.toUpperCase()}
             </Typography>
             <Typography
               component="h1"
@@ -146,9 +148,10 @@ const DashboardContent = ({DisplayItem, DisplayTitle}) => {
               color="inherit"
               noWrap
               align='left'
-              sx={{ flexGrow: 1 }}
+              sx={{ flexGrow: 1,
+                fontFamily: 'Roboto', }}
             >
-              {`Signed In As: ${values.currentUser.username}`}
+              {`SIGNED IN AS: ${values.currentUser.username.toUpperCase()}`}
             </Typography>
             <IconButton color="inherit" onClick={() => {nav('/login')}}>
               <Badge color="secondary">
@@ -164,7 +167,7 @@ const DashboardContent = ({DisplayItem, DisplayTitle}) => {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'flex-end',
-              px: [1],
+              px: [1]
             }}
           >
             <IconButton onClick={toggleDrawer}>
@@ -181,10 +184,7 @@ const DashboardContent = ({DisplayItem, DisplayTitle}) => {
         <Box
           component="main"
           sx={{
-            backgroundColor: (theme) =>
-              theme.palette.mode === 'light'
-                ? theme.palette.grey[100]
-                : theme.palette.grey[900],
+            backgroundColor: '#93C5BE', 
             flexGrow: 1,
             height: '100vh',
             overflow: 'auto',
