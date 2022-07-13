@@ -23,7 +23,6 @@ const MHPPage = () => {
 
   let bgcolor = '#' + '80A1D4'
   let background = {backgroundColor: bgcolor}
-  let [isEditing, setIsEditing] = useState(false);
   let [messaging, setMessaging] = useState(false);
   let [userTo, setUserTo] = useState(0);
   let [singleSelectUser, setSingleSelectUser] = useState(0);
