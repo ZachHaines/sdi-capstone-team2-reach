@@ -46,7 +46,7 @@ const SignUpPage = () => {
   
 
   return (
-    <div style={{'backgroundColor': '#83C5BE', position: 'absolute', overflow: 'auto', top: 0, left: 0, right: 0, bottom: 0}}>
+    <div style={{'backgroundColor': 'rgba(131, 197, 190, 0.3)', position: 'absolute', overflow: 'auto', top: 0, left: 0, right: 0, bottom: 0}}>
       <Paper className='signup-sheet' elevation={10} sx={{width: '60vw', marginLeft: '20vw', marginRight:'20vw', marginTop: '2.5vw', backgroundColor: '#006D77', boxShadow:'0 0 8px #006D77', borderRadius: '16px'}}>
         <Stack spacing={2} direction='column' sx={{width: '50vw', marginLeft: '5vw', marginRight: '5vw', paddingBottom: '2vw', marginBottom: '5vw'}}>
           <Typography variant='h2' align='center' sx={{'font-family': 'Roboto', 'color': '#EDF6F9', marginLeft: '0%', marginTop: '1%'}}>Sign-Up</Typography>

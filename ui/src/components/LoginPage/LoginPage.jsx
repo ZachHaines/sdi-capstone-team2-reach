@@ -54,7 +54,7 @@ const LoginPage = () => {
     }
   
   return (
-    <div style={{'backgroundColor': '#83C5BE', position: 'absolute', overflow: 'auto', top: 0, left: 0, right: 0, bottom: 0}}>
+    <div style={{'backgroundColor': 'rgba(131, 197, 190, 0.3)', position: 'absolute', overflow: 'auto', top: 0, left: 0, right: 0, bottom: 0}}>
       <img src='designimg/reaching-hands.jpeg' className='login-image' alt='military service member clasping hand with another' 
       style={{display: 'block', 'marginLeft': 'auto', 'marginRight': 'auto', marginTop: '2%', borderRadius: '32px', boxShadow:'0 0 8px #006D77'}}/>
       <Paper className='login-sheet' elevation={10} sx={{width: '60vw', marginLeft: '20vw', marginRight:'20vw', marginTop: '2.5vw', backgroundColor: '#006D77', boxShadow:'0 0 8px #006D77', borderRadius: '16px'}}>

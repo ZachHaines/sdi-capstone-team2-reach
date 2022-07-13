@@ -184,7 +184,7 @@ const DashboardContent = ({DisplayItem, DisplayTitle}) => {
         <Box
           component="main"
           sx={{
-            backgroundColor: '#93C5BE', 
+            backgroundColor: 'rgba(131, 197, 190, 0.3)', 
             flexGrow: 1,
             height: '100vh',
             overflow: 'auto',
