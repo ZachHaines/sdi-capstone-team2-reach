@@ -8,7 +8,7 @@ const ErrorPage = () => {
   setTimeout(()=> {
     nav('/login')
     console.log('Redirecting back to login page...')
-  },"3000")
+  },"1000")
   return (
     <Paper sx={{margin:'5%', padding: '5%'}} elevation={10}>
       <Typography align="center" variant="h2">This is not the page you are looking for</Typography>

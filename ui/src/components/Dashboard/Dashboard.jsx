@@ -193,6 +193,7 @@ const DashboardContent = ({DisplayItem, DisplayTitle}) => {
           <Toolbar />
           <Container maxWidth='lg' sx={{ mt: 4, mb: 4 }}>
             <DisplayItem />
+            {/* above is the page we are displaing */}
             <Copyright sx={{ pt: 4 }} />
           </Container>
         </Box>
