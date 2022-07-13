@@ -4,6 +4,8 @@ const app = express();
 const calculateCumulation = require('./calculateCumulation');
 app.use(cors());
 app.use(express.json());
+// path and static allow server to send images (static files)
+app.use('/static', express.static('public'))
 
 const env = process.env.NODE_ENV || 'development'
 const config = require('../knexfile')[env]

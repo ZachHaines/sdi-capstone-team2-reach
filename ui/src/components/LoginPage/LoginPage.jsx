@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import { TextField, Stack, Paper, Button, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import config from '../../config';
@@ -6,13 +6,19 @@ import bcrypt from 'bcryptjs';
 import { AppContext } from '../../AppContext';
 
 const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
+let loginImage = ApiUrl
+console.log(loginImage)
+loginImage = ApiUrl + '/src/images'
+console.log(loginImage)
+loginImage = './designimg/reaching-hands.jpeg'
+
+
 
 const LoginPage = () => {
   const nav = useNavigate();
   const {values, setters} = useContext(AppContext);
 
   const loginButtonClickHandler = () => {
- 
  
   //login logical code
    const opts = {
@@ -47,41 +53,9 @@ const LoginPage = () => {
     .catch(err => console.log(err))
     }
   
-
-
-
-/*
-    fetch(ApiUrl+'/members/')
-      .then(res => res.json())
-      .then(data => {
-        data.forEach(el =>
-        {
-          if(username === el.username) 
-          {
-            fetch(ApiUrl+`/passwords/${el.passwords_id}`)
-              .then(res => res.json())
-              .then(data => 
-              {
-                bcrypt.compare(unhashedPassword, data.password, function(err, result) {
-                  // result == true
-                  if(result) {
-                    nav('/self-reflection')
-                    setters.setCurrentUser(username)
-                    isFound = true;
-                  }
-               });
-              })
-          }
-        })
-      }).then(()=> {
-        if (!isFound) {
-          alert('The username/password combination does not exist. If you are a new user, please register.')
-        }
-      })
-  }
-*/
   return (
     <>
+      <img src='./public/designimg/reaching-hands.jpeg' className='login-image' alt='military service member clasping hand with another'/>
       <Paper className='login-sheet' elevation={10} sx={{width: '60vw', marginLeft: '20vw', marginRight:'20vw', marginTop: '2.5vw'}}>
         <Stack spacing={2} direction='column' sx={{width: '50vw', marginLeft: '5vw', marginRight: '5vw', paddingBottom: '2vw', marginBottom: '5vw'}}>
         <Typography variant='h2' align='center'>Login</Typography>
