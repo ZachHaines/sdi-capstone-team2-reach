@@ -14,31 +14,22 @@ const messageStyle = {
 
 
 const MHPPage = () => {
-  console.log(messageStyle);
+
   let bgcolor = '#' + '80A1D4'
   let background = {backgroundColor: bgcolor}
   let [isEditing, setIsEditing] = useState(false);
   let [messaging, setMessaging] = useState(false);
   let [userTo, setUserTo] = useState(0);
+  let [singleSelectUser, setSingleSelectUser] = useState(0);
   let [rows, setRows] = useState([]); 
   let [surveyMessages, setSurveyMessages] = useState([]);
   let [mhpMessages, setMhpMessages] = useState([]); 
   const {values, setters} = useContext(AppContext);
   
-
-
   const nav = useNavigate();
 
   if(!values.currentUser.role.isMHP) nav('/error');
   if (!values.currentUser.role.isUser) nav('/error');
-
-
-
-  console.log(mhpMessages, setMhpMessages);
-
-  console.log(userTo, setUserTo);
-  console.log(surveyMessages, setSurveyMessages);
-  console.log(values, setters);
   
   useEffect( async ()=>{
     fetch(ApiUrl + `/members/mhp`)
@@ -47,7 +38,6 @@ const MHPPage = () => {
       console.log(surveyData)
       setRows(surveyData)
     })
-    
   }, [])
 
   const submit = () => {
@@ -90,15 +80,40 @@ const MHPPage = () => {
     { field: 'green', headerName: 'No Concern', width: 125 },
   ]
   
-  const rowClickHandler = (event) => {
-    fetch(ApiUrl + `/mhpmessages/members/${event.row.id}`)
-    .then(res=>res.json())
-    .then(data=>{
-      setMhpMessages(data);
+  const rowDoubleClickHandler = (event) => {
+    console.log('EVENT:', event);
+    if  (event.row.id === userTo) {
       setMessaging(!messaging)
-      setUserTo(event.row.id);
-    })
-    .catch(err=>console.log(err))
+    } else {
+      fetch(ApiUrl + `/mhpmessages/members/${event.row.id}`)
+      .then(res=>res.json())
+      .then(data=> {
+          setMessaging(true)
+          setMhpMessages(data);
+          setUserTo(event.row.id);
+        })
+      .catch(err=>console.log(err))
+    }    
+  }
+
+  const rowSingleClickHandler = (event) => {
+    setSingleSelectUser(event.row.id)
+  }
+
+  const messageButtonHandler = () => {
+    if (singleSelectUser === userTo) {
+      setMessaging(!messaging)
+    } else {
+      fetch(ApiUrl + `/mhpmessages/members/${singleSelectUser}`)
+      .then(res=>res.json())
+      .then(data=> {
+        setMhpMessages(data);
+        setUserTo(singleSelectUser);
+        setMessaging(true)
+      })
+      .catch(err=>console.log(err))    
+
+    }
   }
 
   return (
@@ -108,7 +123,7 @@ const MHPPage = () => {
         {isEditing ? 
         <>
           <DataGrid sx={{height: '70vh', width: '98%', marginLeft: '1%', marginRight: '1%' }} rows={rows} columns={columns} pageSize={15} rowsPerPageOptions={[15]} />
-          <Button onClick={() => submit()}>Submit</Button><Button onClick={() => setIsEditing(!isEditing)}>Cancel</Button>
+          
         </>
         :
         <>
@@ -116,14 +131,18 @@ const MHPPage = () => {
             rows={rows} columns={columns}
             pageSize={15}
             rowsPerPageOptions={[15]}
-            onRowDoubleClick={rowClickHandler}/>
-          <Button onClick={() => setIsEditing(!isEditing)}>Edit</Button><Button onClick={() => setMessaging(!messaging)}>Message</Button>
+            onRowClick={rowSingleClickHandler}
+            onRowDoubleClick={rowDoubleClickHandler}/>
+          {/* <Button onClick={() => setMessaging(!messaging)}>Message User</Button> */}
+          <Button onClick={messageButtonHandler}>Message User</Button>
         </>
         }
         {messaging ?
         <Paper id='myModal'>
           <Card elevation={5} sx={{margin:'1%', textAlign:'center', padding:'1%'}}>
-            <span id="closeModal" onClick={() => {setMessaging(!messaging)}}>Messages to Member # {userTo}:</span><div/>
+            <span id="closeModal" onClick={() => {setMessaging(!messaging)}}> 
+              { (userTo === 0) ? `No user selected...` : `Messages to Member # ${userTo}` }
+            </span><div/>
             <TextField id='message' rows="12" placeholder='Type your message here...' fullWidth /><div/>
             <Button className='submit' onClick={() => {sendMsg(userTo, values.currentUser.id, document.getElementById('message').value)}}>Submit</Button>
           </Card>
@@ -144,7 +163,3 @@ const MHPPage = () => {
 }
 
 export default MHPPage;
-
-// const concernCumulator = (surveyData) => {
-
-// }
