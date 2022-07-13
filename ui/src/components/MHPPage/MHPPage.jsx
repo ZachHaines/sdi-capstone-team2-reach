@@ -121,13 +121,7 @@ const MHPPage = () => {
     <>
       <Paper elevation={3} sx={{width: '100%', marginLeft: '0%', marginRight: '0%', paddingBottom: '2vw', marginBottom: '5vw', borderRadius: '6px'}}>
         <h1 style={{textAlign: 'center', ...background, borderRadius: '6px'}}>Mental Health Provider</h1>
-        {isEditing ? 
-        <>
-          <DataGrid sx={{height: '70vh', width: '98%', marginLeft: '1%', marginRight: '1%' }} rows={rows} columns={columns} pageSize={15} rowsPerPageOptions={[15]} />
-          
-        </>
-        :
-        <>
+      
           <DataGrid sx={{height: '70vh', width: '98%', marginLeft: '1%', marginRight: '1%' }} 
             rows={rows} columns={columns}
             pageSize={15}
@@ -136,8 +130,7 @@ const MHPPage = () => {
             onRowDoubleClick={rowDoubleClickHandler}/>
           {/* <Button onClick={() => setMessaging(!messaging)}>Message User</Button> */}
           <Button onClick={messageButtonHandler}>Message User</Button>
-        </>
-        }
+       
         {messaging ?
         <Paper id='myModal'>
         
@@ -150,14 +143,12 @@ const MHPPage = () => {
           </Card>
           <div>
             {mhpMessages.map((message) => {
+              let sendDate = new Date (message.date);
               return (
                 <div key={message.id}>
                   <p style={ userTo === message.members_id_to ? dateStyle.toMember : dateStyle.toMHP }>
-                    {`${message.date}`}
+                    {sendDate.toLocaleString()}
                   </p>
-                  {/* <Card style={ userTo === message.members_id_to ? messageStyle.toMember : messageStyle.toMHP} sx={{shape: 'rounded'}}>
-                    {`${message.comment}`}
-                  </Card> */}
                   <Typography style={ userTo === message.members_id_to ? messageStyle.toMember : messageStyle.toMHP} >
                     {`${message.comment}`}
                   </Typography>
