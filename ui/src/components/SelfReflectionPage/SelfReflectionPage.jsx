@@ -131,16 +131,16 @@ const SelfReflectionPage = () => {
   return (
     <>
       {/* <Dashboard /> */}
-      <SurveyPaper theme={primaryTheme} elevation={3} sx={{width: '100%', marginLeft: '0%', marginRight: '0%', paddingBottom: '2vw', marginBottom: '5%', paddingLeft: '2%', paddingRight: '2%'}}>
+      <SurveyPaper theme={primaryTheme} elevation={3} sx={{width: '90%', marginLeft: '5%', marginRight: '5%', paddingBottom: '2vw', marginBottom: '5%', paddingLeft: '2%', paddingRight: '2%'}}>
         {/* <h1 style={{textAlign: 'center'}}>Self Reflection Page</h1> */}
         {member === '' || member === undefined?
-          <TitleTypography theme={primaryTheme} align='center'>Self Reflection</TitleTypography>
+          <TitleTypography theme={primaryTheme} align='center' elevation={5}>Self Reflection</TitleTypography>
           :
           <TitleTypography theme={primaryTheme} align='center'>Reaching Out For {`${member.first_name} ${member.last_name}`}</TitleTypography>
         }
         {categories.map((category,i) => {
           return (
-          <SurveyCard key={i} theme={primaryTheme}>
+          <SurveyCard key={i} theme={primaryTheme} elevation={5}>
             <SurveyTypography theme={primaryTheme} variant='h4' align='center'>
               {capitalizeFirstLetter(category)}
             </SurveyTypography>

@@ -20,7 +20,7 @@ const notificationColors = {
 
 const SurveyPaper = styled(Paper)(({theme}) => ({
   color: theme.color1,
-  backgroundColor: theme.color4,
+  backgroundColor: theme.color3,
   padding: '2%',
   marginBottom: '1%',
 }));

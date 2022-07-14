@@ -65,7 +65,7 @@ const ProfilePage = () => {
 
           {isEditing ? 
           <>
-            <Stack direction='column' sx={{textAlign:'left', padding: '2%'}}>
+            <Stack direction='column' sx={{textAlign:'left', padding: '2%'}} spacing={2}>
               <SurveyTextField theme={primaryTheme} id='firstNameField' sx={{paddingTop: '1vh'}} rows={1} label='FirstName' defaultValue={values.currentUser.first_name}/>
               <SurveyTextField theme={primaryTheme} id='lastNameField'sx={{paddingTop: '0.6vh'}} rows={1} label='LastName' defaultValue={values.currentUser.last_name}/>
               <SurveyTextField theme={primaryTheme} id='emailPrimaryField' sx={{paddingTop: '0.6vh'}} rows={1} label='Email' defaultValue={values.currentUser.email_primary}/>
