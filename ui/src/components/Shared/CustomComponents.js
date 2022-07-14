@@ -5,11 +5,11 @@ import { Button, Card, Paper, Slider, TextField, Select, Typography } from "@mui
 import styled from "@emotion/styled";
 
 const primaryTheme = {
-  color1: '#006D77',
-  color2: '#83C5BE',
-  color3: '#EDF6F9',
-  color4: '#FFDDD2',
-  color5: '#E29578',
+  color1: '#006D77DD',
+  color2: '#83C5BEDD',
+  color3: '#EDF6F9DD',
+  color4: '#FFDDD2DD',
+  color5: '#E29578DD',
 }
 
 const notificationColors = {
@@ -28,7 +28,7 @@ const SurveyPaper = styled(Paper)(({theme}) => ({
 const SurveyCard = styled(Card)(({theme}) => ({
   color: theme.color1,
   backgroundColor: theme.color3,
-  padding: '2%',
+  padding: '3%',
   marginBottom: '1%',
 }));
 
@@ -76,6 +76,7 @@ const SurveySubmitButton = styled(Button)(({theme}) => ({
   color: theme.color1,
   backgroundColor: theme.color3,
   fontWeight: 700,
+  boxShadow: `0px 3px 5px -1px rgb(0 0 0 / 20%), 0px 5px 8px 0px rgb(0 0 0 / 14%), 0px 1px 14px 0px rgb(0 0 0 / 12%)`,
   '&:hover': {
     color: theme.color3,
     backgroundColor: theme.color1,

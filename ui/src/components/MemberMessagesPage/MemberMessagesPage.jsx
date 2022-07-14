@@ -2,25 +2,25 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Paper, Button, Card, TextField, Typography } from '@mui/material';
 import './MemberMessagesPage.css'
 import config from '../../config';
+import { TitleTypography,primaryTheme } from '../Shared/CustomComponents';
 import { AppContext } from '../../AppContext';
 import { useNavigate } from 'react-router-dom';
 const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
 
 // blue color options: #1982FC, #1976d2
 const messageStyle = {
-  fromUser: {backgroundImage: 'linear-gradient(to bottom right, #4898f6, #1982FC)',  borderRadius: '8px 24px 0px 24px', textAlign:'left', color:'white', float:'right', clear: 'both', minWidth: '2%', maxWidth: '65%', marginBottom:'1%', marginLeft:'35%', marginRight:'1%',padding: '1%'},
-  fromMHP: {backgroundColor: "lightgray", borderRadius: '24px 8px 24px 0px',textAlign:'left', float:'left', clear: 'both', minWidth: '2%', maxWidth: '65%', marginBottom:'1%', marginRight:'35%', marginLeft:'1%',padding: '1%'}  
+  fromMHP: {backgroundColor: '#006D77',  boxShadow: '8px 8px 24px 4px gray', borderRadius: '8px 24px 0px 24px', textAlign:'left', color:'white', float:'right', clear: 'both', minWidth: '2%', maxWidth: '65%', marginBottom:'1%', marginLeft:'35%', marginRight:'1%',padding: '1%'},
+  fromUser: {backgroundColor: '#FFDDD2', boxShadow: '-8px 8px 24px 4px gray', borderRadius: '24px 8px 24px 0px',textAlign:'left', float:'left', clear: 'both', minWidth: '2%', maxWidth: '65%', marginBottom:'1%', marginRight:'35%', marginLeft:'1%',padding: '1%'}  
 };
 const dateStyle = {
-  fromUser: {color: 'gray', textAlign:'right',  float:'right', clear: 'both', marginRight:'1%', marginBottom: 0, padding: '1%'},
-  fromMHP: {color: 'gray', textAlign:'left',  float:'left', clear: 'both', marginLeft:'1%', marginBottom: 0, padding: '1%'}  
+  fromMHP: {color: 'gray', textAlign:'right',  float:'right', clear: 'both', marginRight:'3%', marginBottom: 0, padding: '1%'},
+  fromUser: {color: 'gray', textAlign:'left',  float:'left', clear: 'both', marginLeft:'3%', marginBottom: 0, padding: '1%'}  
 };
 
 
 const MemberMessagesPage = () => {
 
-  let bgcolor = '#' + 'E29578'
-  let background = {backgroundColor: bgcolor}
+
   let [mhpMessages, setMhpMessages] = useState([]); 
   const { values } = useContext(AppContext);
   const memberID = values.currentUser.id;
@@ -70,7 +70,7 @@ const MemberMessagesPage = () => {
     <>
       <Paper elevation={3} sx={{width: '100%', marginLeft: '0%', marginRight: '0%', paddingBottom: '2vw', marginBottom: '5vw', borderRadius: '6px'}}>
         {/* Header */}
-        <h1 style={{textAlign: 'center', ...background, borderRadius: '6px'}}>Messages With Mental Health Provider</h1>
+        <TitleTypography align='center' theme={primaryTheme}>Messages With Mental Health Provider</TitleTypography>
         {/* Chat Message Box */}
         <Card elevation={5} sx={{margin:'1%', textAlign:'center', padding:'1%'}}>
             <span id="closeModal"> 

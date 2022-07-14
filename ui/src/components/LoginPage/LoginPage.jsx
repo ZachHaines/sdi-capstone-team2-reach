@@ -55,7 +55,7 @@ const LoginPage = () => {
     }
   
   return (
-    <div style={{backgroundImage:'radial-gradient( #83C5BE, #FEFCF2)', position: 'absolute', overflow: 'auto', top: 0, left: 0, right: 0, bottom: 0}}>
+    <div style={{position: 'absolute', overflow: 'auto', top: 0, left: 0, right: 0, bottom: 0}}>
       {/* Title Paper */}
       <Paper className='header' elevation={20} 
         sx={{

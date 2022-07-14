@@ -1,14 +1,14 @@
 /* eslint-disable */
 import React, { useContext, useState } from 'react';
 import config from '../../config';
-import { TextField, Stack, Paper, Grid, Input } from '@mui/material';
+import { TextField, Stack, Paper, Grid, Input, Typography } from '@mui/material';
 import { AppContext } from '../../AppContext';
-import { SurveySubmitButton, primaryTheme, SurveyTextField } from '../Shared/CustomComponents';
+import { SurveySubmitButton, primaryTheme, SurveyTextField, NameTypography } from '../Shared/CustomComponents';
 
 import bcrypt from 'bcryptjs';
 
 const ProfilePage = () => {
-  let bgcolor = '#' + 'E29578'
+  let bgcolor = '#' + 'E29578DD'
   let background = {backgroundColor: bgcolor}
   let underline = {textDecoration: 'underline'}
   let [isEditing, setIsEditing] = useState(false);
@@ -60,7 +60,7 @@ const ProfilePage = () => {
 
   return (
     <>
-      <Paper elevation={3} sx={{width: '50%', marginLeft: '35%', marginRight: '15%', paddingBottom: '2vw', marginBottom: '5vw', borderRadius: '6px', backgroundColor: '#EDF6F9', margin: 'auto'}}>
+      <Paper elevation={3} sx={{width: '50%', marginLeft: '35%', marginRight: '15%', paddingBottom: '2vw', marginBottom: '5vw', borderRadius: '6px', backgroundColor: '#EDF6F9DD', margin: 'auto'}}>
         <h1 style={{textAlign: 'center', ...background, borderRadius: '6px'}}>Profile Settings</h1>
 
           {isEditing ? 
@@ -78,23 +78,14 @@ const ProfilePage = () => {
           </>
           :
           <>
-          <Grid container columns={2}>
-            <Grid item xs={1} sx={{textAlign:'right', paddingRight: '2px'}}>
-              <p>First Name:</p>
-              <p>Last Name:</p>
-              <p>Email:</p>
-              <p>Religious Preference:</p>
-              <p>Username:</p>
-            </Grid>
-            <Grid item xs={1} sx={{textAlign:'left', paddingLeft: '2px'}}>
-              <p>{values.currentUser.first_name}</p>
-              <p>{values.currentUser.last_name}</p>
-              <p style={underline}>{values.currentUser.email_primary}</p>
-              <p>{(values.currentUser.religion) ? values.currentUser.religion : 'None'}</p>
-              <p>{values.currentUser.username}</p>
-            </Grid>
-          </Grid>
-            <SurveySubmitButton theme={primaryTheme} onClick={() => setIsEditing(!isEditing)}>Edit</SurveySubmitButton>
+            <Stack direction='column' sx={{textAlign:'center', padding: '2%'}} spacing={2}>
+              <NameTypography>First Name: {values.currentUser.first_name}</NameTypography>
+              <NameTypography>Last Name: {values.currentUser.last_name}</NameTypography>
+              <NameTypography sx={underline}>Email: {values.currentUser.email_primary}</NameTypography>
+              <NameTypography>Religious Preference: {(values.currentUser.religion) ? values.currentUser.religion : 'None'}</NameTypography>
+              <NameTypography>Username: {values.currentUser.username}</NameTypography>
+              <SurveySubmitButton theme={primaryTheme} onClick={() => setIsEditing(!isEditing)}>Edit</SurveySubmitButton>
+            </Stack>
           </>
           }
       </Paper>

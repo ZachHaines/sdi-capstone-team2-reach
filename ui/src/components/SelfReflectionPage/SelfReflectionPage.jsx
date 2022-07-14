@@ -134,13 +134,13 @@ const SelfReflectionPage = () => {
       <SurveyPaper theme={primaryTheme} elevation={3} sx={{width: '90%', marginLeft: '5%', marginRight: '5%', paddingBottom: '2vw', marginBottom: '5%', paddingLeft: '2%', paddingRight: '2%'}}>
         {/* <h1 style={{textAlign: 'center'}}>Self Reflection Page</h1> */}
         {member === '' || member === undefined?
-          <TitleTypography theme={primaryTheme} align='center' elevation={5}>Self Reflection</TitleTypography>
+          <TitleTypography theme={primaryTheme} align='center' elevation={6}>Self Reflection</TitleTypography>
           :
           <TitleTypography theme={primaryTheme} align='center'>Reaching Out For {`${member.first_name} ${member.last_name}`}</TitleTypography>
         }
         {categories.map((category,i) => {
           return (
-          <SurveyCard key={i} theme={primaryTheme} elevation={5}>
+          <SurveyCard key={i} theme={primaryTheme} elevation={5} sx={{marginLeft:'10%', marginRight: '10%'}}>
             <SurveyTypography theme={primaryTheme} variant='h4' align='center'>
               {capitalizeFirstLetter(category)}
             </SurveyTypography>
@@ -167,7 +167,7 @@ const SelfReflectionPage = () => {
           </SurveyCard>
           )
         })}
-        <SurveyCard theme={primaryTheme} sx={{backgroundColor: primaryTheme.color2}}>
+        <SurveyCard theme={primaryTheme} elevation={5} sx={{marginLeft:'10%', marginRight: '10%'}}>
           <SurveyTypography theme={primaryTheme} variant='h4' align='center'>
             Comments
           </SurveyTypography>
@@ -214,7 +214,7 @@ const SelfReflectionPageSubmitButton = ({callback}) => {
 
   return (
     <div>
-      <SurveySubmitButton theme={primaryTheme} onClick={handleClick}>Submit</SurveySubmitButton>
+      <SurveySubmitButton theme={primaryTheme} onClick={handleClick} elevation={4} sx={{width:'80%'}}>Submit</SurveySubmitButton>
       <Snackbar
         anchorOrigin={{vertical:'bottom', horizontal:'center'}}
         open={open}

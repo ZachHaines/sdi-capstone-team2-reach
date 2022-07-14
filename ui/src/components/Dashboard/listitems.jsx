@@ -141,7 +141,7 @@ export const MainListItems = () => {
           return true;
         if(e.name==='self-reflection' && values.currentUser.role.isUser)
           return true;
-        if(e.name==='messages' && values.currentUser.role.isUser)
+        if(e.name==='messages' && values.currentUser.role.isUser && !values.currentUser.role.isAdmin && !values.currentUser.role.isMHP)
           return true;
         if(e.name==='mhp' && values.currentUser.role.isMHP)
           return true;
