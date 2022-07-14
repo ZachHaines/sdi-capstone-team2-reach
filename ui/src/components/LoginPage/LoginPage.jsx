@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import config from '../../config';
 import bcrypt from 'bcryptjs';
 import { AppContext } from '../../AppContext';
+import styled from 'styled-components';
 
 const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
 let loginImage = ApiUrl
@@ -62,24 +63,25 @@ const LoginPage = () => {
           backgroundColor: 'rgba(0, 109, 119, 1.0)', 
           boxShadow:'4px 4px 4px 0px black', 
           width: '30vw', 
-          height: '20vw',
+          // height: '20vw',
           marginLeft: '10vw', 
           marginRight:'5vw', 
           borderRadius: '16px', 
           paddingBottom: '2%', 
-          marginTop: '15%', 
+          marginTop: '10%', 
           marginBottom: '4%'
           }}>
-        <Typography className='heading-title' variant='h2' align='center' sx={{'color': '#EDF6F9', marginLeft: '0%', marginTop: '1%', fontWeight: '700'}}>
+        <Typography className='heading-title' variant='h4' align='center' sx={{'color': '#EDF6F9', marginLeft: '0%', marginTop: '1%', fontWeight: '700'}}>
           REACH
         </Typography>
-        <Typography variant='h2' align='center' sx={{'color': '#EDF6F9', marginLeft: '0%', marginTop: '1%', marginBottom: '1%', fontWeight: '700', 'fontSize': '50px'}}>
+        <Typography variant='h6' align='center' sx={{'color': '#EDF6F9', marginLeft: '0%', marginTop: '1%', marginBottom: '1%', fontWeight: '700'}}>
           Together, We Are Stronger
         </Typography>
+        <StyledImage src='designimg/reaching_hand.jpg' className='hand-image' alt='image of reaching hand'/>
       </Paper>
       
       {/* Login Paper */}
-      <Paper className='login-sheet' elevation={10} sx={{float: 'right', height: '20vw', width: '30vw', marginLeft: '5vw', marginRight:'10vw', marginTop: '5vw', backgroundColor: 'rgba(0, 109, 119, 1.0)', boxShadow:'4px 4px 4px black', borderRadius: '16px'}}>
+      <Paper className='login-sheet' elevation={10} sx={{float: 'right', width: '30vw', marginLeft: '5vw', marginRight:'10vw', marginTop: '5vw', backgroundColor: 'rgba(0, 109, 119, 1.0)', boxShadow:'4px 4px 4px black', borderRadius: '16px'}}>
         <Stack spacing={2} direction='column' sx={{width: '25vw',  marginLeft: '2.5vw', marginRight: '2.5vw', paddingBottom: '2vw', marginBottom: '5vw'}}>
         <Typography variant='h2' align='center' sx={{'color': '#EDF6F9', marginLeft: '0%', marginTop: '1%'}}>
           LOGIN
@@ -105,3 +107,14 @@ const LoginPage = () => {
   )
 }
 export default LoginPage;
+
+const StyledImage = styled.img`
+  margin-top: 10px;
+  margin-bottom: 5px;
+  border-radius: 32px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 30vw;
+  // height: 20vw;
+  // box-shadow: 0px 0px 24px 4px #F8F8F8;
+`;
