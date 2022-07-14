@@ -68,7 +68,7 @@ const LoginPage = () => {
           marginRight:'5vw', 
           borderRadius: '16px', 
           paddingBottom: '2%', 
-          marginTop: '10%', 
+          marginTop: '5%', 
           marginBottom: '4%'
           }}>
         <Typography className='heading-title' variant='h4' align='center' sx={{'color': '#EDF6F9', marginLeft: '0%', marginTop: '1%', fontWeight: '700'}}>
