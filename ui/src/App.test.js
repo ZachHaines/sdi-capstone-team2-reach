@@ -1,6 +1,6 @@
 import React from 'react';
 import {BrowserRouter} from 'react-router-dom';
-import { render, fireEvent, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { AppProvider } from './AppContext';
 import App from './App'; // COMPLETE
 import AdminPage from './components/AdminPage/AdminPage'; // COMPLETE
