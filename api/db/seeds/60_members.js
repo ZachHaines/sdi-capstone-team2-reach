@@ -14,7 +14,7 @@ const bcrypt = require('bcryptjs')
   await knex('members').insert(randomChaplains);
   await knex('members').insert(randomMembers);
   await knex('members').insert(teamMembers);
-  await knex('members').insert(createRandomMembers(500, 1));
+  await knex('members').insert(createRandomMembers(250, 1));
 
 };
 

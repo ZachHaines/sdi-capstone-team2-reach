@@ -36,7 +36,7 @@ function generateRandomMessages() {
 
 
   
-  for (let i = 0; i < 300; i++)
+  for (let i = 0; i < 150; i++)
   {
     
     let randomFrom = Math.ceil(Math.random() * 10 + 10)

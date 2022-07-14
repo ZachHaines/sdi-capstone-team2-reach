@@ -36,7 +36,7 @@ const createRandomSurveys = () => {
   let res = [];
 
   
-  for (let i = 0; i < 500; i++)
+  for (let i = 0; i < 250; i++)
   {
     const member_id_to = [43, 53, 68, 52, 48, 37];
     const n = Math.floor(Math.random() * 6);
