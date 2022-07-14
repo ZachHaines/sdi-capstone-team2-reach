@@ -54,26 +54,51 @@ const LoginPage = () => {
     }
   
   return (
-    <div style={{'backgroundColor': 'rgba(131, 197, 190, 0.3)', position: 'absolute', overflow: 'auto', top: 0, left: 0, right: 0, bottom: 0}}>
-      <img src='designimg/reaching-hands.jpeg' className='login-image' alt='military service member clasping hand with another' 
-      style={{display: 'block', 'marginLeft': 'auto', 'marginRight': 'auto', marginTop: '2%', borderRadius: '32px', boxShadow:'0 0 8px #006D77'}}/>
-      <Paper className='login-sheet' elevation={10} sx={{width: '60vw', marginLeft: '20vw', marginRight:'20vw', marginTop: '2.5vw', backgroundColor: '#006D77', boxShadow:'0 0 8px #006D77', borderRadius: '16px'}}>
-        <Stack spacing={2} direction='column' sx={{width: '50vw', marginLeft: '5vw', marginRight: '5vw', paddingBottom: '2vw', marginBottom: '5vw'}}>
-        <Typography variant='h2' align='center' sx={{'font-family': 'Roboto', 'color': '#EDF6F9', marginLeft: '0%', marginTop: '1%'}}>LOGIN</Typography>
+    <div style={{backgroundImage:'radial-gradient( #83C5BE, #FEFCF2)', position: 'absolute', overflow: 'auto', top: 0, left: 0, right: 0, bottom: 0}}>
+      {/* Title Paper */}
+      <Paper className='header' elevation={20} 
+        sx={{
+          float: 'left',
+          backgroundColor: 'rgba(0, 109, 119, 1.0)', 
+          boxShadow:'4px 4px 4px 0px black', 
+          width: '30vw', 
+          height: '20vw',
+          marginLeft: '10vw', 
+          marginRight:'5vw', 
+          borderRadius: '16px', 
+          paddingBottom: '2%', 
+          marginTop: '15%', 
+          marginBottom: '4%'
+          }}>
+        <Typography className='heading-title' variant='h2' align='center' sx={{'color': '#EDF6F9', marginLeft: '0%', marginTop: '1%', fontWeight: '700'}}>
+          REACH
+        </Typography>
+        <Typography variant='h2' align='center' sx={{'color': '#EDF6F9', marginLeft: '0%', marginTop: '1%', marginBottom: '1%', fontWeight: '700', 'fontSize': '50px'}}>
+          Together, We Are Stronger
+        </Typography>
+      </Paper>
+      
+      {/* Login Paper */}
+      <Paper className='login-sheet' elevation={10} sx={{float: 'right', height: '20vw', width: '30vw', marginLeft: '5vw', marginRight:'10vw', marginTop: '5vw', backgroundColor: 'rgba(0, 109, 119, 1.0)', boxShadow:'4px 4px 4px black', borderRadius: '16px'}}>
+        <Stack spacing={2} direction='column' sx={{width: '25vw',  marginLeft: '2.5vw', marginRight: '2.5vw', paddingBottom: '2vw', marginBottom: '5vw'}}>
+        <Typography variant='h2' align='center' sx={{'color': '#EDF6F9', marginLeft: '0%', marginTop: '1%'}}>
+          LOGIN
+        </Typography>
           <TextField id='username' label='Username' color='success' sx={{backgroundColor: '#EDF6F9', borderRadius: '16px'}}></TextField>
           <TextField id='password-textfield' label='Password' type='password' color='success' sx={{backgroundColor: '#EDF6F9', borderRadius: '16px'}}></TextField>
-          <Button onClick={loginButtonClickHandler} sx={{'font-family': 'Roboto', 'color': '#FFDDD2', 'fontSize': '24px', backgroundColor: '#E29578', borderRadius: '16px'}}>LOGIN</Button>
+          <Button onClick={loginButtonClickHandler} sx={{ 'color': '#FFDDD2', 'fontSize': '24px', backgroundColor: '#E29578', borderRadius: '16px'}}>LOGIN</Button>
         </Stack>
       </Paper>
-      <Paper sx={{width: '40vw', marginLeft: '30vw', marginRight:'30vw', backgroundColor: '#006D77', boxShadow:'0 0 8px #006D77', borderRadius: '16px'}} elevation={5} >
-        <Stack spacing={2} direction='column' sx={{width: '38vw', marginLeft: '1vw', marginRight: '1vw', paddingBottom: '2vw'}}>
-          <p style={{textAlign: 'center', 'font-family': 'Roboto', 'color': '#EDF6F9', 'fontSize': '24px', marginBottom: '0px'}}>
-            If you do not have an account,
-          </p>
-          <p style={{textAlign: 'center', 'font-family': 'Roboto', 'color': '#EDF6F9', 'fontSize': '24px', marginTop: '0px'}}>
-            please create an account
-          </p>
-          <Button onClick={()=>{nav('/signup')}} sx={{'font-family': 'Roboto', 'color': '#FFDDD2', 'fontSize': '20px', backgroundColor: '#E29578', borderRadius: '16px' }}>Sign Up</Button>
+
+      {/* Sign Up Paper */}
+      <Paper sx={{float: 'right', clear: 'right', width: '30vw', marginTop: '5vw', marginLeft: '5vw', marginRight:'10vw', backgroundColor: '#006D77', boxShadow:'4px 4px 4px black', borderRadius: '16px'}} elevation={5} >
+        <Stack spacing={2} direction='column' sx={{width: '25vw', marginLeft: '2.5vw', marginRight: '2.5vw', paddingBottom: '2vw'}}>
+          <Typography variant='body1' sx={{textAlign: 'center',  'color': '#EDF6F9', 'fontSize': '24px', marginTop: '10px'}}>
+            If you do not have an account, please create an account
+          </Typography>
+          <Button onClick={()=>{nav('/signup')}} sx={{ 'color': '#FFDDD2', 'fontSize': '20px', backgroundColor: '#E29578', borderRadius: '16px' }}>
+            Sign Up
+          </Button>
         </Stack>
       </Paper>
     </div>

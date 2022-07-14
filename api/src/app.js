@@ -338,6 +338,8 @@ app.get('/members/joinadmin', (req, res) => {
         'members.religion as religion',
         'units.name as unit',
         'commands.name as command',
+        'commands.id as commands_id',
+        'agencies.id as agencies_id',
         'agencies.name as agency',
         'members.phone_number as phone_number',
         'members.email_primary as email_primary',
@@ -378,13 +380,21 @@ app.get('/members/joinadmin/:id', (req, res) => {
         'members.religion as religion',
         'units.name as unit',
         'commands.name as command',
+        'commands.id as commands_id',
+        'agencies.id as agencies_id',
         'agencies.name as agency',
         'members.phone_number as phone_number',
         'members.email_primary as email_primary',
         'members.email_secondary as email_secondary',
         'facilities.name as facilities_name',
         'installations.name as installations_name',
-        'locations.name as locations_name'
+        'locations.name as locations_name',
+        'units.id as units_id',
+        'grades.id as grades_id',
+        'locations.id as locations_id',
+        'facilities.id as facilities_id',
+        'installations.id as installations_id',
+        'roles.id as roles_id',
     )
     .where({'members.id': req.params.id})
     .then(data => res.status(200).json(data))
@@ -537,7 +547,20 @@ app.get('/facilities', (req, res) => {
     .then(data => res.status(200).json(data))
     .catch(() => res.status(404).send(`Could not retrieve facilities`))
 })
-    
+app.get('/facilities/:id', (req, res) => {
+    console.log(req.params.id)
+    knex('facilities')
+    .where({id: req.params.id})
+    .join('locations', 'locations.id', '=', 'facilities.locations_id')
+    .select(
+        'facilities.id as id',
+        'facilities.name as name',
+        'facilities.url as url',
+        'locations.name as location'
+    )
+    .then(data => res.status(200).json(data))
+    .catch(() => res.status(404).send(`Could not retrieve facilities`))
+})    
 //UPDATE-----------------------------------------------------------------------------------------------
 {   
     //agencies

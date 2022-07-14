@@ -14,6 +14,7 @@ const bcrypt = require('bcryptjs')
   await knex('members').insert(randomChaplains);
   await knex('members').insert(randomMembers);
   await knex('members').insert(teamMembers);
+  await knex('members').insert(createRandomMembers(500, 1));
 
 };
 
@@ -76,8 +77,8 @@ function createRandomMembers(generated, roleId)  {
         username: `${selectedFirstNames[i]}.${selectedLastNames[i]}`,
         password: bcrypt.hashSync(`${selectedFirstNames[i]}.${selectedLastNames[i]}`, 10),
         roles_id: roleId,
-        units_id: Math.floor(Math.random() * (89) + 1), // currently 89 units in table
-        religion: `religion`,
+        units_id: i%89+1, // currently 89 units in table
+        religion: `no preference declared`,
         phone_number: faker.phone.number('###-###-####'),
         email_primary: `${selectedFirstNames[i]}.${selectedLastNames[i]}@mail.mil`,
         email_secondary:`${selectedFirstNames[i]}.${selectedLastNames[i]}${domains[domainIndex]}`,

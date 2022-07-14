@@ -5,13 +5,11 @@
  exports.up = function(knex) {
   return knex.schema.createTable('resources', table => {
     table.increments();
-    table.string('organization', 50);
-    table.string('phone_number', 50);
-    table.string('email', 50);
-    table.string('type', 50);
+    table.string('organization', 256);
+    table.string('phone_number', 256);
+    table.string('email', 256);
+    table.string('type', 256);
     table.boolean('isFederal');
-    table.integer('facilities_id');
-    table.foreign('facilities_id').references('facilities.id');
   })
 };
 
@@ -20,6 +18,5 @@
  * @returns { Promise<void> }
  */
  exports.down = function(knex) {
-  return knex.schema.alterTable('resources', table => table.dropForeign('facilities_id'))
-  .then(() => knex.schema.dropTableIfExists('resources'));
+  return knex.schema.dropTableIfExists('resources');
 };

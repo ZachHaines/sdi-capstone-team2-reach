@@ -29,6 +29,7 @@ import { useNavigate } from 'react-router-dom';
 // const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
 // import NotificationDialogButton from './NotificationDialogButton';
 import "./Dashboard.css"
+import { SignedInAsTypography } from '../Shared/CustomComponents';
 
 function Copyright(props) {
   return (
@@ -138,21 +139,11 @@ let containerStyle = {marginLeft:"0vw", mt: 4, mb: 4, width: "85vw" , background
               color="inherit"
               noWrap
               sx={{ flexGrow: 1,
-                fontFamily: 'Roboto' }}
+                }}
             >
               {DisplayTitle.toUpperCase()}
             </Typography>
-            <Typography
-              component="h1"
-              variant="h6"
-              color="inherit"
-              noWrap
-              align='left'
-              sx={{ flexGrow: 1,
-                fontFamily: 'Roboto', }}
-            >
-              {`SIGNED IN AS: ${values.currentUser.username.toUpperCase()}`}
-            </Typography>
+
             <IconButton color="inherit" onClick={() => {nav('/login')}}>
               <Badge color="secondary">
                 <LogoutIcon />
@@ -180,6 +171,26 @@ let containerStyle = {marginLeft:"0vw", mt: 4, mb: 4, width: "85vw" , background
             <Divider sx={{ my: 1 }} />
             <SecondaryListItems/>
           </List>
+          <Divider />
+          { open ?           
+          <><SignedInAsTypography
+              sx={{ flexGrow: 1,
+                  position: 'absolute',
+                  bottom: '16px',
+                  left: '0'
+                 }}
+            >
+              {`SIGNED IN AS:`}
+            </SignedInAsTypography>
+            <SignedInAsTypography
+              sx={{ flexGrow: 1,
+                  position: 'absolute',
+                  bottom: '0px',
+                  left: '0'
+                 }}
+            >
+              {`${values.currentUser.username.toUpperCase()}`}
+            </SignedInAsTypography></> : <></>}
         </Drawer>
         <Box
           component="main"

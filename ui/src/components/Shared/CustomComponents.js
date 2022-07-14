@@ -1,7 +1,7 @@
 
 /* eslint-disable */
 
-import { Button, Card, Paper, Slider, TextField, Select } from "@mui/material";
+import { Button, Card, Paper, Slider, TextField, Select, Typography } from "@mui/material";
 import styled from "@emotion/styled";
 
 const primaryTheme = {
@@ -42,8 +42,15 @@ const SurveyTypography = styled(Card)(({theme}) => ({
 const NameTypography = styled(Card)(({theme}) => ({
   color: theme.color1,
   backgroundColor: theme.color3,
-  fontSize: '20pt'
-
+  fontSize: '20pt',
+  cursor: 'pointer',
+  transition: '0.6s',
+  '&:hover': {
+    color: theme.color3,
+    backgroundColor: theme.color1,
+    cursor: 'pointer',
+    transition: '0.6s',
+  },
 }));
 const TitleTypography = styled(Card)(({theme}) => ({
   color: theme.color3,
@@ -60,7 +67,6 @@ const TitleCard = styled(Card)(({theme}) => ({
   marginBottom: '1%',
   width:'auto',
   height:'20%',
-  fontFamily: 'ROBOTO',
 }));
 
 const capitalizeFirstLetter = (text) => {
@@ -69,7 +75,20 @@ const capitalizeFirstLetter = (text) => {
 const SurveySubmitButton = styled(Button)(({theme}) => ({
   color: theme.color1,
   backgroundColor: theme.color3,
-
+  fontWeight: 700,
+  '&:hover': {
+    color: theme.color3,
+    backgroundColor: theme.color1,
+  },
+  // '&:active': {
+  //   color: theme.color3,
+  //   backgroundColor: theme.color1,
+  // },
+  // '&:focus': {
+  //   color: theme.color3,
+  //   backgroundColor: theme.color1,
+  //   boxShadow: '0 0 0 0.2rem rgba(0,123,255,.5)',
+  // },
 }));
 const SurveySlider = styled(Slider)(({theme}) => ({
   color: theme.color1,
@@ -124,6 +143,13 @@ const CommentCard = styled(Card)(({theme}) => ({
   marginBottom: '1%',
 }));
 
+const SignedInAsTypography = styled(Typography)(({theme}) => ({
+  color: theme.color3,
+  backgroundColor: theme.color1,
+  fontSize: '12pt',
+  padding: '2%',
+  marginBottom: '1%',
+}));
 
 
-export {primaryTheme, NameTypography, SurveySelect, CommentCard, SurveyTextField, SurveySlider, SurveyCard, capitalizeFirstLetter, SurveyPaper, SurveySubmitButton, SurveyTypography, notificationColors, TitleTypography, TitleCard};
+export {primaryTheme, NameTypography, SignedInAsTypography, SurveySelect, CommentCard, SurveyTextField, SurveySlider, SurveyCard, capitalizeFirstLetter, SurveyPaper, SurveySubmitButton, SurveyTypography, notificationColors, TitleTypography, TitleCard};

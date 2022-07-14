@@ -10,7 +10,8 @@ import "./AdminPage.css"
 const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
 
 const AdminPage = () => {
-
+  let bgcolor = '#' + '006D77'
+  let background = {backgroundColor: bgcolor}
   const [rows, setRows] = useState([]);
   const {values } = useContext(AppContext);
   const nav = useNavigate();
@@ -121,9 +122,8 @@ const AdminPage = () => {
   ]
   return (
     <>
-      <h1 style={{textAlign: 'center'}}>Admin Page</h1>
       <Paper sx={{ padding: '1%', width: '90vw', marginLeft: '1%', marginRight: '1%'}} columns={2}>
-        <h2 style={{paddingLeft: '1%'}}>Saved Users</h2>
+        <h1 style={{fontFamily: 'Roboto, Helvetica, Arial, sans-serif', color: '#EDF6F9', textShadow: '4px 4px 8px gray', textAlign: 'center', ...background, borderRadius: '6px'}}>Users</h1>
         <DataGrid sx={{height: '70vh', width: '98%', marginLeft: '1%', marginRight: '1%' }} rows={rows} columns={columns} pageSize={15} /*checkboxSelection*/ onCellEditCommit={rowEditStopHandler}/>
       </Paper>
     </>

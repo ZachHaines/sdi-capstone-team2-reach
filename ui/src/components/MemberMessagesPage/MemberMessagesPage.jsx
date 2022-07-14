@@ -19,7 +19,7 @@ const dateStyle = {
 
 const MemberMessagesPage = () => {
 
-  let bgcolor = '#' + '80A1D4'
+  let bgcolor = '#' + 'E29578'
   let background = {backgroundColor: bgcolor}
   let [mhpMessages, setMhpMessages] = useState([]); 
   const { values } = useContext(AppContext);

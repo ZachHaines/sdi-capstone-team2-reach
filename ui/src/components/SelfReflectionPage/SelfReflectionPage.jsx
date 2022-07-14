@@ -25,9 +25,9 @@ const categories = ['family', 'social', 'legal', 'work', 'health'];
 
 const SelfReflectionPage = () => {
   const defaultIconStyle = {
-    satisfied: {color: 'green' , backgroundColor: notificationColors.green, height:'6em', width:'auto'},
-    neutral: {color: 'yellow', backgroundColor: notificationColors.yellow, height:'3em', width:'auto'},
-    dissatisfied: {color: 'red', backgroundColor: notificationColors.red, height:'3em', width:'auto'}
+    satisfied: {color: 'green' , backgroundColor: notificationColors.green, height:'6em', width:'auto', borderRadius: '50%', padding: '12px'},
+    neutral: {color: 'yellow', backgroundColor: notificationColors.yellow, height:'3em', width:'auto', borderRadius: '50%', padding: '12px'},
+    dissatisfied: {color: 'red', backgroundColor: notificationColors.red, height:'3em', width:'auto', borderRadius: '50%', padding: '12px'}
   }
   const [IconsSX, setIconsSX] = React.useState({
     family: defaultIconStyle,
@@ -102,24 +102,24 @@ const SelfReflectionPage = () => {
     if(e.target.value===1)
     {
       tempIconsSX[category] = ( {
-        satisfied: {color: 'green' , backgroundColor: notificationColors.green, height:'3em', width:'auto'},
-        neutral: {color: 'yellow', backgroundColor: notificationColors.yellow, height:'3em', width:'auto'},
-        dissatisfied: {color: 'red', backgroundColor: notificationColors.red, height:'6em', width:'auto'}
+        satisfied: {color: 'green' , backgroundColor: notificationColors.green, height:'3em', width:'auto', borderRadius: '50%', padding: '12px'},
+        neutral: {color: 'yellow', backgroundColor: notificationColors.yellow, height:'3em', width:'auto', borderRadius: '50%', padding: '12px'},
+        dissatisfied: {color: 'red', backgroundColor: notificationColors.red, height:'6em', width:'auto', borderRadius: '50%', padding: '12px'}
       })
     }
     else if(e.target.value===2)
     {
       tempIconsSX[category] = (  {
-        satisfied: {color: 'green' , backgroundColor: notificationColors.green, height:'3em', width:'auto'},
-        neutral: {color: 'yellow', backgroundColor: notificationColors.yellow, height:'6em', width:'auto'},
-        dissatisfied: {color: 'red', backgroundColor: notificationColors.red, height:'3em', width:'auto'}
+        satisfied: {color: 'green' , backgroundColor: notificationColors.green, height:'3em', width:'auto', borderRadius: '50%', padding: '12px'},
+        neutral: {color: 'yellow', backgroundColor: notificationColors.yellow, height:'6em', width:'auto', borderRadius: '50%', padding: '12px'},
+        dissatisfied: {color: 'red', backgroundColor: notificationColors.red, height:'3em', width:'auto', borderRadius: '50%', padding: '12px'}
       })
     }
     else if(e.target.value===3){
       tempIconsSX[category] = (   {
-        satisfied: {color: 'green' , backgroundColor: notificationColors.green, height:'6em', width:'auto'},
-        neutral: {color: 'yellow', backgroundColor: notificationColors.yellow, height:'3em', width:'auto'},
-        dissatisfied: {color: 'red', backgroundColor: notificationColors.red, height:'3em', width:'auto'}
+        satisfied: {color: 'green' , backgroundColor: notificationColors.green, height:'6em', width:'auto', borderRadius: '50%', padding: '12px'},
+        neutral: {color: 'yellow', backgroundColor: notificationColors.yellow, height:'3em', width:'auto', borderRadius: '50%', padding: '12px'},
+        dissatisfied: {color: 'red', backgroundColor: notificationColors.red, height:'3em', width:'auto', borderRadius: '50%', padding: '12px'}
       })
     }
 
@@ -138,9 +138,9 @@ const SelfReflectionPage = () => {
           :
           <TitleTypography theme={primaryTheme} align='center'>Reaching Out For {`${member.first_name} ${member.last_name}`}</TitleTypography>
         }
-        {categories.map((category) => {
+        {categories.map((category,i) => {
           return (
-          <SurveyCard theme={primaryTheme}>
+          <SurveyCard key={i} theme={primaryTheme}>
             <SurveyTypography theme={primaryTheme} variant='h4' align='center'>
               {capitalizeFirstLetter(category)}
             </SurveyTypography>
@@ -161,7 +161,6 @@ const SelfReflectionPage = () => {
                 track={false}
                 onChange={(e)=>{
                   sliderOnChangeHandler(e, category);
-                  setFamilySliderValue(e.target.value)
                 }}
               ></SurveySlider>
             </Box>
