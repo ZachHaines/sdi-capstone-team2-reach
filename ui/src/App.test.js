@@ -58,7 +58,7 @@ describe('Sign Up', ()=> {
     
   it('renders Sign Up Page', () => {
     setup()
-    const testedElement = screen.getByText(/If you already have an Account,/);
+    const testedElement = screen.getByText(/If you already have an account/);
     expect(testedElement).toBeInTheDocument();
   });
 });
