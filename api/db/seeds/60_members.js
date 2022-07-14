@@ -29,6 +29,7 @@ function createTeamMembers()  {
     // loop over roles (user (1), admin (2), mhp (3))
     for(let j = 1; j < 4; j++)
     {
+      console.log(j);
       if(i === 1)
       {
         entries.push (
