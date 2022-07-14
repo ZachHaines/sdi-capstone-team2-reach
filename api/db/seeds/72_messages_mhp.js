@@ -6,15 +6,22 @@
 exports.seed = async function(knex) {
   // Deletes ALL existing entries
   await knex('messages_mhp').del()
-  // await knex('messages_mhp').insert([
-  //   {members_id_to: 40, members_id_from: 12, comment: 'Hello, would you like to schedule an appointment?'},
-  //   {members_id_to: 12, members_id_from: 40, comment: 'Yes, I would. Thank you for reaching out. How does next week Wednesday sound?'},
-  //   {members_id_to: 53, members_id_from: 15, comment: 'Hello, Would you like to schedule an appointment?'},
-  //   {members_id_to: 15, members_id_from: 53, comment: 'Thanks for reaching out, but maybe later.'},
-  // ]);
+  await knex('messages_mhp').insert([
+    {members_id_to: 101, members_id_from: 107, comment: 'Thanks for reaching out, but maybe later.', date: andTheNextNextDay},
+    {members_id_to: 107, members_id_from: 101, comment: 'Would you like to schedule an appointment?', date: andTheNextDay},
+    {members_id_to: 101, members_id_from: 107, comment: 'Yes, I would. Thank you for reaching out.', date: tomorrow},
+    {members_id_to: 107, members_id_from: 101, comment: 'Hello, just checking in, would you like some resources?', date: today},
+  ]);
   await knex('messages_mhp').insert(generateRandomMessages());
 };
 
+const today = randomDate();
+const tomorrow = new Date(today);
+tomorrow.setDate(tomorrow.getDate() + 1);
+const andTheNextDay = new Date(today);
+andTheNextDay.setDate(andTheNextDay.getDate() + 2);
+const andTheNextNextDay = new Date(today);
+andTheNextNextDay.setDate(andTheNextDay.getDate() + 3);
 
 function randomDate() {
   let start = new Date();

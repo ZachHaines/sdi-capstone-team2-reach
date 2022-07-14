@@ -104,7 +104,6 @@ const AdminPage = () => {
   }
 
   const columns = [
-    { field: 'id', headerName: 'ID', width: 50, editable: false},
     { field: 'username', headerName: 'Username', width: 120, editable: false},
     { field: 'first_name', headerName: 'First Name', width: 120, editable: false},
     { field: 'last_name', headerName: 'Last Name', width: 120, editable: false},

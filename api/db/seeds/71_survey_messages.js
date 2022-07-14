@@ -25,6 +25,9 @@ exports.seed = async function(knex) {
     {members_id_to: 48, members_id_from: 53, family: 1, social: 3, legal: 3, work: 1, health: 1, comment: 'health, work, and family lowering morale'},
     {members_id_to: 37, members_id_from: 53, family: 3, social: 2, legal: 1, work: 3, health: 2, comment: 'worried their legal issues is bringing them down'},
   
+    {members_id_to: 107, members_id_from: 101, family: 1, social: 3, legal: 1, work: 2, health: 1, comment: 'this person is going through a series of misfortune'},
+    {members_id_to: 107, members_id_from: 101, family: 1, social: 3, legal: 1, work: 1, health: 1, comment: 'health, work, and family lowering morale'},
+    {members_id_to: 107, members_id_from: 101, family: 1, social: 2, legal: 1, work: 3, health: 1, comment: 'worried their legal issues is bringing them down'},
   ]);
   await knex('survey_messages').insert(createRandomSurveys());
 };

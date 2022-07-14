@@ -29,24 +29,47 @@ function createTeamMembers()  {
     // loop over roles (user (1), admin (2), mhp (3))
     for(let j = 1; j < 4; j++)
     {
-      entries.push (
-        {
-          last_name: `${selectedLastNames[i]}`,
-          first_name: `${selectedFirstNames[i]}`,
-          grades_id: Math.floor(Math.random() * (57) + 1), // currently 57 grades in table
-          username: `${selectedFirstNames[i]}.${selectedLastNames[i]}.${j}`,
-          password: bcrypt.hashSync(`${selectedFirstNames[i]}.${selectedLastNames[i]}.${j}`, 10),
-          roles_id: j,
-          units_id: 81, // Space Systems Command
-          religion: `None`,
-          phone_number: faker.phone.number('###-###-####'),
-          email_primary: `${selectedFirstNames[i]}.${selectedLastNames[i]}@mail.mil`,
-          email_secondary:`${selectedFirstNames[i]}.${selectedLastNames[i]}@gmail.com`,
-          locations_id: 30, // New Mexico
-          installations_id: 222, // Kirtland AFB
-          facilities_id: 89, // 377th Medical Group, Kirtland AFB
-        }
-        );      
+      if(i === 1)
+      {
+        entries.push (
+          {
+            last_name: `${selectedLastNames[i]}`,
+            first_name: `${selectedFirstNames[i]}`,
+            grades_id: Math.floor(Math.random() * (57) + 1), // currently 57 grades in table
+            username: `${selectedFirstNames[i]}.${selectedLastNames[i]}.${j}`,
+            password: bcrypt.hashSync(`${selectedFirstNames[i]}.${selectedLastNames[i]}.${j}`, 10),
+            roles_id: j,
+            units_id: 1, // Space Systems Command
+            religion: `None`,
+            phone_number: faker.phone.number('###-###-####'),
+            email_primary: `${selectedFirstNames[i]}.${selectedLastNames[i]}@mail.mil`,
+            email_secondary:`${selectedFirstNames[i]}.${selectedLastNames[i]}@gmail.com`,
+            locations_id: 1, // New Mexico
+            installations_id: 1, // Kirtland AFB
+            facilities_id: 1, // 377th Medical Group, Kirtland AFB
+          }
+          );   
+        } else{
+        entries.push (
+          {
+            last_name: `${selectedLastNames[i]}`,
+            first_name: `${selectedFirstNames[i]}`,
+            grades_id: Math.floor(Math.random() * (57) + 1), // currently 57 grades in table
+            username: `${selectedFirstNames[i]}.${selectedLastNames[i]}.${j}`,
+            password: bcrypt.hashSync(`${selectedFirstNames[i]}.${selectedLastNames[i]}.${j}`, 10),
+            roles_id: j,
+            units_id: 81, // Space Systems Command
+            religion: `None`,
+            phone_number: faker.phone.number('###-###-####'),
+            email_primary: `${selectedFirstNames[i]}.${selectedLastNames[i]}@mail.mil`,
+            email_secondary:`${selectedFirstNames[i]}.${selectedLastNames[i]}@gmail.com`,
+            locations_id: 30, // New Mexico
+            installations_id: 222, // Kirtland AFB
+            facilities_id: 89, // 377th Medical Group, Kirtland AFB
+          }
+          );   
+      }
+   
     }
   }
   return entries;
