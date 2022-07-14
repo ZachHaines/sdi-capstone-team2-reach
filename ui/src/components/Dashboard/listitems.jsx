@@ -137,9 +137,9 @@ export const MainListItems = () => {
           return true;
         if(e.name==='admin' && values.currentUser.role.isAdmin)
           return true;
-        if(e.name==='reachout' && values.currentUser.role.isUser)
+        if(e.name==='reachout' && values.currentUser.role.isUser && !values.currentUser.role.isAdmin && !values.currentUser.role.isMHP)
           return true;
-        if(e.name==='self-reflection' && values.currentUser.role.isUser)
+        if(e.name==='self-reflection' && values.currentUser.role.isUser && !values.currentUser.role.isAdmin && !values.currentUser.role.isMHP)
           return true;
         if(e.name==='messages' && values.currentUser.role.isUser && !values.currentUser.role.isAdmin && !values.currentUser.role.isMHP)
           return true;

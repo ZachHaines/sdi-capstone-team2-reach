@@ -1,10 +1,10 @@
 import React, {useContext} from 'react';
-import { TextField, Stack, Paper, Button, Typography } from '@mui/material';
+import { Stack, Paper, Button, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import config from '../../config';
 import bcrypt from 'bcryptjs';
 import { AppContext } from '../../AppContext';
-import styled from 'styled-components';
+import { SurveyTextField, primaryTheme } from '../Shared/CustomComponents';
 
 const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
 let loginImage = ApiUrl
@@ -43,7 +43,7 @@ const LoginPage = () => {
       bcrypt.compare(document.getElementById('password-textfield').value, user.password, function(err, result) {
         if(result){
           setters.setCurrentUser({...user, role: values.roles[user.roles_id-1]})
-          setTimeout(()=>nav('/self-reflection'),100)
+          setTimeout(()=>nav('/profile'),100)
         }else{
           console.log(err)
           alert('Password not correct')
@@ -56,44 +56,32 @@ const LoginPage = () => {
   
   return (
     <div style={{position: 'absolute', overflow: 'auto', top: 0, left: 0, right: 0, bottom: 0}}>
-      {/* Title Paper */}
+
+      {/* Title Paper
       <Paper className='header' elevation={20} 
-        sx={{
-          float: 'left',
-          backgroundColor: 'rgba(0, 109, 119, 1.0)', 
-          boxShadow:'4px 4px 4px 0px black', 
-          width: '30vw', 
-          // height: '20vw',
-          marginLeft: '10vw', 
-          marginRight:'5vw', 
-          borderRadius: '16px', 
-          paddingBottom: '2%', 
-          marginTop: '5%', 
-          marginBottom: '4%'
-          }}>
+        sx={{float: 'left', backgroundColor: 'rgba(0, 109, 119, 1.0)', boxShadow:'0px 0px 4px 1px black', borderRadius: '16px', marginLeft: '10vw', marginRight:'5vw', marginBottom: '4%', marginTop: '5%', width: '30vw'}}>
         <Typography className='heading-title' variant='h4' align='center' sx={{'color': '#EDF6F9', marginLeft: '0%', marginTop: '1%', fontWeight: '700'}}>
           REACH
         </Typography>
         <Typography variant='h6' align='center' sx={{'color': '#EDF6F9', marginLeft: '0%', marginTop: '1%', marginBottom: '1%', fontWeight: '700'}}>
           Together, We Are Stronger
         </Typography>
-        <StyledImage src='designimg/reaching_hand.jpg' className='hand-image' alt='image of reaching hand'/>
-      </Paper>
+      </Paper> */}
       
       {/* Login Paper */}
-      <Paper className='login-sheet' elevation={10} sx={{float: 'right', width: '30vw', marginLeft: '5vw', marginRight:'10vw', marginTop: '5vw', backgroundColor: 'rgba(0, 109, 119, 1.0)', boxShadow:'4px 4px 4px black', borderRadius: '16px'}}>
-        <Stack spacing={2} direction='column' sx={{width: '25vw',  marginLeft: '2.5vw', marginRight: '2.5vw', paddingBottom: '2vw', marginBottom: '5vw'}}>
-        <Typography variant='h2' align='center' sx={{'color': '#EDF6F9', marginLeft: '0%', marginTop: '1%'}}>
-          LOGIN
+      <Paper className='login-sheet' elevation={10} sx={{float: 'right', width: '30vw', marginLeft: '5vw', marginRight:'15vw', marginTop: '5vw', backgroundColor: 'rgba(0, 109, 119, 0.8)', boxShadow:'4px 4px 4px black', borderRadius: '16px'}}>
+        <Stack spacing={2} direction='column' sx={{width: '25vw',  marginLeft: '2.5vw', marginRight: '2.5vw', paddingBottom: '2vw'}}>
+        <Typography variant='h2' align='center' sx={{'color': '#EDF6F9', marginLeft: '0%', marginTop: '1%', textDecoration: 'underline'}}>
+          Login
         </Typography>
-          <TextField id='username' label='Username' color='success' sx={{backgroundColor: '#EDF6F9', borderRadius: '16px'}}></TextField>
-          <TextField id='password-textfield' label='Password' type='password' color='success' sx={{backgroundColor: '#EDF6F9', borderRadius: '16px'}}></TextField>
+          <SurveyTextField theme={primaryTheme} id='username' label='Username' sx={{backgroundColor: '#EDF6F9', borderRadius: '16px'}}></SurveyTextField>
+          <SurveyTextField theme={primaryTheme} id='password-textfield' label='Password' type='password' sx={{backgroundColor: '#EDF6F9', borderRadius: '16px'}}></SurveyTextField>
           <Button onClick={loginButtonClickHandler} sx={{ 'color': '#FFDDD2', 'fontSize': '24px', backgroundColor: '#E29578', borderRadius: '16px'}}>LOGIN</Button>
         </Stack>
       </Paper>
 
       {/* Sign Up Paper */}
-      <Paper sx={{float: 'right', clear: 'right', width: '30vw', marginTop: '5vw', marginLeft: '5vw', marginRight:'10vw', backgroundColor: '#006D77', boxShadow:'4px 4px 4px black', borderRadius: '16px'}} elevation={5} >
+      <Paper sx={{float: 'right', clear: 'right', width: '30vw', marginTop: '5vw', marginLeft: '5vw', marginRight:'15vw', backgroundColor: 'rgba(0, 109, 119, 0.8)', boxShadow:'4px 4px 4px black', borderRadius: '16px'}} elevation={5} >
         <Stack spacing={2} direction='column' sx={{width: '25vw', marginLeft: '2.5vw', marginRight: '2.5vw', paddingBottom: '2vw'}}>
           <Typography variant='body1' sx={{textAlign: 'center',  'color': '#EDF6F9', 'fontSize': '24px', marginTop: '10px'}}>
             If you do not have an account, please create an account
@@ -103,18 +91,27 @@ const LoginPage = () => {
           </Button>
         </Stack>
       </Paper>
+
+      {/* Sign Up Paper */}
+      <Paper sx={{float: 'right', clear: 'right', width: '20vw', marginTop: '1vw', marginLeft: '5vw', marginRight:'20vw', backgroundColor: 'rgba(0, 109, 119, 0.8)', boxShadow:'4px 4px 4px black', borderRadius: '16px'}} elevation={5} >
+        <Stack spacing={2} direction='column' sx={{width: '15vw', marginLeft: '2.5vw', marginRight: '2.5vw', paddingBottom: '0.5vw', paddingTop: '0.5vw'}}>
+          <Button onClick={()=>{nav('/')}} sx={{ 'color': '#FFDDD2', 'fontSize': '14px', backgroundColor: '#E29578', borderRadius: '16px', width: '12vw', marginLeft: '1.5vw' }}>
+            About Us
+          </Button>
+        </Stack>
+      </Paper>
     </div>
   )
 }
 export default LoginPage;
 
-const StyledImage = styled.img`
-  margin-top: 10px;
-  margin-bottom: 5px;
-  border-radius: 32px;
-  margin-left: auto;
-  margin-right: auto;
-  width: 30vw;
-  // height: 20vw;
-  // box-shadow: 0px 0px 24px 4px #F8F8F8;
-`;
+// const StyledImage = styled.img`
+//   margin-top: 10px;
+//   margin-bottom: 5px;
+//   border-radius: 32px;
+//   margin-left: auto;
+//   margin-right: auto;
+//   width: 30vw;
+//   // height: 20vw;
+//   // box-shadow: 0px 0px 24px 4px #F8F8F8;
+// `;

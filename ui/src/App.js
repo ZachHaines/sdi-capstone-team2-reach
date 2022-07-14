@@ -44,21 +44,21 @@ function App() {
           <Typography sx={{textAlign: 'center', 'color': '#EDF6F9', 'fontSize': '32px', marginTop: '16px'}}>
             Overview
           </Typography>
-          <Typography sx={{backgroundColor: 'rgba(255, 255, 255, 0.5)', borderRadius: '16px'}}>
+          <Typography sx={{backgroundColor: 'rgba(255, 255, 255, 0.3)', borderRadius: '16px'}}>
             Reach out for your fellow teammates by connecting them with mental health professionals to help them receive anonymous access to resources and care. The app safeguards user agency and reduces the mental health stigma, barriers, and fears preventing people from seeking help. By reaching out for one another, teammates can safely intervene and prevent future tragedies from suicide.
           </Typography>
           
           <Typography sx={{textAlign: 'center', 'color': '#EDF6F9', 'fontSize': '32px', marginTop: '16px'}}>
             Reach Out
           </Typography>
-          <Typography sx={{backgroundColor: 'rgba(255, 255, 255, 0.5)', borderRadius: '16px'}}>
+          <Typography sx={{backgroundColor: 'rgba(255, 255, 255, 0.3)', borderRadius: '16px'}}>
             Reach Out: Users can enroll in the app, create a user profile, and join units. If a user becomes concerned about a teammate’s wellbeing, they can “reach out” for them. By reaching out, the user indicates their well being in different categories and may leave a comment to assist mental health providers. Users reach out anonymously and do not have to be concerned with knowing specific resources and knowledge pertaining to mental health services, leaving that to the mental health professionals. Reaching out is easy to do, but important to help teammates receive mental health resources and services that they may or may not think they need at the time. By reaching out, you look after your teammates. Together we are stronger.
           </Typography>
           
           <Typography sx={{textAlign: 'center', 'color': '#EDF6F9', 'fontSize': '32px', marginTop: '16px'}}>
             Mental Health Provider
           </Typography>
-          <Typography sx={{backgroundColor: 'rgba(255, 255, 255, 0.5)', borderRadius: '16px'}}>
+          <Typography sx={{backgroundColor: 'rgba(255, 255, 255, 0.3)', borderRadius: '16px'}}>
             Mental Health Provider: As one or more users reach out for a teammate, mental health providers can triage concerns and risk factors. Without revealing that teammate’s identity, the mental health provider can reach out to that teammate and provide resources. A teammate’s identity is safeguarded up until the point they consent to scheduling an appointment with their assigned clinic.
           </Typography>
 

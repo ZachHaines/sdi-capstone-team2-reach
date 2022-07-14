@@ -56,10 +56,16 @@ const TitleTypography = styled(Card)(({theme}) => ({
   color: theme.color3,
   backgroundColor: theme.color1,
   fontSize: '36pt',
-  padding: '2%',
+  padding: '1%',
   marginBottom: '1%',
 }));
-
+const AltTitleTypography = styled(Card)(({theme}) => ({
+  color: 'Black',
+  backgroundColor: theme.color5,
+  fontSize: '36pt',
+  padding: '1%',
+  marginBottom: '1%',
+}));
 const TitleCard = styled(Card)(({theme}) => ({
   color: theme.color3,
   backgroundColor: theme.color1,
@@ -76,6 +82,7 @@ const SurveySubmitButton = styled(Button)(({theme}) => ({
   color: theme.color1,
   backgroundColor: theme.color3,
   fontWeight: 700,
+
   boxShadow: `0px 3px 5px -1px rgb(0 0 0 / 20%), 0px 5px 8px 0px rgb(0 0 0 / 14%), 0px 1px 14px 0px rgb(0 0 0 / 12%)`,
   '&:hover': {
     color: theme.color3,
@@ -97,22 +104,28 @@ const SurveySlider = styled(Slider)(({theme}) => ({
 }));
 const SurveyTextField = styled(TextField)(({theme}) => ({
   color: theme.color1,
+  fontVariant: 'none' ,
   '& label.Mui-focused': {
     color: theme.color1,
+    fontVariant: 'none' ,
   },
   '& .MuiInput-underline:after': {
     borderBottomColor: theme.color2,
+    fontVariant: 'none' ,
   },
   '& .MuiOutlinedInput-root': {
     '& fieldset': {
       borderColor: theme.color1,
+      fontVariant: 'none' ,
     },
     '&:hover fieldset': {
       borderColor: theme.color1,
+      fontVariant: 'none' ,
     },
     '&.Mui-focused fieldset': {
       borderColor: theme.color1,
       color: theme.color1,
+      fontVariant: 'none' ,
     },
   },
 }));
@@ -153,4 +166,4 @@ const SignedInAsTypography = styled(Typography)(({theme}) => ({
 }));
 
 
-export {primaryTheme, NameTypography, SignedInAsTypography, SurveySelect, CommentCard, SurveyTextField, SurveySlider, SurveyCard, capitalizeFirstLetter, SurveyPaper, SurveySubmitButton, SurveyTypography, notificationColors, TitleTypography, TitleCard};
+export {primaryTheme, AltTitleTypography, NameTypography, SignedInAsTypography, SurveySelect, CommentCard, SurveyTextField, SurveySlider, SurveyCard, capitalizeFirstLetter, SurveyPaper, SurveySubmitButton, SurveyTypography, notificationColors, TitleTypography, TitleCard};

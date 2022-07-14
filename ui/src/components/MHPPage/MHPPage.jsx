@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Paper, Button, Card, TextField, Typography } from '@mui/material';
+import { Typography, Stack } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import './MHP.css';
 import styled from 'styled-components';
@@ -7,6 +7,7 @@ import config from '../../config';
 import { useContext, useEffect } from 'react';
 import { AppContext } from '../../AppContext';
 import { useNavigate } from 'react-router-dom';
+import { SurveyPaper, primaryTheme, TitleTypography, SurveySubmitButton, SurveyTextField, SurveyCard } from '../Shared/CustomComponents';
 const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
 
 // blue color options: #1982FC, #1976d2
@@ -22,9 +23,7 @@ const dateStyle = {
 
 const MHPPage = () => {
 
-  // let bgcolor = '#' + '80A1D4' // original
-  let bgcolor = '#' + '006D77'
-  let background = {backgroundColor: bgcolor}
+
   let [messaging, setMessaging] = useState(false);
   let [userTo, setUserTo] = useState(0);
   let [singleSelectUser, setSingleSelectUser] = useState(0);
@@ -124,33 +123,37 @@ const MHPPage = () => {
 
   return (
     <StyleBackground>
-      <Paper elevation={3} sx={{ width: '100%', marginLeft: '0%', marginRight: '0%', paddingBottom: '2vw', marginBottom: '5vw', borderRadius: '6px'}}>
-        <h1 style={{fontFamily: 'Roboto, Helvetica, Arial, sans-serif', color: '#EDF6F9', textShadow: '4px 4px 8px gray', textAlign: 'center', ...background, borderRadius: '6px'}}>Mental Health Provider</h1>
-      
-          <DataGrid sx={{boxShadow: 20, height: '70vh', width: '98%', marginLeft: '1%', marginRight: '1%' }} 
-            rows={rows} columns={columns}
-            pageSize={15}
-            rowsPerPageOptions={[15]}
-            onRowClick={rowSingleClickHandler}
-            onRowDoubleClick={rowDoubleClickHandler}/>
-          <div style={{textAlign: 'center'}}>
-            <Button sx={{boxShadow: 20, border:'black', color: '#E29578', margin: '16px'}} onClick={messageButtonHandler}>
-              { messaging ? 'Cancel' : 'Message User' }
-            </Button>
-          </div>
+      <SurveyPaper theme={primaryTheme} elevation={3} sx={{ width: '100%', marginLeft: '0%', marginRight: '0%', paddingBottom: '2vw', marginBottom: '5vw', borderRadius: '6px'}}>
+        <SurveyPaper theme={primaryTheme} >
+          <TitleTypography theme={primaryTheme} >Mental Health Provider</TitleTypography>
+        </SurveyPaper>
+            <DataGrid sx={{boxShadow: 20, height: '70vh', width: '98%', marginLeft: '1%', marginRight: '1%' }} 
+              rows={rows} columns={columns}
+              pageSize={15}
+              rowsPerPageOptions={[15]}
+              onRowClick={rowSingleClickHandler}
+              onRowDoubleClick={rowDoubleClickHandler}/>
+
         {messaging ?
         // gradient from light green center to calming off-white #FEFCF2
-        <Paper id='myModal' sx={{backgroundImage:'radial-gradient(#EDF6F9, #EDF6F9, #FFFFFF )'}}> 
-        
-          <Card elevation={5} sx={{boxShadow: 20, margin:'1%', textAlign:'center', padding:'1%'}}>
-            <span id="closeModal" onClick={() => {setMessaging(!messaging)}}> 
-              <Typography variant='h5'>
-                { (userTo === 0) ? `No user selected...` : `Send New Message to Member # ${userTo}` }
-              </Typography>
-            </span><div/>
-            <TextField id='message' rows="12" placeholder='Type your message here...' fullWidth /><div/>
-            <Button sx={{color: '#E29578'}} className='submit' onClick={() => {sendMsg(userTo, values.currentUser.id, document.getElementById('message').value)}}>Submit</Button>
-          </Card>
+        <SurveyPaper theme={primaryTheme}  id='myModal' > 
+            <div style={{textAlign: 'center'}}>
+              {   messaging ?  
+              <SurveySubmitButton theme={primaryTheme} sx={{boxShadow: 20, border:'black', color: '#E29578', margin: '16px'}} onClick={messageButtonHandler}>
+                Cancel
+              </SurveySubmitButton>: <></>}
+            </div>
+          <SurveyCard theme={primaryTheme} elevation={5} sx={{boxShadow: 20, margin:'1%', textAlign:'center', padding:'1%'}}>
+            <Stack spacing={1}>
+              <span id="closeModal" onClick={() => {setMessaging(!messaging)}}> 
+                <Typography variant='h5'>
+                  { (userTo === 0) ? `No user selected...` : `Send New Message to Member # ${userTo}` }
+                </Typography>
+              </span><div/>
+              <SurveyTextField id='message' rows="12" placeholder='Type your message here...' fullWidth /><div/>
+              <SurveySubmitButton theme={primaryTheme} sx={{color: '#E29578'}} className='submit' onClick={() => {sendMsg(userTo, values.currentUser.id, document.getElementById('message').value)}}>Submit</SurveySubmitButton>
+            </Stack>
+          </SurveyCard>
           <div>
             {mhpMessages.map((message) => {
               let sendDate = new Date (message.date);
@@ -167,10 +170,10 @@ const MHPPage = () => {
             })}
             <h3 style={{textAlign:'center', clear:'both'}}>End of Messages...</h3>
           </div>
-        </Paper>
+        </SurveyPaper>
          : <></>
         }
-      </Paper>
+      </SurveyPaper>
     </StyleBackground>
   )
 }

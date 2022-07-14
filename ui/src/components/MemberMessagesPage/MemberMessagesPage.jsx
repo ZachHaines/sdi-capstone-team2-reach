@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Paper, Button, Card, TextField, Typography } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
 import './MemberMessagesPage.css'
 import config from '../../config';
-import { TitleTypography,primaryTheme } from '../Shared/CustomComponents';
+import { TitleTypography, primaryTheme, SurveyPaper, SurveySubmitButton, SurveyTextField, SurveyCard } from '../Shared/CustomComponents';
 import { AppContext } from '../../AppContext';
 import { useNavigate } from 'react-router-dom';
 const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
@@ -68,20 +68,22 @@ const MemberMessagesPage = () => {
 
   return (
     <>
-      <Paper elevation={3} sx={{width: '100%', marginLeft: '0%', marginRight: '0%', paddingBottom: '2vw', marginBottom: '5vw', borderRadius: '6px'}}>
+      <SurveyPaper theme={primaryTheme} elevation={3} sx={{width: '100%', marginLeft: '0%', marginRight: '0%', paddingBottom: '2vw', marginBottom: '5vw', borderRadius: '6px'}}>
         {/* Header */}
         <TitleTypography align='center' theme={primaryTheme}>Messages With Mental Health Provider</TitleTypography>
         {/* Chat Message Box */}
-        <Card elevation={5} sx={{margin:'1%', textAlign:'center', padding:'1%'}}>
-            <span id="closeModal"> 
-              { `New Message` }
-            </span><div/>
-            <TextField id='message' rows="12" placeholder='Type your message here...' fullWidth /><div/>
-            <Button className='submit' onClick={() => {sendMsg(memberID, document.getElementById('message').value)}}>Submit</Button>
-          </Card>
+        <SurveyCard theme={primaryTheme} elevation={5} sx={{margin:'1%', textAlign:'center', padding:'1%'}}>
+            <Stack spacing={1}>
+              <span id="closeModal"> 
+                { `New Message` }
+              </span><div/>
+              <SurveyTextField theme={primaryTheme} id='message' rows="12" placeholder='Type your message here...' fullWidth /><div/>
+              <SurveySubmitButton theme={primaryTheme} className='submit' onClick={() => {sendMsg(memberID, document.getElementById('message').value)}}>Submit</SurveySubmitButton>
+            </Stack>
+          </SurveyCard>
 
         {/* Display Messages in Descending Chronological Order (Earliest to Latest */}
-        <Paper id='myModal'>
+        <SurveyPaper SurveyPaper theme={primaryTheme} id='myModal'>
           <div>
             {mhpMessages.map((message) => {
               let sendDate = new Date (message.date);
@@ -99,8 +101,8 @@ const MemberMessagesPage = () => {
             {/* If there are no messages to display, render no messages instead of end of messages */}
             <h3 style={{textAlign:'center', clear:'both'}}>End of Messages...</h3>
           </div>
-        </Paper>
-      </Paper>
+        </SurveyPaper>
+      </SurveyPaper>
     </>
   )
 }

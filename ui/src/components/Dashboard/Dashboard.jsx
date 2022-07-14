@@ -140,6 +140,7 @@ let containerStyle = {marginLeft:"0vw", mt: 4, mb: 4, width: "85vw" , background
               noWrap
               sx={{ flexGrow: 1,
                 }}
+                align='left'
             >
               {DisplayTitle.toUpperCase()}
             </Typography>

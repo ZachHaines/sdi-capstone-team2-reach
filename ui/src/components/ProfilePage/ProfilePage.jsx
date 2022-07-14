@@ -3,7 +3,7 @@ import React, { useContext, useState } from 'react';
 import config from '../../config';
 import { TextField, Stack, Paper, Grid, Input, Typography } from '@mui/material';
 import { AppContext } from '../../AppContext';
-import { SurveySubmitButton, primaryTheme, SurveyTextField, NameTypography } from '../Shared/CustomComponents';
+import { SurveySubmitButton, primaryTheme, SurveyTextField, NameTypography, AltTitleTypography, SurveyPaper } from '../Shared/CustomComponents';
 
 import bcrypt from 'bcryptjs';
 
@@ -60,8 +60,8 @@ const ProfilePage = () => {
 
   return (
     <>
-      <Paper elevation={3} sx={{width: '50%', marginLeft: '35%', marginRight: '15%', paddingBottom: '2vw', marginBottom: '5vw', borderRadius: '6px', backgroundColor: '#EDF6F9DD', margin: 'auto'}}>
-        <h1 style={{textAlign: 'center', ...background, borderRadius: '6px'}}>Profile Settings</h1>
+      <SurveyPaper theme={primaryTheme} elevation={3} sx={{width: '50%', marginLeft: '35%', marginRight: '15%', paddingBottom: '2vw', marginBottom: '5vw', borderRadius: '6px', backgroundColor: '#EDF6F9DD', margin: 'auto'}}>
+        <AltTitleTypography theme={primaryTheme} style={{textAlign: 'center', ...background, borderRadius: '6px'}}>Profile Settings</AltTitleTypography>
 
           {isEditing ? 
           <>
@@ -79,16 +79,16 @@ const ProfilePage = () => {
           :
           <>
             <Stack direction='column' sx={{textAlign:'center', padding: '2%'}} spacing={2}>
-              <NameTypography>First Name: {values.currentUser.first_name}</NameTypography>
-              <NameTypography>Last Name: {values.currentUser.last_name}</NameTypography>
-              <NameTypography sx={underline}>Email: {values.currentUser.email_primary}</NameTypography>
-              <NameTypography>Religious Preference: {(values.currentUser.religion) ? values.currentUser.religion : 'None'}</NameTypography>
-              <NameTypography>Username: {values.currentUser.username}</NameTypography>
+              <NameTypography theme={primaryTheme}>First Name: {values.currentUser.first_name}</NameTypography>
+              <NameTypography theme={primaryTheme}>Last Name: {values.currentUser.last_name}</NameTypography>
+              <NameTypography theme={primaryTheme} sx={underline}>Email: {values.currentUser.email_primary}</NameTypography>
+              <NameTypography theme={primaryTheme}>Religious Preference: {(values.currentUser.religion) ? values.currentUser.religion : 'None'}</NameTypography>
+              <NameTypography theme={primaryTheme}>Username: {values.currentUser.username}</NameTypography>
               <SurveySubmitButton theme={primaryTheme} onClick={() => setIsEditing(!isEditing)}>Edit</SurveySubmitButton>
             </Stack>
           </>
           }
-      </Paper>
+      </SurveyPaper>
     </>
   )
 }

@@ -1,15 +1,11 @@
 body {
   font-variant: small-caps;
-  background-image: url("https://img.freepik.com/free-photo/stacked-zen-stones-sand-background-art-balance-concept_53876-110629.jpg?w=1380&t=st=1657762447~exp=1657763047~hmac=c991e8896b35eaeb986b45d82318cb475611cbe9bc102613417a0ef9471507be") no-repeat center center fixed;
-  /* background-position: center;
+  background-image: url("https://img.freepik.com/free-photo/stacked-zen-stones-sand-background-art-balance-concept_53876-110629.jpg?w=1380&t=st=1657762447~exp=1657763047~hmac=c991e8896b35eaeb986b45d82318cb475611cbe9bc102613417a0ef9471507be");
+  background-position: center;
   background-repeat: no-repeat;
+  background-attachment: fixed;
   background-size: cover;
   text-align: center;
   width: 100vw;
-  height: 100%; */
-   
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+  height: 100%;
 }

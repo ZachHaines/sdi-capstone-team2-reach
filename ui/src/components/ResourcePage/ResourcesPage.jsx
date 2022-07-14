@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useContext } from 'react'
-import { Paper, Grid, Card } from '@mui/material';
+import { Grid } from '@mui/material';
 import config from '../../config';
 import { AppContext } from '../../AppContext';
+import { AltTitleTypography, SurveyCard, primaryTheme, SurveyPaper } from '../Shared/CustomComponents';
 
 const ResourcePage = () => {
   let bgcolor = '#' + 'E29578'
@@ -35,33 +36,33 @@ const ResourcePage = () => {
 
   return (
     <>
-      <Paper elevation={3} sx={{width: '80%', marginLeft: '10%', marginRight: '10%', backgroundColor: '#EDF6F9'}}>
-        <h1 style={{textAlign: 'center', ...background, borderRadius: '6px'}}>Resources</h1>
+      <SurveyPaper theme={primaryTheme} elevation={3} sx={{width: '80%', marginLeft: '10%', marginRight: '10%', backgroundColor: '#EDF6F9'}}>
+        <AltTitleTypography theme={primaryTheme} style={{textAlign: 'center', ...background, borderRadius: '6px'}}>Resources</AltTitleTypography>
         <Grid container columns={4} sx={{textAlign:'center', padding: '15px'}} spacing={2} >
           {facilities.map(facility => {
             return (
               <Grid item key={facility.id} xs={2} md={1} >
-                <Card sx={{ backgroundColor: '#EDF6F9', border: '2px solid #83C5BE', height: '100%', padding: '15px'}}>
-                  <h3 style={{marginTop: '0', ...header}}>{facility.name.substring(0,45)}</h3>
+                <SurveyCard theme ={primaryTheme} sx={{ backgroundColor: '#EDF6F9', border: '2px solid #83C5BE', height: '100%', padding: '1%'}}>
+                  <h3 style={{marginTop: '0', ...header, color: 'black'}}>{facility.name.substring(0,45)}</h3>
                   <p>location: {facility.location}</p>
-                  <p style={underline}><a href={`${facility.url}About-Us/Contact-Us`} style={{textAlign: 'center', color: '#E29578'}} target='_blank' rel="noreferrer">{facility.url}</a></p>
-                </Card>
+                  <p style={underline}><a href={`${facility.url}About-Us/Contact-Us`} style={{textAlign: 'center', color: '#E29578'}} target='_blank' rel="noreferrer">Go to site</a></p>
+                </SurveyCard>
               </Grid>
             )
           })}
           {resources.map(resource => {
             return (
               <Grid item key={resource.id} xs={2} md={1} >
-                <Card sx={{backgroundColor: '#EDF6F9', border: '2px solid #83C5BE', height: '100%', padding: '15px'}}>
+                <SurveyCard theme={primaryTheme} sx={{backgroundColor: '#EDF6F9', border: '2px solid #83C5BE', height: '100%', padding: '1%'}}>
                   <h3 style={{marginTop: '0', ...header, color: 'black', paddingBottom: '5px'}}>{resource.organization.substring(0,45)}</h3>
                   <p>Phone Number: {resource.phone_number}</p>
                   {resource.email !== '' ? <p style={{textAlign: 'center', marginBottom: '0'}}><a href={`${resource.email}`} style={{textAlign: 'center', color: '#E29578'}} target='_blank' rel="noreferrer">Go to site</a></p>: <></>}
-                </Card>
+                </SurveyCard>
               </Grid>
             )
           })}
         </Grid>
-      </Paper>
+      </SurveyPaper>
     </>
     //resource.email.substring(0,50)
   )
